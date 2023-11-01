@@ -26,6 +26,7 @@ module.exports = {
         'cinza08': '#B3B3B3',
         'cinza09': '#CCCCCC',
         'cinza10': '#E6E6E6',
+        'fundo': '#FAFAFA',
       },
 
       fontFamily: {

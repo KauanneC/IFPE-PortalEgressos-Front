@@ -1,14 +1,15 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import React from 'react';
+import NavBar from '@/components/navBar/user';
 
 export default function Home() {
-  return (
-    <main>
-      <button>
-        <a href="/adm/formAdministrator">Formulário Administrador</a>
-      </button>
-    </main>
-  )
+	return (
+		<main>
+			<header>
+				<NavBar />
+			</header>
+			<button>
+				<a href="/adm/formAdministrator">Formulário Administrador</a>
+			</button>
+		</main>
+	);
 }
