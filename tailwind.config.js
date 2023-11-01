@@ -15,7 +15,7 @@ module.exports = {
         'fundoEvento': '#9EB8D6',
         'vermelhoButton': '#991D39',
         'verdeButton': '#20771B',
-        'pretoTexto': '323344',
+        'pretoTexto': '#323344',
         'cinza01': '#191919',
         'cinza02': '#333333',
         'cinza03': '#4D4D4D',
@@ -26,8 +26,6 @@ module.exports = {
         'cinza08': '#B3B3B3',
         'cinza09': '#CCCCCC',
         'cinza10': '#E6E6E6',
-        'preto': '#000000',
-        'branco': '#FFFFFF',
       },
 
       fontFamily: {
