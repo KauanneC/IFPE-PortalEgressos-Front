@@ -13,7 +13,7 @@ function NavBar() {
                 <Link href="/pages/user/editais" className={`text-azulBase ${router.pathname === '/pages/user/editais' ? 'border-b-2 border-azulBase' : ''}`}>Editais</Link>
             </div>
             <div className='w-min'>
-                <button className='bg-azulBase py-0.5 px-15 text-cinza10 rounded-lg'>
+                <button className='bg-azulBase pb-1 py-0.5 px-15 text-cinza10 rounded-lg'>
                     Entrar
                 </button>
             </div>

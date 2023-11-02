@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '@/components/navBar/egresso';
+import NavBar from '@/components/navBar/user';
 import Footer from '@/components/footer';
 
 export default function Home() {
