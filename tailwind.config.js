@@ -34,13 +34,13 @@ module.exports = {
       },
 
       fontSize: {
-        'tituloDestaque': '55px',
-        'textoDestaque': '44px',
-        'tituloPrincial': '35px',
-        'tituloSessão': '28px',
-        'subtitulo': '23px',
-        'paragrafo': '18px',
-        'legenda': '14px',
+        'tituloDestaque': '49px',
+        'textoDestaque': '39px',
+        'tituloPrincial': '31px',
+        'tituloSessão': '25px',
+        'subtitulo': '20px',
+        'paragrafo': '16px',
+        'legenda': '13px',
       },
 
       margin: {
@@ -49,6 +49,7 @@ module.exports = {
         '20': '20px',
         '25': '25px',
         '30': '30px',
+        '90': '90px',
         '120': '120px',
       },
 
