@@ -12,7 +12,7 @@ import iconMapPin from "/public/icons/iconMapPin.svg"
 function Footer() {
     return (
         <footer className="bg-azulBase h-min py-30 font-cabin text-cinza10 text-center mt-90">
-            <div className='max-w-footer mx-auto'>
+            <div className='max-w-footer mx-30'>
                 <div className='text-center'>
                     <p className='font-semibold text-subtitulo'>Dúvidas Frequentes</p>
                 </div>
@@ -26,26 +26,26 @@ function Footer() {
                     <hr className='border-t-1 my-20 w-4/6'></hr>
                 </div>
 
-                <div className='flex justify-center items-start'>
-                    <div className='flex justify-center items-start pr-16'>
+                <div className='flex justify-center items-start space-x-5'>
+                    <div className='flex justify-center items-start'>
                         <Image src={iconPhone} alt="Ícone de telefone" />
                         <p className='pl-2.5'>(81) 3411-3200</p>
                     </div>
-                    <div className='flex justify-center items-start pr-16'>
+                    <div className='flex justify-center items-start'>
                         <Image src={iconMapPin} alt="Ícone de localização" />
                         <Link href={"https://maps.app.goo.gl/jLVVHQ4T4yPws8Ud9"} target='_blank' className='flex flex-col items-center justify-center'>
                             <p className='pl-2.5'>Av. Sebastião Rodrigues da Costa, s/n - São Pedro,</p>
                             <p>Belo Jardim - PE, 55145-065</p>
                         </Link>
                     </div>
-                    <div className='flex justify-center items-start'>
-                        <Link href="" target="_blank" className='pr-2.5'>
+                    <div className='flex justify-center items-start space-x-2'>
+                        <Link href="" target="_blank">
                             <Image src={iconInstagram} alt="Link para Instagram fo IFPE" />
                         </Link>
-                        <Link href="" target="_blank" className='pr-2.5'>
+                        <Link href="" target="_blank">
                             <Image src={iconFacebook} alt="Link para Facebook do IFPE" />
                         </Link>
-                        <Link href="https://portal.ifpe.edu.br/belo-jardim/" target="_blank" className='pr-2.5'>
+                        <Link href="https://portal.ifpe.edu.br/belo-jardim/" target="_blank">
                             <Image src={iconLink} alt="Ícone de Link para site do IFPE Campus BElo Jardim" />
                         </Link>
                     </div>

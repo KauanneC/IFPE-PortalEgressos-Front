@@ -43,6 +43,10 @@ module.exports = {
         'legenda': '13px',
       },
 
+      lineHeight: {
+        '150': '150%'
+      },
+
       margin: {
         '10': '10px',
         '15': '15px',
@@ -60,6 +64,12 @@ module.exports = {
         '25': '25px',
         '30': '30px',
       },
+
+      space: {
+        '15': '15px',
+        '30': '30px',
+        '100': '100px',
+      }
     },
   },
 }
