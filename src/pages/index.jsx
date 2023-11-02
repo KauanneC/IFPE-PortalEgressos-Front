@@ -10,6 +10,8 @@ export default function Home() {
 			<button>
 				<a href="/adm/formAdministrator">Formulário Administrador</a>
 			</button>
+			<footer>
+			</footer>
 		</main>
 	);
 }
