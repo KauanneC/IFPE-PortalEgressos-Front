@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+
+import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/user';
 import Footer from '@/components/footer';
 import imgHeader from '/public/icons/imgHeader.svg';
@@ -32,10 +34,11 @@ export default function Home() {
 	return (
 		<main>
 			<header>
+				<NavAcessibilidade />
 				<NavBar />
 				<Image src={imgHeader} alt="Imagem de alunos se formando" className='w-screen' />
 			</header>
-			<section className={`mt-30 font-cabin space-y-100 ${mxSection}`}>
+			<section id='conteudo' className={`mt-30 font-cabin space-y-100 ${mxSection}`}>
 				<div className='space-y-15'>
 					<h1 className='font-semibold text-azulBase text-tituloPrincial'>Portal do Egresso</h1>
 					<p className='text-pretoTexto text-paragrafo font-normal'>Bem-vindo ao nosso Portal de Egressos! Este é o lugar onde antigos alunos se reúnem para compartilhar conquistas, estabelecer conexões e aproveitar recursos exclusivos. Esteja você começando sua carreira ou já trilhou um longo caminho, nossa comunidade está aqui para apoiá-lo. Junte-se a nós e continue fazendo parte da história da nossa instituição.</p>
