@@ -1,14 +1,18 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+"use client";
+import React, { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+// Page Principal home
+export default function home() {
 
-export default function Home() {
-  return (
-    <main>
-      <button>
-        <a href="/adm/form/formAdministrator">Formulário Administrador</a>
-      </button>
-    </main>
-  )
+    return (
+        <main>
+            <header></header>
+            <section>
+                <button>
+                    <a href="/administrator/formAdministrator">Administrador</a>
+                </button>
+            </section>
+            <footer></footer>
+        </main>
+    )
 }
