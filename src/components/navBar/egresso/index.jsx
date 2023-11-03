@@ -18,7 +18,7 @@ function NavBar() {
             </div>
             <div className='justify-center flex'>
                 <button>
-                    <Image src={iconLogOut} alt="Icone de sair" />
+                    <Image src={iconLogOut} alt="Sair" />
                 </button>
             </div>
         </div>

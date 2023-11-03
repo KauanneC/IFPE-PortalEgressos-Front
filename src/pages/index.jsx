@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
-import NavBar from '@/components/navBar/egresso';
+import NavBar from '@/components/navBar/user';
 import Footer from '@/components/footer';
 import imgHeader from '/public/icons/imgHeader.svg';
 import imgHome from '/public/icons/imgHome.svg';
@@ -47,7 +47,7 @@ export default function Home() {
 					<div className='flex flex-col items-center justify-center space-y-15'>
 						<h1 className='font-semibold text-azulBase text-tituloPrincial'>Participe!</h1>
 						<p className='text-pretoTexto text-paragrafo font-normal'>Bem-vindo ao nosso Portal de Egressos! Este é o lugar onde antigos alunos se reúnem para compartilhar conquistas, estabelecer conexões e aproveitar recursos exclusivos. Esteja você começando sua carreira ou já trilhou um longo caminho, nossa comunidade está aqui para apoiá-lo. Junte-se a nós e continue fazendo parte da história da nossa instituição.</p>
-						<button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg'>
+						<button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
 							Responder Formulário
 						</button>
 					</div>
