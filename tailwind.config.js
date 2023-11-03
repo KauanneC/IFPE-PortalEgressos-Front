@@ -16,6 +16,7 @@ module.exports = {
                 'vermelhoButton': '#991D39',
                 'verdeButton': '#20771B',
                 'pretoTexto': '323344',
+                'fundo': '#FAFAFA',
                 'cinza01': '#191919',
                 'cinza02': '#333333',
                 'cinza03': '#4D4D4D',
@@ -50,6 +51,7 @@ module.exports = {
                 '20': '20px',
                 '25': '25px',
                 '30': '30px',
+                '60': '60px',
                 '120': '120px',
             },
 
@@ -59,6 +61,21 @@ module.exports = {
                 '20': '20px',
                 '25': '25px',
                 '30': '30px',
+                '60': '60px',
+            },
+
+            gap: {
+                '5': '5px',
+                '20': '20px',
+            },
+
+            borderWidth: {
+                '1': '1px',
+                '10': '10px',
+            },
+
+            borderRadius: {
+                '10': '10px',
             },
         },
     },

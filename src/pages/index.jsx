@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main>
       <button>
-        <a href="/adm/formAdministrator">Formulário Administrador</a>
+        <a href="/adm/form/formAdministrator">Formulário Administrador</a>
       </button>
     </main>
   )
