@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
-import NavBar from '@/components/navBar/user';
+import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
 import imgHeader from '/public/icons/imgHeader.svg';
 import imgHome from '/public/icons/imgHome.svg';
