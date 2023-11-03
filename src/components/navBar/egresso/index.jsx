@@ -9,7 +9,7 @@ function NavBar() {
     const router = useRouter(); // Rota atual
 
     return (
-        <div id='navmenu' className="bg-fundo px-30 py-4 justify-between flex">
+        <div id='navmenu' className="bg-fundo px-120 py-4 justify-between flex">
             <div className="space-x-5 w-min">
                 <Link href="/home" className={`text-azulBase ${router.pathname === '/' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
                 <Link href="/pages/egresso/eventos" className={`text-azulBase ${router.pathname === '/pages/egresso/eventos' ? 'border-b-2 border-azulBase' : ''}`}>Eventos</Link>
