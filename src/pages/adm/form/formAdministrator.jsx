@@ -9,18 +9,18 @@ import feedback from "/assets/icons/feedbackVazio.svg"
 import arrow from "/assets/icons/arrow.svg"
 
 // Components
-import DadosPessoais from "./dadosAcademicos";
+import FormAcademicos from "./formAcademicos";
 import Dropdown from "@/components/adm/form/menu";
 
 export default function FormAdministrator() {
-    const [openDadosAcademicos, setOpenDadosAcademicos] = useState(false); // Ir para Acadêmicos
+    const [openFormAcademicos, setOpenFormAcademicos] = useState(false); // Ir para Acadêmicos
     const [selectedOption, setSelectedOption] = useState('text'); // Opções do menu
     const [radioOptions, setRadioOptions] = useState([{ title: 'Opção 1' }]); // Opções do tipo radios
     const [showOtherOption, setShowOtherOption] = useState(false);
     const [otherOptionText, setOtherOptionText] = useState("");
 
-    const handleOpenDadosAcademicos = () => {
-        setOpenDadosAcademicos(true);
+    const handleOpenFormAcademicos = () => {
+        setOpenFormAcademicos(true);
     }
 
     const handleOptionChange = (option) => {
@@ -49,7 +49,7 @@ export default function FormAdministrator() {
     };
 
     return (
-        <main className="flex bg-cinza10 font-cabin">
+        <main className="flex flex-col w-ful bg-cinza10 font-cabin">
             <section className="mx-120 flex-grow">
                 {/* Título */}
                 <div className="bg-fundo justify-center text-center mt-30 border-t-10 border-azulForm px-60 py-30 rounded-10">
@@ -57,13 +57,13 @@ export default function FormAdministrator() {
                 </div>
                 {/* Categorias */}
                 <div className="flex justify-center gap-20 bg-fundo mt-15 rounded-10 px-60 py-30">
-                    <button className="flex flex-col items-center gap-5" onClick={handleOpenDadosAcademicos}>
+                    <button className="flex flex-col items-center gap-5">
                         <Image src={dadosPessoais} alt="Ícone representando dados pessoais"></Image>
                         <p className="font-regular text-subtitulo text-azulBase">Dados Pessoais</p>
                     </button>
                     <Image src={arrow}></Image>
                     <button className="flex flex-col items-center gap-5">
-                        <Image src={dadosAcademicos} alt="Ícone representando dados acadêmicos"></Image>
+                        <Image src={dadosAcademicos} alt="Ícone representando dados acadêmicos"  onClick={handleOpenFormAcademicos}></Image>
                         <p className="font-regular text-subtitulo text-azulBase">Acadêmico</p>
                     </button>
                     <Image src={arrow}></Image>
@@ -76,6 +76,10 @@ export default function FormAdministrator() {
                         <Image src={feedback} alt="Ícone representando feedback"></Image>
                         <p className="font-regular text-subtitulo text-azulBase">Feedback</p>
                     </button>
+                </div>
+                {/* Formulário */}
+                <div>
+                    <FormAcademicos />
                 </div>
                 <div className="bg-fundo mt-15 px-60 py-30 rounded-10">
                     <div className="flex place-content-between items-center">

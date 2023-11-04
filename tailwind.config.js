@@ -14,7 +14,8 @@ module.exports = {
                 'fundoEvento': '#9EB8D6',
                 'vermelhoButton': '#991D39',
                 'verdeButton': '#20771B',
-                'pretoTexto': '323344',
+                'pretoTexto': '#323344',
+                'fundo': '#FAFAFA',
                 'cinza01': '#191919',
                 'cinza02': '#333333',
                 'cinza03': '#4D4D4D',
@@ -58,6 +59,14 @@ module.exports = {
                 '20': '20px',
                 '25': '25px',
                 '30': '30px',
+            },
+
+            borderRadius: {
+                '10': '10px',
+            },
+
+            borderWidth: {
+                '10': '10px',
             },
         },
     },
