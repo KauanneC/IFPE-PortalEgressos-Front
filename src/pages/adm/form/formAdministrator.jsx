@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 // Icon
-import dadosPessoais from "/assets/icons/dadosPessoais.svg"
-import dadosAcademicos from "/assets/icons/academicoVazio.svg"
-import dadosProfissionais from "/assets/icons/profissionalVazio.svg"
-import feedback from "/assets/icons/feedbackVazio.svg"
-import arrow from "/assets/icons/arrow.svg"
+import dadosPessoais from "/public/icons/iconDadosPessoaisBlue.svg"
+import dadosAcademicos from "/public/icons/iconAcademicoWhite.svg"
+import dadosProfissionais from "/public/icons/iconProfissionalWhite.svg"
+import feedback from "/public/icons/iconFeedbackWhite.svg"
+import arrow from "/public/icons/arrow.svg"
 
 // Components
 import FormAcademicos from "./formAcademicos";
 import Dropdown from "@/components/adm/form/menu";
+import NavBar from "@/components/navBar/adm/page";
 
 export default function FormAdministrator() {
     const [openFormAcademicos, setOpenFormAcademicos] = useState(false); // Ir para Acadêmicos
@@ -50,13 +51,16 @@ export default function FormAdministrator() {
 
     return (
         <main className="flex flex-col w-ful bg-cinza10 font-cabin">
+            <header>
+                <NavBar />
+            </header>
             <section className="mx-120 flex-grow">
                 {/* Título */}
                 <div className="bg-fundo justify-center text-center mt-30 border-t-10 border-azulForm px-60 py-30 rounded-10">
                     <h1 className="font-semibold text-tituloSessão text-azulBase">Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Categorias */}
-                <div className="flex justify-center gap-20 bg-fundo mt-15 rounded-10 px-60 py-30">
+                <div className="flex flex-wrap justify-center gap-20 bg-fundo mt-15 rounded-10 px-60 py-30">
                     <button className="flex flex-col items-center gap-5">
                         <Image src={dadosPessoais} alt="Ícone representando dados pessoais"></Image>
                         <p className="font-regular text-subtitulo text-azulBase">Dados Pessoais</p>
