@@ -27,28 +27,36 @@ export default function FormStep04() {
                 {/* Navegação Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
+                        <Link href='/egresso/formStep01'>
+                            <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Acadêmico" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
+                        <Link href='egresso/formStep02'>
+                            <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Acadêmico</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Profissional" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconProfissionalBlue} alt="Página 3: Profissional" />
+                        <Link href='/egresso/formStep03'>
+                            <Image src={iconProfissionalBlue} alt="Página 3: Profissional" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Profissional</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Feedback" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconFeedbackBlue} alt="Página 4: feedback" />
+                        <Link href='/egresso/formStep04'>
+                            <Image src={iconFeedbackBlue} alt="Página 4: feedback" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Feedback</p>
                     </div>
                 </div>
