@@ -14,7 +14,7 @@ function NavBar() {
                 <Link href="/egresso/home" className={`text-azulBase ${router.pathname === '/egresso/home' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
                 <Link href="/egresso/eventos" className={`text-azulBase ${router.pathname === '/egresso/eventos' ? 'border-b-2 border-azulBase' : ''}`}>Eventos</Link>
                 <Link href="/egresso/editais" className={`text-azulBase ${router.pathname === '/egresso/editais' ? 'border-b-2 border-azulBase' : ''}`}>Editais</Link>
-                <Link href="/egresso/formStep01" className={`text-azulBase ${router.pathname === '/egresso/formStep01' || '/egresso/formStep02' || '/egresso/formStep03' || '/egresso/formStep04' ? 'border-b-2 border-azulBase' : ''}`}>Formulário</Link>
+                <Link href="/egresso/formStep01" className={`text-azulBase ${router.pathname === '/egresso/formStep01' || router.pathname === '/egresso/formStep02' || router.pathname === '/egresso/formStep03' || router.pathname === '/egresso/formStep04' ? 'border-b-2 border-azulBase' : ''}`}>Formulário</Link>
             </div>
             <div className='justify-center flex'>
                 <button>
