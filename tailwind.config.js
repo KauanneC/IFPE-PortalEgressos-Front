@@ -65,6 +65,7 @@ module.exports = {
                 '20': '20px',
                 '25': '25px',
                 '30': '30px',
+                '120': '120px',
             },
 
             gap: {
@@ -90,6 +91,10 @@ module.exports = {
 
             borderWidth: {
                 '10': '10px',
+            },
+
+            space: {
+                '30': '30px',
             },
         },
     },
