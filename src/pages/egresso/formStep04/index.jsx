@@ -1,6 +1,8 @@
 import React from "react";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import router from 'next/router';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
@@ -11,8 +13,25 @@ import iconAcademicoBlue from '/public/icons/iconAcademicoBlue.svg';
 import iconProfissionalBlue from '/public/icons/iconProfissionalBlue.svg';
 import iconFeedbackBlue from '/public/icons/iconFeedbackBlue.svg';
 import iconNext from '/public/icons/iconNext.svg';
+import iconSucesso from '/public/icons/iconSucesso.svg';
 
 export default function FormStep04() {
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+
+    const handleLogout = () => {
+        router.push('/egresso/home');
+        closePopup();
+    };
+
     return (
         <main className="bg-cinza10">
             <header>
@@ -79,13 +98,28 @@ export default function FormStep04() {
                             </button>
                         </Link>
                         <Link href="/egresso/formStep04">
-                            <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
+                            <button onClick={openPopup} className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
                                 Enviar
                             </button>
                         </Link>
                     </div>
                 </div>
             </section>
+            {isPopupOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                        <div className="absolute w-full h-full bg-black opacity-50"></div>
+                        <div className="relative bg-white p-4 rounded-lg shadow-lg">
+                            <div className='flex flex-col items-center justify-center space-y-15 mx-30 my-15'>
+                                <Image src={iconSucesso} alt="Sucesso" />
+                                <h1 className='text-tituloSessão text-azulBase font-semibold'>Enviado</h1>
+                                <p className='text-paragrafo text-pretoTexto'>O formulário foi enviado com sucesso</p>
+                                <div className="space-x-15">
+                                    <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={handleLogout}>Voltar para Home</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             <footer>
                 <Footer />
             </footer>
