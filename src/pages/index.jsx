@@ -53,9 +53,6 @@ export default function Home() {
 					</div>
 					<Image src={imgHome} alt="Imagem de aluno recebendo diploma" />
 				</div>
-				<button>
-					<a href="/adm/formAdministrator">Formulário Administrador</a>
-				</button>
 			</section>
 			<footer>
 				<Footer />

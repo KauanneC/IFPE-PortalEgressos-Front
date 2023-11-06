@@ -75,11 +75,13 @@ module.exports = {
             },
 
             width: {
+                '310': '310px',
                 '400': '400px',
             },
 
             height: {
                 '185': '185px',
+                '341': '341px',
             },
 
             borderRadius: {
