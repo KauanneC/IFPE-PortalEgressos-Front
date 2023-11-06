@@ -89,7 +89,7 @@ export default function FormStep01() {
                     {/* Sexo */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Sexo </p>
-                        <div className="flex flex-row space-x-10">
+                        <div className="space-y-10">
                             <div className="flex flex-row items-center space-x-5">
                                 <input type="radio" id="masculino" name="sexo" value="masculino" />
                                 <label htmlFor="masculino" className="text-pretoTexto text-paragrafo font-normal">Masculino</label>
@@ -116,7 +116,7 @@ export default function FormStep01() {
                     {/* Estado Civil */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Estado Civil </p>
-                        <div className="flex flex-row space-x-10">
+                        <div className="space-y-10">
                             <div className="flex flex-row items-center space-x-5">
                                 <input type="radio" id="solteiro" name="estadoCivil" value="solteiro" />
                                 <label htmlFor="solteiro" className="text-pretoTexto text-paragrafo font-normal">Solteiro(a)</label>

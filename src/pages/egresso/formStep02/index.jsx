@@ -57,7 +57,7 @@ export default function FormStep02() {
                     {/* Em quanto tempo você concluiu o curso? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Em quanto tempo você concluiu o curso?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="tempo1" name="tempo" value="tempo1" />
                                 <label htmlFor="tempo1">Menos de 2 anos</label>
@@ -79,7 +79,7 @@ export default function FormStep02() {
                     {/* Há quanto tempo você se formou no Curso Superior de Engenharia de Software? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Há quanto tempo você se formou no Curso Superior de Engenharia de Software?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="formou1" name="formou" value="formou1" />
                                 <label htmlFor="formou1">Menos de 6 meses</label>
@@ -101,7 +101,7 @@ export default function FormStep02() {
                     {/* Você participou de projetos de ensino, pesquisa ou extensão durante a sua graduação? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Você participou de projetos de ensino, pesquisa ou extensão durante a sua graduação?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="projetos1" name="projetos" value="projetos1" />
                                 <label htmlFor="projetos1">Sim, fui bolsista em projeto de ensino, de pesquisa ou de extensão</label>
