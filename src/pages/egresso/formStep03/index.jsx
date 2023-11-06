@@ -6,6 +6,7 @@ import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
 
+import iconVoltar from '/public/icons/iconVoltar.svg';
 import iconDadosPessoaisBlue from '/public/icons/iconDadosPessoaisBlue.svg';
 import iconAcademicoBlue from '/public/icons/iconAcademicoBlue.svg';
 import iconProfissionalBlue from '/public/icons/iconProfissionalBlue.svg';
@@ -19,9 +20,12 @@ export default function FormStep03() {
                 <NavAcessibilidade />
                 <NavBar />
             </header>
-            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col'>
+            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
                 {/* Título Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg border-t-8 border-azulForm">
+                    <Link href='/egresso/home' className="absolute top-0 left-0">
+                        <Image src={iconVoltar} alt="Voltar para página inicial" />
+                    </Link>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Navegação Form */}
