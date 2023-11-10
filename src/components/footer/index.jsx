@@ -11,7 +11,7 @@ import iconMapPin from "/public/icons/iconMapPin.svg"
 
 function Footer() {
     return (
-        <footer className="bg-azulBase h-min py-30 font-cabin text-cinza10 text-center mt-90">
+        <footer className="bg-azulBase h-min py-30 text-cinza10 text-center mt-90">
             <div className='max-w-footer mx-30'>
                 <div className='text-center'>
                     <p className='font-semibold text-subtitulo'>Dúvidas Frequentes</p>
