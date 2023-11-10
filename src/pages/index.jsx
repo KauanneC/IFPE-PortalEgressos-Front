@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/user';
@@ -48,7 +49,7 @@ export default function Home() {
 						<h1 className='font-semibold text-azulBase text-tituloPrincial'>Participe!</h1>
 						<p className='text-pretoTexto text-paragrafo font-normal'>Bem-vindo ao nosso Portal de Egressos! Este é o lugar onde antigos alunos se reúnem para compartilhar conquistas, estabelecer conexões e aproveitar recursos exclusivos. Esteja você começando sua carreira ou já trilhou um longo caminho, nossa comunidade está aqui para apoiá-lo. Junte-se a nós e continue fazendo parte da história da nossa instituição.</p>
 						<button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
-							Responder Formulário
+							<Link href='/user/login'>Responder Formulário</Link>
 						</button>
 					</div>
 					<Image src={imgHome} alt="Imagem de aluno recebendo diploma" />
