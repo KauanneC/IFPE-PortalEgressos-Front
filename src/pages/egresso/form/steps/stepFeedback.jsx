@@ -101,7 +101,7 @@ export default function FormStep04(props) {
                     <div className="space-y-10">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Deixe aqui a sua sugestão/crítica/elogios para o curso de Engenharia de Software do IFPE - campus Belo Jardim</p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="text"
                             placeholder="Digite aqui"
                         />

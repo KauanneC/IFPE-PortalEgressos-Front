@@ -96,7 +96,7 @@ export default function formStep01(props) {
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Nome Completo </p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="text"
                             placeholder="Digite seu nome completo"
                         />
@@ -105,7 +105,7 @@ export default function formStep01(props) {
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Email </p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="email"
                             placeholder="Digite seu email"
                         />
@@ -114,7 +114,7 @@ export default function formStep01(props) {
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Telefone </p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="tel"
                             placeholder="Digite seu telefone"
                         />
@@ -141,7 +141,7 @@ export default function formStep01(props) {
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Idade </p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="number"
                             placeholder="Digite sua idade"
                         />
@@ -176,7 +176,7 @@ export default function formStep01(props) {
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Município de Moradia </p>
                         <input
-                            className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                             type="text"
                             placeholder="Digite seu município de moradia"
                         />

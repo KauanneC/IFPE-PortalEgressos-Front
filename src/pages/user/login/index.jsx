@@ -22,7 +22,7 @@ export default function Login() {
 
     return (
         <main>
-            <section className="flex flex-row h-screen font-cabin">
+            <section className="flex flex-row h-screen">
                 <div className="w-3/5">
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
@@ -39,7 +39,7 @@ export default function Login() {
                                 <Image src={IconUser} alt="Ícone de usuário" />
                             </label>
                             <input
-                                className="w-full px-2 h-10 pl-9 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type="email"
                                 placeholder="Email ou SIAPE"
                             />
@@ -49,7 +49,7 @@ export default function Login() {
                                 <Image src={IconSenha} alt="Ícone de senha" />
                             </label>
                             <input
-                                className="w-full px-2 h-10 pl-9 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Senha"
                             />

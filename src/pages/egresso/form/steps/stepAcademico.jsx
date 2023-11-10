@@ -182,7 +182,7 @@ export default function FormStep02(props) {
                             </div>
                             <div>
                                 <input
-                                    className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                    className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                     type="text"
                                     placeholder="Digite quais"
                                 />
@@ -220,7 +220,7 @@ export default function FormStep02(props) {
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Quais tipos de conhecimentos/habilidades você sentiu falta na sua formação e que foram exigidos no desempenho da sua atividade profissional?</p>
                         <div>
                             <input
-                                className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type="text"
                                 placeholder="Digite aqui"
                             />

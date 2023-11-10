@@ -151,7 +151,7 @@ export default function FormStep03(props) {
                             </div>
                             <div>
                                 <input
-                                    className="w-full bg-fundo px-10 py-10 font-cabin text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                    className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                     type="text"
                                     placeholder="Digite quais"
                                 />
