@@ -6,6 +6,7 @@ import ImgHeader from "/public/icons/imgHeader.svg";
 
 // Components
 import NavBar from "@/components/navBar/adm/page";
+import NavAcessibilidade from "@/components/navAcessibilidade";
 import Card from "@/components/adm/editais/card";
 import Footer from "@/components/footer";
 
@@ -13,6 +14,7 @@ export default function editais() {
     return (
         <main className="flex flex-col bg-fundo font-cabin">
             <header>
+                <NavAcessibilidade />
                 <NavBar />
             </header>
             <section className="">
