@@ -65,7 +65,10 @@ export default function Login() {
                             </p>
                         </div>
                         <div>
-                        <button className="bg-azulBase py-10 text-cinza10 text-sub font-semibold rounded-lg w-full">Entrar</button></div>
+                            <button className="bg-azulBase py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
+                                <Link href={'../../egresso/home'}>Entrar</Link>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
