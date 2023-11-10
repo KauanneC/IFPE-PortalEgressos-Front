@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 
-import NavBar from "@/components/navBar/egresso";
-import NavAcessibilidade from "@/components/navAcessibilidade";
-import Footer from "@/components/footer";
-
 import StepDadosPessoais from "./steps/stepDadosPessoais";
 import StepAcademico from "./steps/stepAcademico";
 import StepProfissional from "./steps/stepProfissional";
