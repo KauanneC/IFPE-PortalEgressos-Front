@@ -1,11 +1,15 @@
 import React from "react";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import router from 'next/router';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
 
+import iconPerigo from '/public/icons/iconPerigo.svg';
+import iconVoltar from '/public/icons/iconVoltar.svg';
 import iconDadosPessoaisBlue from '/public/icons/iconDadosPessoaisBlue.svg';
 import iconAcademicoBlue from '/public/icons/iconAcademicoBlue.svg';
 import iconProfissionalWhite from '/public/icons/iconProfissionalWhite.svg';
@@ -13,42 +17,69 @@ import iconFeedbackWhite from '/public/icons/iconFeedbackWhite.svg';
 import iconNext from '/public/icons/iconNext.svg';
 
 export default function FormStep02() {
+
+    const [isPopupBackOpen, setIsPopupBackOpen] = useState(false);
+
+    const openPopupBack = () => {
+        setIsPopupBackOpen(true);
+    };
+
+    const closePopupBack = () => {
+        setIsPopupBackOpen(false);
+    };
+
+    const handleConfirmBack = () => {
+        router.push('/egresso/home');
+        closePopupBack();
+    };  
+
     return (
         <main className="bg-cinza10">
             <header>
                 <NavAcessibilidade />
                 <NavBar />
             </header>
-            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col'>
+            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
                 {/* Título Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg border-t-8 border-azulForm">
+                    <button onClick={openPopupBack} className="absolute top-0 left-0">
+                        <Image src={iconVoltar} alt="Voltar para página inicial" />
+                    </button>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Navegação Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
+                        <Link href='/egresso/formStep01'>
+                            <Image src={iconDadosPessoaisBlue} alt="Página atual: dados pessoais" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Acadêmico" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
+                        <Link href='/egresso/formStep02'>
+                            <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Acadêmico</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Profissional" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconProfissionalWhite} alt="Página 3: Profissional" />
+                        <Link href='/egresso/formStep03'>
+                            <Image src={iconProfissionalWhite} alt="Página 3: Profissional" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Profissional</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Feedback" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Image src={iconFeedbackWhite} alt="Página 4: feedback" />
+                        <Link href='/egresso/formStep04'>
+                            <Image src={iconFeedbackWhite} alt="Página 4: feedback" />
+                        </Link>
                         <p className='text-azulBase text-subtitulo font-normal'>Feedback</p>
                     </div>
                 </div>
@@ -57,7 +88,7 @@ export default function FormStep02() {
                     {/* Em quanto tempo você concluiu o curso? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Em quanto tempo você concluiu o curso?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="tempo1" name="tempo" value="tempo1" />
                                 <label htmlFor="tempo1">Menos de 2 anos</label>
@@ -79,7 +110,7 @@ export default function FormStep02() {
                     {/* Há quanto tempo você se formou no Curso Superior de Engenharia de Software? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Há quanto tempo você se formou no Curso Superior de Engenharia de Software?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="formou1" name="formou" value="formou1" />
                                 <label htmlFor="formou1">Menos de 6 meses</label>
@@ -101,7 +132,7 @@ export default function FormStep02() {
                     {/* Você participou de projetos de ensino, pesquisa ou extensão durante a sua graduação? */}
                     <div className="flex flex-col space-y-5">
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Você participou de projetos de ensino, pesquisa ou extensão durante a sua graduação?</p>
-                        <div className="space-y-5">
+                        <div className="space-y-10">
                             <div className="space-x-5 flex flex-row">
                                 <input type="radio" id="projetos1" name="projetos" value="projetos1" />
                                 <label htmlFor="projetos1">Sim, fui bolsista em projeto de ensino, de pesquisa ou de extensão</label>
@@ -121,7 +152,7 @@ export default function FormStep02() {
                         <p className='text-pretoTexto text-subtitulo font-semibold'>Após a conclusão da graduação, você cursou alguma pós-graduação ou especialização?</p>
                         <div className="space-y-5">
                             <div className="space-x-5 flex flex-row">
-                                <input type="checkbox" id="pos1" name="pos1" value="pos1" className="border border-cinza04 rounded-lg"/>
+                                <input type="checkbox" id="pos1" name="pos1" value="pos1" className="border border-cinza04 rounded-lg" />
                                 <label htmlFor="pos1">Não realizei nenhum curso</label>
                             </div>
                             <div className="space-x-5 flex flex-row">
@@ -251,6 +282,24 @@ export default function FormStep02() {
                     </div>
                 </div>
             </section>
+
+            {isPopupBackOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="absolute w-full h-full bg-black opacity-50"></div>
+                    <div className="relative bg-white p-4 rounded-lg shadow-lg">
+                        <div className='flex flex-col items-center justify-center space-y-15 mx-30 my-15'>
+                            <Image src={iconPerigo} alt="Tem certeza que deseja voltar para a página inicial?" />
+                            <h1 className='text-tituloSessão text-azulBase font-semibold'>Tem certeza?</h1>
+                            <p className='text-paragrafo text-pretoTexto'>Os dados não serão salvos se voltar para a página inicial</p>
+                            <div className="space-x-15">
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={handleConfirmBack}>Sim</button>
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={closePopupBack}>Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            
             <footer>
                 <Footer />
             </footer>
