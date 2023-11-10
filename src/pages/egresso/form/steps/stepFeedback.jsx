@@ -1,6 +1,5 @@
 import React from "react";
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import router from 'next/router';
 
@@ -17,7 +16,13 @@ import iconFeedbackBlue from '/public/icons/iconFeedbackBlue.svg';
 import iconNext from '/public/icons/iconNext.svg';
 import iconSucesso from '/public/icons/iconSucesso.svg';
 
-export default function FormStep04() {
+export default function FormStep04(props) {
+
+    const { cont, setCont, step, stepStep } = props;
+
+    const categorieChangeAnt = () => {
+        setCont(cont - 1);
+    };
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isPopupBackOpen, setIsPopupBackOpen] = useState(false);
@@ -46,7 +51,7 @@ export default function FormStep04() {
     const handleConfirmBack = () => {
         router.push('/egresso/home');
         closePopupBack();
-    };    
+    };
 
     return (
         <main className="bg-cinza10">
@@ -65,36 +70,28 @@ export default function FormStep04() {
                 {/* Navegação Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep01'>
-                            <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
-                        </Link>
+                        <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Acadêmico" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='egresso/formStep02'>
-                            <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
-                        </Link>
+                        <Image src={iconAcademicoBlue} alt="Página atual: Acadêmico" />
                         <p className='text-azulBase text-subtitulo font-normal'>Acadêmico</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Profissional" />
                     </div>
-                    <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep03'>
-                            <Image src={iconProfissionalBlue} alt="Página 3: Profissional" />
-                        </Link>
+                    <button className="items-center justify-center flex flex-col space-y-5" onClick={categorieChangeAnt}>
+                        <Image src={iconProfissionalBlue} alt="Página 3: Profissional" />
                         <p className='text-azulBase text-subtitulo font-normal'>Profissional</p>
-                    </div>
+                    </button>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Feedback" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep04'>
-                            <Image src={iconFeedbackBlue} alt="Página 4: feedback" />
-                        </Link>
+                        <Image src={iconFeedbackBlue} alt="Página 4: feedback" />
                         <p className='text-azulBase text-subtitulo font-normal'>Feedback</p>
                     </div>
                 </div>
@@ -111,16 +108,12 @@ export default function FormStep04() {
                     </div>
                     {/* Botões */}
                     <div className="flex flex-row space-x-30 justify-center items-center">
-                        <Link href="/egresso/formStep03">
-                            <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
-                                Voltar
-                            </button>
-                        </Link>
-                        <Link href="/egresso/formStep04">
-                            <button onClick={openPopup} className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
-                                Enviar
-                            </button>
-                        </Link>
+                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={categorieChangeAnt}>
+                            Voltar
+                        </button>
+                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={openPopup}>
+                            Enviar
+                        </button>
                     </div>
                 </div>
             </section>

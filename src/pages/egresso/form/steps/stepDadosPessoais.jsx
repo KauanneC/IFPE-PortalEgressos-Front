@@ -1,6 +1,5 @@
 import React from "react";
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import router from 'next/router';
 
@@ -16,7 +15,18 @@ import iconAcademicoWhite from '/public/icons/iconAcademicoWhite.svg';
 import iconFeedbackWhite from '/public/icons/iconFeedbackWhite.svg';
 import iconNext from '/public/icons/iconNext.svg';
 
-export default function FormStep01() {
+export default function formStep01(props) {
+
+    const { cont, setCont } = props;
+    const [openFormAcademicos, setOpenFormAcademicos] = useState(false); // Ir para Acadêmicos
+
+    const [step, setStep] = useState({
+        nome: "",
+    });
+
+    const categorieChange = () => {
+        setCont(cont + 1);
+    }
 
     const [isPopupBackOpen, setIsPopupBackOpen] = useState(false);
 
@@ -50,36 +60,28 @@ export default function FormStep01() {
                 {/* Navegação Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep01'>
-                            <Image src={iconDadosPessoaisBlue} alt="Página atual: dados pessoais" />
-                        </Link>
+                        <Image src={iconDadosPessoaisBlue} alt="Página atual: dados pessoais" />
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Acadêmico" />
                     </div>
-                    <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep02'>
-                            <Image src={iconAcademicoWhite} alt="Página 2: Acadêmico" />
-                        </Link>
+                    <button className="items-center justify-center flex flex-col space-y-5" onClick={categorieChange}>
+                        <Image src={iconAcademicoWhite} alt="Página 2: Acadêmico" />
                         <p className='text-azulBase text-subtitulo font-normal'>Acadêmico</p>
-                    </div>
+                    </button>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Profissional" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep03'>
-                            <Image src={iconProfissionalWhite} alt="Página 3: Profissional" />
-                        </Link>
+                        <Image src={iconProfissionalWhite} alt="Página 3: Profissional" />
                         <p className='text-azulBase text-subtitulo font-normal'>Profissional</p>
                     </div>
                     <div>
                         <Image src={iconNext} alt="Próxima página: Feedback" />
                     </div>
                     <div className="items-center justify-center flex flex-col space-y-5">
-                        <Link href='/egresso/formStep04'>
-                            <Image src={iconFeedbackWhite} alt="Página 4: feedback" />
-                        </Link>
+                        <Image src={iconFeedbackWhite} alt="Página 4: feedback" />
                         <p className='text-azulBase text-subtitulo font-normal'>Feedback</p>
                     </div>
                 </div>
@@ -181,8 +183,8 @@ export default function FormStep01() {
                     </div>
                     {/* Botão */}
                     <div className="justify-center items-center flex">
-                        <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro">
-                            <Link href="/egresso/formStep02">Próximo</Link>
+                        <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={categorieChange}>
+                            Próximo
                         </button>
                     </div>
                 </div>
