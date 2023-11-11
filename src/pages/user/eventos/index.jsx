@@ -10,7 +10,6 @@ import CardEvent from '@/components/cardEvento';
 import iconNoEvents from '/public/icons/iconNoEvents.svg';
 
 export default function Eventos() {
-
     const eventos = [
         {
             titulo: 'Workshop de Python',
@@ -49,7 +48,7 @@ export default function Eventos() {
         }
     ];
 
-    const [expandidoArray, setExpandidoArray] = useState(Array(eventos.length).fill(false)); // Verifica se o card está expandido ou não
+    const [expandidoArray, setExpandidoArray] = useState(Array(eventos.length).fill(false));
 
     const handleToggleExpansao = (index) => {
         setExpandidoArray((prevState) => {
@@ -76,7 +75,7 @@ export default function Eventos() {
             </header>
             <section id='conteudo' className='flex flex-col items-center justify-center mt-30 space-y-100 mx-120'>
                 <h1 className='font-semibold text-azulBase text-tituloPrincial'>Acompanhe nossos eventos!</h1>
-                <div className={eventos.length > 0 ? 'grid gap-x-8 gap-y-4 grid-cols-3' : ''}>
+                <div className='grid gap-x-8 gap-y-4 grid-cols-3'>
                     {eventos.length === 0 ? (
                         <div className='flex flex-col space-y-15 items-center justify-center'>
                             <Image src={iconNoEvents} alt="Imagem de um calendário" />
@@ -84,17 +83,18 @@ export default function Eventos() {
                         </div>
                     ) : (
                         eventos.map((evento, index) => (
-                            <CardEvent
-                                key={index}
-                                titulo={evento.titulo}
-                                data={evento.data}
-                                horario={evento.horario}
-                                local={evento.local}
-                                descricao={evento.descricao}
-                                expandido={expandidoArray[index]}
-                                onToggleExpansao={() => handleToggleExpansao(index)}
-                                onToggleReducao={() => handleToggleReducao(index)}
-                            />
+                            <div key={index} className='w-full'>
+                                <CardEvent
+                                    titulo={evento.titulo}
+                                    data={evento.data}
+                                    horario={evento.horario}
+                                    local={evento.local}
+                                    descricao={evento.descricao}
+                                    expandido={expandidoArray[index]}
+                                    onToggleExpansao={() => handleToggleExpansao(index)}
+                                    onToggleReducao={() => handleToggleReducao(index)}
+                                />
+                            </div>
                         ))
                     )}
                 </div>
