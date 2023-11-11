@@ -25,7 +25,7 @@ function NavBar() {
     };
 
     return (
-        <div id='navmenu' className="bg-fundo px-120 py-4 justify-between flex">
+        <div id='navmenu' className="bg-fundo px-30 py-4 justify-between flex">
             <div className="space-x-30 w-min">
                 <Link href="/egresso/home" className={`text-azulBase ${router.pathname === '/egresso/home' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
                 <Link href="/egresso/eventos" className={`text-azulBase ${router.pathname === '/egresso/eventos' ? 'border-b-2 border-azulBase' : ''}`}>Eventos</Link>

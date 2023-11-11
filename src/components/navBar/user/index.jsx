@@ -6,7 +6,7 @@ function NavBar() {
     const router = useRouter(); // Obtenha a rota atual
 
     return (
-        <div id='navmenu' className="bg-fundo px-120 py-4 justify-between flex">
+        <div id='navmenu' className="bg-fundo px-30 py-4 justify-between flex">
             <div className="space-x-30 w-min">
                 <Link href="/" className={`text-azulBase ${router.pathname === '/' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
                 <Link href="/user/eventos" className={`text-azulBase ${router.pathname === '/user/eventos' ? 'border-b-2 border-azulBase' : ''}`}>Eventos</Link>
