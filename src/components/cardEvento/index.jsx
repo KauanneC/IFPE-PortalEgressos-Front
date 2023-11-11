@@ -5,7 +5,7 @@ export default function CardEvent({ titulo, data, horario, local, descricao, exp
 
     return (
         <div className={`w-310 h-auto flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg h-${cardHeight} overflow-hidden`}>
-            <h2 className='font-semibold text-pretoTexto text-subtitulo text-center'>{titulo}</h2>
+            <h2 className='font-bold text-pretoTexto text-subtitulo text-center'>{titulo}</h2>
             <div className='space-y-10 flex flex-col items-start'>
                 <div className='flex flex-row items-start space-x-5'>
                     <p className='font-semibold text-azulBase text-paragrafo'>Data: </p>
