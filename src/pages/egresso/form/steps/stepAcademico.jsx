@@ -289,8 +289,8 @@ export default function FormStep02(props) {
                             <h1 className='text-tituloSessão text-azulBase font-semibold'>Tem certeza?</h1>
                             <p className='text-paragrafo text-pretoTexto'>Os dados não serão salvos se voltar para a página inicial</p>
                             <div className="space-x-15">
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={handleConfirmBack}>Sim</button>
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={closePopupBack}>Não</button>
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={handleConfirmBack}>Sim</button>
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={closePopupBack}>Não</button>
                             </div>
                         </div>
                     </div>

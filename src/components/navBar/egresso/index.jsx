@@ -46,8 +46,8 @@ function NavBar() {
                             <h1 className='text-tituloSessão text-azulBase font-semibold'>Tem certeza?</h1>
                             <p className='text-paragrafo text-pretoTexto'>Você irá sair da sua conta</p>
                             <div className="space-x-15">
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={handleLogout}>Sim</button>
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg hover:bg-azulForm hover:text-pretoTexto" onClick={closePopup}>Não</button>
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={handleLogout}>Sim</button>
+                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={closePopup}>Não</button>
                             </div>
                         </div>
                     </div>
