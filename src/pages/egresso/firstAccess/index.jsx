@@ -10,15 +10,64 @@ import IconSenha from "/public/icons/iconSenha.svg";
 import IconSee from "/public/icons/iconSee.svg";
 import IconUnsee from "/public/icons/iconUnsee.svg";
 
-export default function Login() {
+export default function FirstAccess() {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [password, setPassword] = useState("");
 
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordTouched, setPasswordTouched] = useState(false);
+
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
+
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [email, setEmail] = useState("");
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-        console.log(showPassword)
-    }
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        setPasswordTouched(true);
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+        setConfirmPasswordTouched(true);
+    };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        setEmailTouched(true);
+    };
+
+    const isPasswordValid = () => {
+        if (!passwordTouched || password === "") {
+            return true;
+        }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+    };
+
+    const isPasswordMatching = () => {
+        return password === confirmPassword;
+    };
+
+    const isEmailValid = () => {
+        if (!emailTouched || email === "") {
+            return true;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
 
     return (
         <main>
@@ -33,25 +82,32 @@ export default function Login() {
                         </Link>
                     </button>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Primeiro Acesso</h1>
-                    <div className="space-y-30">
+                    <div>
                         <div className="w-full relative text-paragrafo">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconUser} alt="Ícone de usuário" />
                             </label>
                             <input
-                                className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                className={`w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required ${isEmailValid() ? '' : 'border-red-500'}`}
                                 type="email"
                                 placeholder="Email"
+                                onChange={handleEmailChange}
                             />
                         </div>
-                        <div className="w-full relative text-paragrafo">
+                        <div className="absolute">
+                            {!isEmailValid() && emailTouched && (
+                                <p className="text-red-500 text-legenda mt-1">Por favor, insira um e-mail válido</p>
+                            )}
+                        </div>
+                        <div className="w-full relative text-paragrafo mt-30">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconSenha} alt="Ícone de senha" />
                             </label>
                             <input
-                                className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
+                                className={`w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required ${isPasswordMatching() && isPasswordValid() ? '' : 'border-red-500'}`}
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Nova senha"
+                                onChange={handlePasswordChange}
                             />
                             <div className="absolute inset-y-0 right-0 flex items-center pr-10 cursor-pointer" onClick={togglePasswordVisibility}>
                                 {showPassword ? (
@@ -61,25 +117,39 @@ export default function Login() {
                                 )}
                             </div>
                         </div>
-                        <div className="w-full relative text-paragrafo">
+                        <div className="absolute">
+                            {!isPasswordValid() && passwordTouched && (
+                                <p className="text-red-500 text-legenda mt-1">A senha deve ter pelo menos 8 caracteres, 1 número, 1 caractere especial e 1 letra maiúscula</p>
+                            )}
+                            {!isPasswordMatching() && passwordTouched && (
+                                <p className="text-red-500 text-legenda mt-1">As senhas não coincidem</p>
+                            )}
+                        </div>
+                        <div className="w-full relative text-paragrafo mt-30">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconSenha} alt="Ícone de senha" />
                             </label>
                             <input
-                                className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                                type={showPassword ? 'text' : 'password'}
+                                className={`w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required ${isPasswordMatching() ? '' : 'border-red-500'}`}
+                                type={showConfirmPassword ? 'text' : 'password'}
                                 placeholder="Confirme nova senha"
+                                onChange={handleConfirmPasswordChange}
                             />
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-10 cursor-pointer" onClick={togglePasswordVisibility}>
-                                {showPassword ? (
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-10 cursor-pointer" onClick={toggleConfirmPasswordVisibility}>
+                                {showConfirmPassword ? (
                                     <Image src={IconSee} alt="Ícone para ver a senha" />
                                 ) : (
                                     <Image src={IconUnsee} alt="Ícone para ocultar a senha" />
                                 )}
                             </div>
                         </div>
+                        <div className="absolute">
+                            {!isPasswordMatching() && confirmPasswordTouched && (
+                                <p className="text-red-500 text-legenda mt-1">As senhas não coincidem</p>
+                            )}
+                        </div>
                         <div>
-                            <button className="bg-azulBase py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
+                            <button className="bg-azulBase mt-30 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
                                 <Link href={'../../egresso/home'}>Entrar</Link>
                             </button>
                         </div>
