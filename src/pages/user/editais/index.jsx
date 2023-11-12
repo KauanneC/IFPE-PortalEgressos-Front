@@ -43,23 +43,23 @@ export default function Editais() {
             </header>
             <section id='conteudo' className='flex flex-col items-center justify-center mt-30 space-y-100 mx-120'>
                 <h1 className='font-semibold text-azulBase text-tituloPrincial'>Acompanhe os editais!</h1>
-                <div className='grid gap-x-30 gap-y-30 grid-cols-3'>
-                    {editais.length === 0 ? (
-                        <div className='flex flex-col space-y-15 items-center justify-center'>
-                            <Image src={iconNoEdital} alt="Imagem de um edital" />
-                            <p className='text-pretoTexto text-tituloSessão'>No momento não há editais</p>
-                        </div>
-                    ) : (
-                        editais.map((edital, index) => (
+                {editais.length === 0 ? (
+                    <div className='flex flex-col space-y-15 items-center justify-center'>
+                        <Image src={iconNoEdital} alt="Imagem de um edital" />
+                        <p className='text-pretoTexto text-tituloSessão'>No momento não há editais</p>
+                    </div>
+                ) : (
+                    <div className='grid gap-x-30 gap-y-30 grid-cols-3'>
+                        {editais.map((edital, index) => (
                             <div key={index} className='w-full'>
                                 <CardEdital
                                     titulo={edital.titulo}
                                     pdf={edital.pdf}
                                 />
                             </div>
-                        ))
-                    )}
-                </div>
+                        ))}
+                    </div>
+                )}
             </section>
             <footer>
                 <Footer />

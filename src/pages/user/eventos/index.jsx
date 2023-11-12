@@ -75,14 +75,14 @@ export default function Eventos() {
             </header>
             <section id='conteudo' className='flex flex-col items-center justify-center mt-30 space-y-100 mx-120'>
                 <h1 className='font-semibold text-azulBase text-tituloPrincial'>Acompanhe nossos eventos!</h1>
-                <div className='grid gap-x-8 gap-y-4 grid-cols-3'>
-                    {eventos.length === 0 ? (
-                        <div className='flex flex-col space-y-15 items-center justify-center'>
-                            <Image src={iconNoEvents} alt="Imagem de um calendário" />
-                            <p className='text-pretoTexto text-tituloSessão'>No momento não há eventos</p>
-                        </div>
-                    ) : (
-                        eventos.map((evento, index) => (
+                {eventos.length === 0 ? (
+                    <div className='flex flex-col space-y-15 items-center justify-center'>
+                        <Image src={iconNoEvents} alt="Imagem de um calendário" />
+                        <p className='text-pretoTexto text-tituloSessão'>No momento não há eventos</p>
+                    </div>
+                ) : (
+                    <div className='grid gap-x-30 gap-y-30 grid-cols-3'>
+                        {eventos.map((evento, index) => (
                             <div key={index} className='w-full'>
                                 <CardEvent
                                     titulo={evento.titulo}
@@ -95,9 +95,9 @@ export default function Eventos() {
                                     onToggleReducao={() => handleToggleReducao(index)}
                                 />
                             </div>
-                        ))
-                    )}
-                </div>
+                        ))}
+                    </div>
+                )}
             </section>
             <footer>
                 <Footer />
