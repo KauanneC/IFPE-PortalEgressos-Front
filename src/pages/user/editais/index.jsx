@@ -13,7 +13,7 @@ export default function Editais() {
 
     const editais = [
         {
-            titulo: 'Concurso Prefeitura de Mogi das Cruzes (SP)',
+            titulo: 'Concurso Prefeitura de Mogi das Cruzes (SP) do coisa na coisa de onde foi',
             pdf: '',
         },
         {
