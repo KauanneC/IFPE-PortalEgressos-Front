@@ -10,7 +10,7 @@ import IconSenha from "/public/icons/iconSenha.svg";
 import IconSee from "/public/icons/iconSee.svg";
 import IconUnsee from "/public/icons/iconUnsee.svg";
 
-export default function FirstAccess() {
+export default function PrimeiroAcesso() {
 
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
