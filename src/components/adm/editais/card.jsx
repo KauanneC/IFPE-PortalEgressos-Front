@@ -10,8 +10,8 @@ export default function card({ title, link }) {
     // const handleDownload = () => {
     //     const pdfUrl = `http://localhost:3333/api/public/${id}.pdf`;
     //     saveAs(pdfUrl, nomeArquivo); // Nome do arquivo
-    // };
-    //Teste new pc
+    // }
+    //
 
     return (
         <div className="flex flex-col justify-center items-center w-400 h-185 border-t-10 border-azulForm rounded-10 bg-white drop-shadow">
