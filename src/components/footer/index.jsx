@@ -16,7 +16,7 @@ function Footer() {
                 <div className='text-center'>
                     <p className='font-semibold text-subtitulo'>Dúvidas Frequentes</p>
                 </div>
-                <div className='flex items-center justify-center pt-2.5 space-x-5 text-paragrafo'>
+                <div className='flex items-center justify-center pt-2.5 space-x-10 text-paragrafo'>
                     <Link href="" id='rodape'>Como renovar a matrícula?</Link>
                     <Link href="">Aproveitamento de disciplinas</Link>
                     <Link href="">Transferência interna</Link>
@@ -26,7 +26,7 @@ function Footer() {
                     <hr className='border-t-1 my-20 w-4/6'></hr>
                 </div>
 
-                <div className='flex justify-center items-start space-x-5'>
+                <div className='flex justify-center items-start space-x-30'>
                     <div className='flex justify-center items-start'>
                         <Image src={iconPhone} alt="Ícone de telefone" />
                         <p className='pl-2.5'>(81) 3411-3200</p>
