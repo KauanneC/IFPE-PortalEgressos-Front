@@ -13,7 +13,7 @@ export default function Editais() {
 
     const editais = [
         {
-            titulo: 'Concurso Prefeitura de Mogi das Cruzes (SP) do coisa na coisa de onde foi',
+            titulo: 'Concurso Prefeitura de Mogi das Cruzes (SP) - 2021 - Diversos Cargos',
             pdf: '',
         },
         {
