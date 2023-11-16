@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import IconVoltar from "/public/icons/iconVoltar.svg";
 import ImgLogin from "/public/icons/imgLogin.svg";
-import IconUser from "/public/icons/iconUser.svg";
 import IconSenha from "/public/icons/iconSenha.svg";
 import IconSee from "/public/icons/iconSee.svg";
 import IconUnsee from "/public/icons/iconUnsee.svg";
@@ -20,9 +19,6 @@ export default function PrimeiroAcesso() {
 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
-
-    const [emailTouched, setEmailTouched] = useState(false);
-    const [email, setEmail] = useState("");
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -42,11 +38,6 @@ export default function PrimeiroAcesso() {
         setConfirmPasswordTouched(true);
     };
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        setEmailTouched(true);
-    };
-
     const isPasswordValid = () => {
         if (!passwordTouched || password === "") {
             return true;
@@ -58,15 +49,6 @@ export default function PrimeiroAcesso() {
 
     const isPasswordMatching = () => {
         return password === confirmPassword;
-    };
-
-    const isEmailValid = () => {
-        if (!emailTouched || email === "") {
-            return true;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
     };
 
     return (
@@ -83,22 +65,6 @@ export default function PrimeiroAcesso() {
                     </button>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Primeiro Acesso</h1>
                     <div>
-                        <div className="w-full relative text-paragrafo">
-                            <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
-                                <Image src={IconUser} alt="Ícone de usuário" />
-                            </label>
-                            <input
-                                className={`w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required ${isEmailValid() ? '' : 'border-red-500'}`}
-                                type="email"
-                                placeholder="Email"
-                                onChange={handleEmailChange}
-                            />
-                        </div>
-                        <div className="absolute">
-                            {!isEmailValid() && emailTouched && (
-                                <p className="text-red-500 text-legenda mt-1">Por favor, insira um e-mail válido</p>
-                            )}
-                        </div>
                         <div className="w-full relative text-paragrafo mt-30">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconSenha} alt="Ícone de senha" />
