@@ -6,6 +6,7 @@ import StepDadosPessoais from "./steps/stepDadosPessoais";
 import StepAcademico from "./steps/stepAcademico";
 import StepProfissional from "./steps/stepProfissional";
 import StepFeedback from "./steps/stepFeedback";
+import Footer from "@/components/footer";
 
 export default function FormAdministrator() {
 
@@ -19,10 +20,11 @@ export default function FormAdministrator() {
     ]
 
     return (
-        <main className="flex flex-col  bg-cinza10 font-cabin">
+        <main className="flex flex-col min-h-screen bg-cinza10 font-cabin">
             <section className="flex-grow">
                 {arrayScreens[cont]} {/* Renderiza a tela 0 */}
             </section>
+            <Footer />
         </main>
     )
 }
