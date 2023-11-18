@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
+// Icons
+import iconTrash from "/public/icons/iconTrash.svg"
+import iconDelete from "/public/icons/iconDelete.svg"
+
+// Components
 import Dropdown from "@/components/adm/form/menu/menu";
 
 export default function AddCampo() {
@@ -138,18 +144,19 @@ export default function AddCampo() {
         <div>
             <div className="flex-grow">
                 <div className="bg-fundo mt-15 rounded-10 py-30 px-60">
-                    <div className="flex place-content-between items-center">
+                    <div className="flex gap-10 items-center">
                         <input
                             type="text"
-                            placeholder="Digite aqui o título do campo"
+                            placeholder="Digite aqui a pergunta"
                             name="question"
                             value={dados.question}
                             onChange={(e) => { handleFieldChange(e) }}
-                            className="bg-fundo outline-none text-pretoTexto pl-10 font-regular font-semibold text-paragrafo"
+                            className="bg-fundo outline-none text-pretoTexto pl-10 pr-30 font-regular font-semibold text-paragrafo w-full"
                         />
-                        <div>
-                            <Dropdown value={selectedOption} onOptionChange={handleOptionChange} />
-                        </div>
+                        <Dropdown value={selectedOption} onOptionChange={handleOptionChange} />
+                        <button>
+                            <Image src={iconTrash} alt="Ícone de lixeira"/>
+                        </button>
                     </div>
                     {selectedOption === 'text' && (
                         <input
@@ -162,44 +169,54 @@ export default function AddCampo() {
                     {selectedOption === 'radio' && (
                         <div>
                             {radioOptions.map((option, index) => (
-                                <div key={index}>
-                                    <input type="radio" name="radioOptions" value={index} />
-                                    <input
-                                        type="text"
-                                        value={option.question}
-                                        onChange={(e) => handleOptionQuestionChange(index, e.target.value)}
-                                        className="bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                                    />
+                                <div className="flex gap-10 mt-15">
+                                    <div className="flex w-full">
+                                        <input type="radio" name="radioOptions" value={index} />
+                                        <input
+                                            type="text"
+                                            value={option.question}
+                                            onChange={(e) => handleOptionQuestionChange(index, e.target.value)}
+                                            className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                        />
+                                    </div>        
+                                    <button className="ml-10">
+                                        <Image src={iconDelete} alt="Ícone de x"/>
+                                    </button>                                    
                                 </div>
                             ))}
                         </div>
                     )}
                     {showOtherOption && (
-                        <div>
-                            <input
-                                type="radio"
-                                name="radioOptions"
-                                value="outros"
-                                className="mr-10"
-                            />
-                            <label>Outros:</label>
-                            <input
-                                type="text"
-                                placeholder="Descreva outros detalhes"
-                                value={otherOptionText}
-                                onChange={(e) => otherOptionText(e.target.value)}
-                                className="bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                            />
+                        <div className="flex gap-10 mt-15">
+                            <div className="flex w-full">
+                                <input
+                                    type="radio"
+                                    name="radioOptions"
+                                    value="outros"
+                                    className="mr-10"
+                                />
+                                <label>Outros:</label>
+                                <input
+                                    type="text"
+                                    placeholder="Descreva outros detalhes"
+                                    value={otherOptionText}
+                                    onChange={(e) => otherOptionText(e.target.value)}
+                                    className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                />
+                            </div>
+                            <button className="ml-10">
+                                <Image src={iconDelete} alt="Ícone de x"/>
+                            </button>
                         </div>
                     )}
-                    <div className="flex items-center gap-10 mt-20">
+                    <div className="flex items-center gap-10">
                         {selectedOption === 'radio' && (
-                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 text-legenda">
+                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 mt-15 text-legenda">
                                 <button onClick={handleAddOption}>Adicionar Opção</button>
                             </div>
                         )}
                         {selectedOption === 'radio' && (
-                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 text-legenda">
+                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 mt-15 text-legenda">
                                 <button onClick={handleShowOtherOption}>Adicionar Outros</button>
                             </div>
                         )}
@@ -207,51 +224,65 @@ export default function AddCampo() {
                     {selectedOption === 'checkbox' && (
                         <div>
                             {checkboxOptions.map((option, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" name="checkboxOptions" value={index} />
-                                    <input
-                                        type="text"
-                                        value={option.question}
-                                        onChange={(e) => handleCheckboxQuestionChange(index, e.target.value)}
-                                        className="bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                                    />
+                                <div className="flex gap-10 mt-15">
+                                    <div className="flex w-full">
+                                        <input type="checkbox" name="checkboxOptions" value={index} />
+                                        <input
+                                            type="text"
+                                            value={option.question}
+                                            onChange={(e) => handleCheckboxQuestionChange(index, e.target.value)}
+                                            className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                        />
+                                    </div>
+                                    <button className="ml-10">
+                                        <Image src={iconDelete}/>
+                                    </button>
                                 </div>
                             ))}
                         </div>
                     )}
                     {showOtherOptionCheck && (
-                        <div>
-                            <input
-                                type="checkbox"
-                                name="checkboxOptions"
-                                value="outros"
-                                className="mr-10"
-                            />
-                            <label>Outros:</label>
-                            <input
-                                type="text"
-                                placeholder="Descreva outros detalhes"
-                                value={otherOptionCheckbox}
-                                onChange={(e) => setOtherOptionCheckbox(e.target.value)}
-                                className="bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                            />
+                        <div className="flex gap-10 mt-15">
+                            <div className="flex w-full">
+                                <input
+                                    type="checkbox"
+                                    name="checkboxOptions"
+                                    value="outros"
+                                    className="mr-10"
+                                />
+                                <label>Outros:</label>
+                                <input
+                                    type="text"
+                                    placeholder="Descreva outros detalhes"
+                                    value={otherOptionCheckbox}
+                                    onChange={(e) => setOtherOptionCheckbox(e.target.value)}
+                                    className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                />
+                            </div>
+                            <button className="ml-10">
+                                <Image src={iconDelete} alt="Ícone de x"/>
+                            </button>
                         </div>
                     )}
-                    <div className="flex items-center gap-10 mt-20">
+                    <div className="flex items-center gap-10">
                         {selectedOption === 'checkbox' && (
-                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 text-legenda">
+                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 mt-15 text-legenda">
                                 <button onClick={handleAddCheckbox}>Adicionar Opção</button>
                             </div>
                         )}
                         {selectedOption === 'checkbox' && (
-                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 text-legenda">
+                            <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 mt-15 text-legenda">
                                 <button onClick={handleShowOtherCheckbox}>Adicionar Outros</button>
                             </div>
                         )}
                     </div>
-
-                    <div>
-                        <button onClick={handleClickSave}>Salvar</button>
+                    <div className="flex items-center justify-center gap-10 mt-30">
+                        <div className="inline-block bg-verdeButton rounded-10 text-center text-white">
+                            <button onClick={handleClickSave} className="px-15 py-10">Salvar</button>
+                        </div>
+                        <div className="inline-block bg-vermelhoButton rounded-10 text-center text-white">
+                            <button onClick={handleClickSave} className="px-15 py-10">Cancelar</button>
+                        </div>
                     </div>
                 </div>
             </div>

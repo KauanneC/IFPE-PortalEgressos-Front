@@ -5,7 +5,7 @@ import NavAcessibilidade from "@/components/navAcessibilidade";
 
 export default function Title() {
     return (
-        <main className="flex flex-col  bg-cinza10 font-cabin">
+        <main className="flex flex-col bg-cinza10 font-cabin">
             <header>
                 <NavAcessibilidade />
                 <NavBar />

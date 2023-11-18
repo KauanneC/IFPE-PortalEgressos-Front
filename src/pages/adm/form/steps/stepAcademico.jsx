@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 
 // Icon
@@ -10,9 +10,11 @@ import arrow from "/public/icons/arrow.svg"
 
 // Components
 import Title from "@/components/adm/form/title/Title";
+import AddCampo from "@/components/adm/form/addCampo/addCampo";
 
 export default function stepAcademico(props) {
     const {cont, setCont, step, stepStep} = props;
+    const [campos, setCampos] = useState([]);
 
     const categorieChangeProx = () => {
         setCont(cont + 1);
@@ -22,6 +24,9 @@ export default function stepAcademico(props) {
         setCont(cont - 1);
     };
 
+    const adicionarCampo = () => {
+        setCampos([...campos, { id: Date.now() }]);
+    };
 
     return (
         <main className="w-full bg-cinza10 font-cabin">
@@ -49,6 +54,22 @@ export default function stepAcademico(props) {
                         <Image src={feedback} alt="Ícone representando feedback"></Image>
                         <p className="font-regular text-subtitulo text-azulBase">Feedback</p>
                     </button>
+                </div>
+                <div className="flex bg-azulBase text-white text-center justify-center w-175 h-42 rounded-10 mt-15 mx-auto my-auto">
+                    <button onClick={adicionarCampo}>Adicionar Campo</button>
+                </div>
+                <div>
+                    {campos.map((campo) => (
+                        <AddCampo></AddCampo>
+                    ))}
+                </div>
+                <div className="flex items-center justify-center gap-10">
+                    <div className="inline-block bg-azulBase rounded-10 text-white mt-15">
+                        <button onClick={categorieChangeAnt} className="py-10 px-20">Anterior</button>
+                    </div>
+                    <div className="inline-block bg-azulBase rounded-10 text-white mt-15">
+                        <button onClick={categorieChangeProx} className="py-10 px-20">Próximo</button>
+                    </div>
                 </div>
             </section>
         </main>

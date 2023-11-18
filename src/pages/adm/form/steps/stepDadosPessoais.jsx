@@ -54,9 +54,16 @@ export default function StepDadosPessoais(props) {
                 <div className="flex bg-azulBase text-white text-center justify-center w-175 h-42 rounded-10 mt-15 mx-auto my-auto">
                     <button onClick={adicionarCampo}>Adicionar Campo</button>
                 </div>
-                {campos.map((campo) => (
-                    <AddCampo></AddCampo>
-                ))}
+                <div>
+                    {campos.map((campo) => (
+                        <AddCampo></AddCampo>
+                    ))}
+                </div>
+                <div className="flex items-center justify-center">
+                    <div className="inline-block bg-azulBase rounded-10 text-white mt-15">
+                        <button onClick={categorieChange} className="py-10 px-20">Próximo</button>
+                    </div>
+                </div>
             </section>
         </main>
     )

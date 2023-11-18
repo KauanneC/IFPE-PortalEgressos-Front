@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 // Components
-import Title from "@/components/adm/form/title/Title";
 import StepDadosPessoais from "./steps/stepDadosPessoais";
 import StepAcademico from "./steps/stepAcademico";
 import StepProfissional from "./steps/stepProfissional";

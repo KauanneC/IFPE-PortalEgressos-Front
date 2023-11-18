@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Select from 'react-select';
 
 const DropdownMenu = ({ value, onOptionChange }) => {
-    const [radioOptions, setRadioOptions] = useState([{ title: 'Opção 1' }]);
+    const options = [
+        { value: 'text', label: 'Texto' },
+        { value: 'radio', label: 'Múltipla Escolha' },
+        { value: 'checkbox', label: 'Caixa de Seleção' },
+    ];
 
-    const handleRadioOptionChange = (e) => {
-        onOptionChange(e.target.value);
-        setRadioOptions([{ title: 'Opção 1' }]);
+    const handleChange = (selectedOption) => {
+        onOptionChange(selectedOption.value);
     };
 
     return (
-        <div className="w-full overlay">
-            <select
-                value={value}
-                onChange={(e) => {
-                    if (e.target.value === 'radio') {
-                        handleRadioOptionChange(e);
-                    } else {
-                        onOptionChange(e.target.value);
-                    }
-                }}
-                className="block w-full px-10 py-10 border rounded-md outline-none border-cinza03 appearance-none"
-            >
-            <option value="text"> Texto </option>
-            <option value="radio">Rádio</option>
-            <option value="checkbox">Checkbox</option>
-        </select>
-        </div >
+        <div className="overlay">
+            <Select
+                value={options.find((option) => option.value === value)}
+                onChange={handleChange}
+                options={options}
+                className="block w-200"
+            />
+        </div>
     );
 };
 

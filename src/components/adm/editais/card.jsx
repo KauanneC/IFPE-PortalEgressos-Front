@@ -12,7 +12,7 @@ export default function card({ title, link }) {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center w-400 h-185 border-t-10 border-azulForm rounded-10 bg-white drop-shadow">
+        <div className="flex flex-col justify-center items-center w-400 h-185 border-t-10 border-azulForm border rounded-10 bg-white drop-shadow">
             <h1 className="text-pretoTexto font-bold text-tituloSessão">Edital</h1>
             <button className="flex justify-center items-center gap-15 mt-20">
                 <Image className="" src={iconPdf}></Image>
