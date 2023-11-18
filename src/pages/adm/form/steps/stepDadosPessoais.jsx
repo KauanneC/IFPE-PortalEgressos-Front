@@ -10,47 +10,18 @@ import arrow from "/public/icons/arrow.svg"
 
 // Components
 import Title from "@/components/adm/form/title/Title";
-import Dropdown from "@/components/adm/form/menu";
+import AddCampo from "@/components/adm/form/addCampo/addCampo";
 
 export default function StepDadosPessoais(props) {
-    const {cont, setCont} = props;
-    const [openFormAcademicos, setOpenFormAcademicos] = useState(false); // Ir para Acadêmicos
-    const [selectedOption, setSelectedOption] = useState('text'); // Opções do menu
-    const [radioOptions, setRadioOptions] = useState([{ title: 'Opção 1' }]); // Opções do tipo radios
-    const [showOtherOption, setShowOtherOption] = useState(false);
-    const [otherOptionText, setOtherOptionText] = useState("");
-
-    const[ step, setStep ] = useState({
-        nome: "",
-    });
+    const { cont, setCont } = props;
+    const [campos, setCampos] = useState([]);
 
     const categorieChange = () => {
         setCont(cont + 1);
-    }
-
-    const handleOptionChange = (option) => {
-        setSelectedOption(option);
     };
 
-    const handleRadioOptionChange = (e) => {
-        onOptionChange(e.target.value);
-        setRadioOptions([{ title: 'Opção 1' }]);
-        setShowOtherOption(false);
-    };
-
-    const handleAddOption = () => {
-        setRadioOptions([...radioOptions, { title: 'Nova Opção' }]);
-    };
-
-    const handleOptionTitleChange = (index, title) => {
-        const updatedOptions = [...radioOptions];
-        updatedOptions[index].title = title;
-        setRadioOptions(updatedOptions);
-    };
-
-    const handleShowOtherOption = () => {
-        setSelectedOption("outros"); // Defina a opção selecionada como "Outros"
-        setShowOtherOption(true);
+    const adicionarCampo = () => {
+        setCampos([...campos, { id: Date.now() }]);
     };
 
     return (
@@ -80,64 +51,12 @@ export default function StepDadosPessoais(props) {
                         <p className="font-regular text-subtitulo text-azulBase">Feedback</p>
                     </button>
                 </div>
-                <div className="flex-grow">
-                    <div className="bg-fundo mt-15 rounded-10 py-30 px-60">
-                        <div className="flex place-content-between items-center">
-                            <p className="font-semibold text-paragrafo">Nome</p>
-                            <div>
-                                <Dropdown value={selectedOption} onOptionChange={handleOptionChange} />
-                            </div>
-                        </div>
-                        {selectedOption === 'text' && (
-                            <input
-                                type="text"
-                                placeholder="Digite seu nome"
-                                id="nome"
-                                className="bg-fundo w-full border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo pl-10 font-regular mt-15"
-                            />
-                        )}
-                        {selectedOption === 'radio' && (
-                            <div>
-                                {radioOptions.map((option, index) => (
-                                    <div key={index}>
-                                        <input type="radio" name="radioOptions" value={index} />
-                                        <input
-                                            type="text"
-                                            value={option.title}
-                                            onChange={(e) => handleOptionTitleChange(index, e.target.value)}
-                                            className="border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                                        />
-                                    </div>
-                                ))}
-                                <div className="flex items-center gap-1 mt-10">
-                                    <button onClick={handleAddOption}>Adicionar Opção</button>
-                                    <p>ou</p>
-                                    <button onClick={handleShowOtherOption}>Adicionar Outros</button>
-                                </div>
-                            </div>
-                        )}
-
-                        {selectedOption === "outros" && (
-                            <div>
-                                <input
-                                    type="radio"
-                                    name="radioOptions"
-                                    value="outros"
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Descreva outros detalhes aqui"
-                                    value={otherOptionText}
-                                    onChange={(e) => setOtherOptionText(e.target.value)}
-                                    className="border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular mt-10 ml-10"
-                                />
-                            </div>
-                        )}
-                        {selectedOption === 'checkbox' && (
-                            <input type="checkbox" />
-                        )}
-                    </div>
+                <div className="flex bg-azulBase text-white text-center justify-center w-175 h-42 rounded-10 mt-15 mx-auto my-auto">
+                    <button onClick={adicionarCampo}>Adicionar Campo</button>
                 </div>
+                {campos.map((campo) => (
+                    <AddCampo></AddCampo>
+                ))}
             </section>
         </main>
     )
