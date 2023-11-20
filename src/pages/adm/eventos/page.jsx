@@ -13,13 +13,13 @@ import Card from "@/components/adm/eventos/card";
 import ImgHeader from "/public/icons/imgHeader.svg";
 
 // API
-import { allEvents } from "../../../../utils/apiEvents/api";
+import { getEvents } from "../../../../utils/apiEvents/api";
 
 export default function Eventos() {
     const [editedEvents, setEditedEvents] = useState([]);
 
     useEffect(() => {
-        allEvents().then((data) => {
+        getEvents().then((data) => {
             setEditedEvents(data.data);
         });
     })

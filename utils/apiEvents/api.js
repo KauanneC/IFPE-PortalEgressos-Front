@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 const api = axios.create({  // Fixo
-    baseURL: "http://localhost:8000/api/events",
+    baseURL: "http://localhost:8000/api/",
 });
 
 export async function createEvents(data) { // POST
     try {
-        const response = await axios.post('', data, {
+        const response = await axios.post('http://localhost:8000/api/events', data, {
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': '*/*',
+                'Accept': 'aplication/json',
             },
         });
         const statusCode = response.status;
@@ -24,10 +24,10 @@ export async function createEvents(data) { // POST
 
 export async function getEvents() { // GET
     try {
-        const response = await api.get("", {
+        const response = await api.get("http://localhost:8000/api/events", {
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': '*/*',
+                'Accept': 'application/json',
             },
         });
         const statusCode = response.status;
