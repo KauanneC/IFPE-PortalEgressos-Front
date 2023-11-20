@@ -22,7 +22,7 @@ export default function Eventos() {
                 <Image className="w-full" src={ImgHeader}></Image>
                 <div className='flex items-center py-8'>
                     <h1 className="font-semibold text-azulBase text-center text-tituloPrincial flex-grow">Acompanhe nossos eventos!</h1>
-                    <Link href="./admDocentes/slug" className="absolute">
+                    <Link href="./form/page" className="absolute">
                         <button className="px-15 py-5 transition-transform transform hover:scale-105 border-2 border-azulBase rounded-10 text-center text-azulBase font-semibold">
                             Editar Eventos
                         </button>
