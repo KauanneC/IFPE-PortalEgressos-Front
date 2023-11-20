@@ -1,20 +1,18 @@
 import React from "react";
 import Image from 'next/image';
 import { useState } from 'react';
-import router from 'next/router';
+import Swal from 'sweetalert2';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
 
-import iconPerigo from '/public/icons/iconPerigo.svg';
 import iconVoltar from '/public/icons/iconVoltar.svg';
 import iconDadosPessoaisBlue from '/public/icons/iconDadosPessoaisBlue.svg';
 import iconAcademicoBlue from '/public/icons/iconAcademicoBlue.svg';
 import iconProfissionalBlue from '/public/icons/iconProfissionalBlue.svg';
 import iconFeedbackBlue from '/public/icons/iconFeedbackBlue.svg';
 import iconNext from '/public/icons/iconNext.svg';
-import iconSucesso from '/public/icons/iconSucesso.svg';
 
 export default function FormStep04(props) {
 
@@ -24,34 +22,99 @@ export default function FormStep04(props) {
         setCont(cont - 1);
     };
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [isPopupBackOpen, setIsPopupBackOpen] = useState(false);
+    const [showAlertVoltar, setShowAlertVoltar] = useState(false);
+    const [showAlertEnviar, setShowAlertEnviar] = useState(false);
+    const [showAlertSucesso, setShowAlertSucesso] = useState(false);
+    const [showAlertErro, setShowAlertErro] = useState(false);
 
-    const openPopup = () => {
-        setIsPopupOpen(true);
+    const handleShowAlertVoltar = () => {
+        setShowAlertVoltar(true);
     };
 
-    const closePopup = () => {
-        setIsPopupOpen(false);
+    const handleShowAlertEnviar = () => {
+        setShowAlertEnviar(true);
     };
 
-    const handleLogout = () => {
-        router.push('/egresso/home');
-        closePopup();
+    const handleShowAlertSucesso = () => {
+        setShowAlertSucesso(true);
     };
 
-    const openPopupBack = () => {
-        setIsPopupBackOpen(true);
+    const handleShowAlertErro = () => {
+        setShowAlertErro(true);
     };
 
-    const closePopupBack = () => {
-        setIsPopupBackOpen(false);
-    };
+    if (showAlertVoltar) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Os dados não serão salvos!',
+            icon: 'warning',
+            iconColor: '#C18031',
+            confirmButtonColor: '#991D39',
+            cancelButtonColor: '#666666',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não',
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/egresso/home";
+            } else {
+                setShowAlertVoltar(false);
+            }
+        })
+    }
 
-    const handleConfirmBack = () => {
-        router.push('/egresso/home');
-        closePopupBack();
-    };
+    if (showAlertEnviar) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Verifique se todos os campos foram preenchidos corretamente!',
+            icon: 'warning',
+            iconColor: '#C18031',
+            confirmButtonColor: '#20771B',
+            cancelButtonColor: '#666666',
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar',
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleShowAlertErro();
+            } else {
+                setShowAlertEnviar(false);
+            }
+        })
+    }
+
+    if (showAlertSucesso) {
+        Swal.fire({
+            title: 'Sucesso!',
+            text: 'O fomrulário foi enviado com sucesso!',
+            icon: 'success',
+            iconColor: '#20771B',
+            confirmButtonColor: '#20771B',
+            confirmButtonText: 'Voltar para a página inicial',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/egresso/home";
+            } else {
+                setShowAlertSucesso(false);
+            }
+        })
+    }
+
+    if (showAlertErro) {
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao enviar o formulário!',
+            icon: 'error',
+            iconColor: '#991D39',
+            confirmButtonColor: '#242B63',
+            confirmButtonText: 'Tentar novamente',
+        }).then(() => {
+            setShowAlertErro(false);
+        })
+    }
 
     return (
         <main className="bg-cinza10">
@@ -62,7 +125,7 @@ export default function FormStep04(props) {
             <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
                 {/* Título Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg border-t-8 border-azulForm">
-                    <button onClick={openPopupBack} className="absolute top-0 left-0">
+                    <button onClick={handleShowAlertVoltar} className="absolute top-0 left-0">
                         <Image src={iconVoltar} alt="Voltar para página inicial" />
                     </button>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
@@ -111,46 +174,12 @@ export default function FormStep04(props) {
                         <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={categorieChangeAnt}>
                             Voltar
                         </button>
-                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={openPopup}>
+                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={handleShowAlertEnviar}>
                             Enviar
                         </button>
                     </div>
                 </div>
             </section>
-
-            {isPopupOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="absolute w-full h-full bg-black opacity-50"></div>
-                    <div className="relative bg-white p-4 rounded-lg shadow-lg">
-                        <div className='flex flex-col items-center justify-center space-y-15 mx-30 my-15'>
-                            <Image src={iconSucesso} alt="Sucesso" />
-                            <h1 className='text-tituloSessão text-azulBase font-semibold'>Enviado</h1>
-                            <p className='text-paragrafo text-pretoTexto'>O formulário foi enviado com sucesso</p>
-                            <div className="space-x-15">
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={handleLogout}>Voltar para Home</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {isPopupBackOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="absolute w-full h-full bg-black opacity-50"></div>
-                    <div className="relative bg-white p-4 rounded-lg shadow-lg">
-                        <div className='flex flex-col items-center justify-center space-y-15 mx-30 my-15'>
-                            <Image src={iconPerigo} alt="Perigo" />
-                            <h1 className='text-tituloSessão text-azulBase font-semibold'>Tem certeza?</h1>
-                            <p className='text-paragrafo text-pretoTexto'>Os dados não serão salvos se voltar para a página inicial</p>
-                            <div className="space-x-15">
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={handleConfirmBack}>Sim</button>
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={closePopupBack}>Não</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             <footer>
                 <Footer />
             </footer>
