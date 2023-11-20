@@ -1,15 +1,18 @@
-import React, {useState} from "react";
-
-// Icons
+import React, { useState, useEffect } from "react";
 
 // Components
 import NavBar from "@/components/navBar/adm/page";
 import Footer from "@/components/footer";
 import NavAcessibilidade from "@/components/navAcessibilidade/index";
 import AddEvento from "@/components/adm/eventos/addEventos/addEvento";
+import AllEvents from "@/components/adm/eventos/allEvents/allEvents";
+
+// API
+import { updateEvents, removeEvents, allEvents } from "../../../../../utils/apiEvents/api";
 
 export default function EventosForm() {
     const [campos, setCampos] = useState([]);
+    const [eventos, setEventos] = useState([]);
 
     const adicionarCampo = () => {
         setCampos([...campos, { id: Date.now() }]);
@@ -32,7 +35,12 @@ export default function EventosForm() {
                 </div>
                 <div>
                     {campos.map((campo) => (
-                        <AddEvento/>
+                        <AddEvento />
+                    ))}
+                </div>
+                <div>
+                    {eventos.map((event) => (
+                        <AllEvents />
                     ))}
                 </div>
             </section>

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +12,18 @@ import Card from "@/components/adm/eventos/card";
 // Images
 import ImgHeader from "/public/icons/imgHeader.svg";
 
+// API
+import { allEvents } from "../../../../utils/apiEvents/api";
+
 export default function Eventos() {
+    const [editedEvents, setEditedEvents] = useState([]);
+
+    useEffect(() => {
+        allEvents().then((data) => {
+            setEditedEvents(data.data);
+        });
+    })
+
     return (
         <main className="flex flex-col bg-fundo w-full min-h-screen font-cabin">
             <header>
@@ -29,10 +41,17 @@ export default function Eventos() {
                     </Link>
                 </div>
                 <div className="flex flex-row flex-wrap items-start mx-120 gap-30 justify-center" id="conteudo">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    {editedEvents.map((event) => (
+                        <Card
+                            key={event.id}
+                            name={event.name}
+                            date={event.date}
+                            hour={event.hour}
+                            modality={event.modality}
+                            place={event.place}
+                            description={event.description}
+                        />
+                    ))}
                 </div>
             </section>
             <Footer />
