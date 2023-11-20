@@ -116,7 +116,7 @@ export default function PrimeiroAcesso() {
                         </div>
                         <div>
                             <button className="bg-azulBase mt-30 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
-                                <Link href={'../../egresso/home'}>Entrar</Link>
+                                <Link href={'../../docente/home'}>Entrar</Link>
                             </button>
                         </div>
                     </div>
