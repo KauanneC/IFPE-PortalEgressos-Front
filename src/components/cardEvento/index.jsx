@@ -1,41 +1,54 @@
-import React from 'react';
+"use client"
+import React, { useState } from "react";
 
-export default function CardEvent({ titulo, data, horario, local, descricao, expandido, onToggleExpansao, onToggleReducao }) {
-    const cardHeight = expandido ? 'auto' : '341px';
+export default function Card({ id, name, date, hour, modality, place, description }) {
+    const [expanded, setExpanded] = useState(false);
+
+    const handleToggleExpand = () => {
+        setExpanded(!expanded);
+    };
 
     return (
-        <div className={`w-310 h-auto flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg h-${cardHeight} overflow-hidden`}>
-            <h2 className='font-bold text-pretoTexto text-subtitulo text-center'>{titulo}</h2>
-            <div className='space-y-10 flex flex-col items-start'>
-                <div className='flex flex-row items-start space-x-5'>
-                    <p className='font-semibold text-azulBase text-paragrafo'>Data: </p>
-                    <p className='font-normal text-pretoTexto text-paragrafo'>{data}</p>
+        <div className={`w-400 bg-white rounded-10 border-t-10 border-azulForm drop-shadow border ${expanded ? 'max-h-auto' : ''}`}>
+            <h2 className="text-pretoTexto font-bold text-tituloSessão text-center mt-30">{name}</h2>
+            <div className="flex flex-col mt-15 mx-20 gap-10">
+                <div className="flex flex-row gap-5">
+                    <p className="font-semibold text-azulBase">Data:</p>
+                    <p className="text-pretoTexto text-paragrafo">{date}</p>
                 </div>
-                <div className='flex flex-row items-start space-x-5'>
-                    <p className='font-semibold text-azulBase text-paragrafo'>Horário: </p>
-                    <p className='font-normal text-pretoTexto text-paragrafo'>{horario}</p>
+                <div className="flex flex-row gap-5">
+                    <p className="font-semibold text-azulBase">Horário:</p>
+                    <p className="text-pretoTexto text-paragrafo">{hour}</p>
                 </div>
-                <div className='flex flex-row items-start space-x-5'>
-                    <p className='font-semibold text-azulBase text-paragrafo'>Local: </p>
-                    <p className='font-normal text-pretoTexto text-paragrafo'>{local}</p>
+                <div className="flex flex-row gap-5">
+                    <p className="font-semibold text-azulBase">Modalidade:</p>
+                    <p className="text-pretoTexto text-paragrafo">{modality}</p>
                 </div>
-                <div className='flex flex-col space-x-5'>
-                    <p className='font-semibold text-azulBase text-paragrafo'>Descrição: </p>
-                    <p className={`font-normal text-pretoTexto text-paragrafo ${expandido ? '' : 'line-clamp-3'}`}>
-                        {descricao}
-                    </p>
-                    {!expandido && (
-                        <button onClick={onToggleExpansao} className='text-azulBase font-semibold underline cursor-pointer text-right'>
-                            Ver mais
-                        </button>
-                    )}
-                    {expandido && (
-                        <button onClick={onToggleReducao} className='text-azulBase font-semibold underline cursor-pointer text-right'>
-                            Ver menos
-                        </button>
-                    )}
+                <div className="flex flex-row gap-5">
+                    <p className="font-semibold text-azulBase">Local:</p>
+                    <p className="text-pretoTexto text-paragrafo">{place}</p>
+                </div>
+                <div className="break-words flex flex-row gap-5 mb-30">
+                    <p className="font-semibold text-azulBase">Descrição:</p>
+                    <div className="text-pretoTexto text-paragrafo break-words">
+                        {description.length > 90 ? (
+                            <div>
+                                <p className="leading-snug">
+                                    {expanded ? description : `${description.slice(0, 60)}...`}
+                                </p>
+                                <button
+                                    className='text-azulBase text-paragrafo font-medium'
+                                    onClick={handleToggleExpand}
+                                >
+                                    {expanded ? 'Ver menos' : 'Ver mais'}
+                                </button>
+                            </div>
+                        ) : (
+                            <p>{description}</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
