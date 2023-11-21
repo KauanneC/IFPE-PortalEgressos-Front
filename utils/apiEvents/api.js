@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({  // Fixo
-    baseURL: "http://localhost:8000/api/",
+    baseURL: "http://localhost:8000/api/events",
 });
 
 export async function createEvents(data) { // POST
@@ -24,7 +24,7 @@ export async function createEvents(data) { // POST
 
 export async function getEvents() { // GET
     try {
-        const response = await api.get("http://localhost:8000/api/events", {
+        const response = await api.get(" ", {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -53,7 +53,7 @@ export async function updateEvents(id, data) {  // PUT
 
 export async function removeEvents(id) { // DELETE
     try {
-        const response = await axios.delete(`/${id}`);
+        const response = await api.delete(`/${id}`);
         const statusCode = response.status;
         const mensagem = response.data.msg;
         return { statusCode, mensagem };

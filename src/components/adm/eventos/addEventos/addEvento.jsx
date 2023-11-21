@@ -5,6 +5,7 @@ import Link from "next/link";
 // icons
 import iconAttetion from "/public/icons/iconAttetion.svg"
 import iconSucess from "/public/icons/iconSucess.svg"
+import iconError from "/public/icons/iconError.svg"
 
 // Components
 import Popup from "@/components/popUp/popup";
@@ -15,6 +16,8 @@ import { createEvents } from "../../../../../utils/apiEvents/api";
 export default function AddEvento() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [sucessPopupOpen, setSucessPopupOpen] = useState(false);
+    const [errorPopupOpen, setErrorPopupOpen] = useState(false);
+    const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
 
     const [eventos, setEventos] = useState({
         name: "",
@@ -34,20 +37,35 @@ export default function AddEvento() {
     };
 
     const handleEnviarClick = () => {
-        console.log(eventos);
-
         createEvents(eventos)
             .then((response) => {
                 if (response.statusCode === 200) {
                     setSucessPopupOpen(true);
                     setPopupOpen(false);
                 } else {
-                    alert("Erro ao criar o evento!")
+                    setErrorPopupOpen(true);
+                    setErrorPopupOpen(false);
                 }
             })
             .catch((error) => {
                 console.error(error);
             });
+    };
+
+    const handleErrorPopup = () => {
+        setErrorPopupOpen(true);
+    };
+
+    const handleCloseErrorPopup = () => {
+        setErrorPopupOpen(false);
+    };
+
+    const handleCancelClick = () => {
+        setCancelPopupOpen(true);
+    };
+
+    const handleCloseCancel = () => {
+        setCancelPopupOpen(false);
     };
 
     const handleOpenPopup = () => {
@@ -148,7 +166,7 @@ export default function AddEvento() {
                         <button onClick={handleOpenPopup}>Salvar</button>
                     </div>
                     <div className="inline-block bg-vermelhoButton rounded-10 text-white text-paragrafo py-10 px-30">
-                        <button>Cancelar</button>
+                        <button onClick={handleCancelClick}>Cancelar</button>
                     </div>
                 </div>
                 {isPopupOpen && (
@@ -170,6 +188,32 @@ export default function AddEvento() {
                         <Link href="/adm/eventos/page">
                             <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
                         </Link>
+                    </Popup>
+                )}
+                {cancelPopupOpen && (
+                    <Popup isOpen={cancelPopupOpen} onClose={handleCloseCancel}>
+                        <Image src={iconAttetion} />
+                        <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
+                        <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Os dados não serão salvos</p>
+                        <div className="flex justify-center">
+                            <Link href="/adm/eventos/page">
+                                <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
+                            </Link>
+                            <button onClick={handleCloseCancel} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
+                        </div>
+                    </Popup>
+                )}
+                {errorPopupOpen && (
+                    <Popup isOpen={errorPopupOpen} onClose={handleCloseErrorPopup}>
+                        <Image src={iconError} />
+                        <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Algo deu errado</h1>
+                        <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento não foi criado</p>
+                        <div className="flex justify-center">
+                            <button onClick={handleCloseErrorPopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Tentar novamente</button>
+                            <Link href="/adm/eventos/page">
+                                <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
+                            </Link>
+                        </div>
                     </Popup>
                 )}
             </div>
