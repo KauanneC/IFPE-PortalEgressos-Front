@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/user';
