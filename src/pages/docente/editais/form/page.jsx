@@ -34,9 +34,6 @@ export default function EventosForm() {
                         <AddEvento />
                     ))}
                 </div>
-                <div>
-                    <AllEvents />
-                </div>
             </section>
             <Footer />
         </main>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Components
-import NavBar from "@/components/navBar/adm/page";
+import NavBar from "@/components/navBar/docente/page";
 import Footer from "@/components/footer";
 import NavAcessibilidade from "@/components/navAcessibilidade/index";
 import AddEvento from "@/components/adm/eventos/addEventos/addEvento";
@@ -15,7 +15,7 @@ export default function EventosForm() {
     };
 
     return (
-        <main className="flex flex-col bg-cinza10 w-full min-h-screen font-cabin">
+        <main className="flex flex-col bg-cinza10 font-cabin">
             <header>
                 <NavAcessibilidade />
                 <NavBar />
