@@ -16,7 +16,7 @@ export default function card({ title, link }) {
             <h1 className="text-pretoTexto font-bold text-tituloSessão">Edital</h1>
             <button className="flex justify-center items-center gap-15 mt-20">
                 <Image className="" src={iconPdf}></Image>
-                Ver Edital
+                Baixar Edital
             </button>
         </div>
     )

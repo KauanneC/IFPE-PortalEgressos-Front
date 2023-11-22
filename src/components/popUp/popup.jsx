@@ -5,7 +5,6 @@ const Popup = ({ isOpen, onClose, children }) => {
 
     const handleClose = () => {
         setIsVisible(false);
-        onClose();
     };
 
     return (

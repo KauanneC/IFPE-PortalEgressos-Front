@@ -15,6 +15,10 @@ import Popup from "@/components/popUp/popup";
 export default function allEvents() {
     const [editedEvents, setEditedEvents] = useState([]);
     const [deletePopup, setDeletePopup] = useState(false);
+    const [sucessPopupOpen, setSucessPopupOpen] = useState(false);
+    const [deleteSucessPopup, setDeleteSucessPopup] = useState(false);
+    const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
+    const [id, setId] = useState(null);
 
     useEffect(() => {
         getEvents().then((data) => {
@@ -33,8 +37,8 @@ export default function allEvents() {
         });
     };
 
-    const handleEnviarClick = (id, event) => {
-        updateEvents(id, event)
+    const handleEnviarClick = (id, eventData) => {
+        updateEvents(id, eventData)
             .then((response) => {
                 if (response.statusCode === 200) {
                     setSucessPopupOpen(true);
@@ -47,29 +51,40 @@ export default function allEvents() {
             });
     };
 
+    function handleOpenDeletePopup(id) {
+        setId(id);
+        setDeletePopup(true);
+    }
+
+    const handleCloseDeletePopup = () => {
+        setDeletePopup(false);
+    };
+
     const handleCancelClick = () => {
-        const confirmCancel = window.confirm("Tem certeza que deseja cancelar? Todas as alterações serão perdidas.");
-        if (confirmCancel) {
-            window.location.href = "/pages/adm/admDocentes";
-        }
+        setCancelPopupOpen(false);
+    };
+
+    const handleOpenCancelClick = () => {
+        setCancelPopupOpen(true);
     };
 
     const handleDeleteClick = (id) => {
-        const confirmDelete = window.confirm("Tem certeza que deseja excluir? Essa ação não poderá ser desfeita.");
-        if (confirmDelete) {
-            removeEvents(id)
-                .then((response) => {
-                    if (response.statusCode === 200) {
-                        alert("Usuário excluídos com sucesso!")
-                        window.location.reload();
-                    } else {
-                        alert("Erro ao excluir os usuários!")
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
+        removeEvents(id)
+            .then((response) => {
+                if (response.statusCode === 200) {
+                    setDeleteSucessPopup(true);
+                    setDeletePopup(false);
+                } else {
+                    alert("Erro ao excluir os usuários!")
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    function getId(id) {
+        setId(id);
     };
 
     function autoExpandTextArea(element) {
@@ -77,28 +92,27 @@ export default function allEvents() {
         element.style.height = element.scrollHeight + 'px'; // Define a altura com base no conteúdo
     };
 
-    const handleCloseSucessPopup = () => {
-        setSucessPopupOpen(false);
-    };
-
+    const handleReload = () => {
+        window.location.reload();
+    }
 
     return (
         <div>
-            {editedEvents.map((event, index) => (
+            {editedEvents.map((events, index) => (
                 <div className="bg-fundo px-60 py-30 rounded-10 mt-15">
                     <div className="w-full">
                         <div>
                             <div className="flex justify-between items-start">
                                 <p className="font-semibold text-subtitulo text-pretoTexto mb-15">Nome do Evento</p>
-                                <button onClick={() => handleDeleteClick(event.id)}>
-                                    <Image src={iconTrash} alt="Ícone de lixeira"/>
+                                <button onClick={()=>handleOpenDeletePopup(events.id)}>
+                                    <Image src={iconTrash} alt="Ícone de lixeira" />
                                 </button>
                             </div>
                             <input
                                 type="text"
                                 placeholder="Digite o nome do evento"
                                 name="name"
-                                value={event.name}
+                                value={events.name}
                                 onChange={(e) => { handleEventInputChange(index, "name", e.target.value) }}
                                 className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                             />
@@ -109,7 +123,7 @@ export default function allEvents() {
                                 <input
                                     type="date"
                                     name="date"
-                                    value={event.date}
+                                    value={events.date}
                                     onChange={(e) => { handleEventInputChange(index, "date", e.target.value) }}
                                     className="bg-inherit border border-cinza07 rounded-10 p-10 outline-none"
                                 />
@@ -119,7 +133,7 @@ export default function allEvents() {
                                 <input
                                     type="time"
                                     name="hour"
-                                    value={event.hour}
+                                    value={events.hour}
                                     onChange={(e) => { handleEventInputChange(index, "hour", e.target.value) }}
                                     className="bg-inherit border border-cinza07 rounded-10 p-10 outline-none"
                                 />
@@ -132,7 +146,7 @@ export default function allEvents() {
                                     type="radio"
                                     name={`modality-${index}`}
                                     value="Presencial"
-                                    checked={event.modality === "Presencial"}
+                                    checked={events.modality === "Presencial"}
                                     onChange={(e) => { handleEventInputChange(index, "modality", e.target.value) }}
                                 />
                                 <label className="ml-10 text-pretoTexto">Presencial</label>
@@ -142,7 +156,7 @@ export default function allEvents() {
                                     type="radio"
                                     name={`modality-${index}`}
                                     value="Online"
-                                    checked={event.modality === "Online"}
+                                    checked={events.modality === "Online"}
                                     onChange={(e) => { handleEventInputChange(index, "modality", e.target.value) }}
                                 />
                                 <label className="ml-10 text-pretoTexto">Online</label>
@@ -154,7 +168,7 @@ export default function allEvents() {
                                 type="text"
                                 placeholder="Digite o local ou link"
                                 name="place"
-                                value={event.place}
+                                value={events.place}
                                 onChange={(e) => { handleEventInputChange(index, "place", e.target.value) }}
                                 className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                             />
@@ -165,8 +179,8 @@ export default function allEvents() {
                                 type="text"
                                 placeholder="Digite a descrição"
                                 name="description"
-                                value={event.description}
-                                onChange={(e) => { 
+                                value={events.description}
+                                onChange={(e) => {
                                     handleEventInputChange(index, "description", e.target.value)
                                     autoExpandTextArea(e.target);
                                 }}
@@ -175,36 +189,53 @@ export default function allEvents() {
                         </div>
                         <div className="flex mt-30 justify-center gap-30">
                             <div className="inline-block bg-verdeButton rounded-10 text-white text-paragrafo py-10 px-30">
-                                <button onClick={() => handleEnviarClick(event.id, event)}>Salvar</button>
+                                <button onClick={() => handleEnviarClick(events.id, events)}>Salvar</button>
                             </div>
                             <div className="inline-block bg-vermelhoButton rounded-10 text-white text-paragrafo py-10 px-30">
-                                <button>Cancelar</button>
+                                <button onClick={handleOpenCancelClick}>Cancelar</button>
                             </div>
                         </div>
-                        {/* {isPopupOpen && (
-                            <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-                                <Image src={iconAttetion} />
-                                <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
-                                <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Ao salvar o evento será automaticamente publicado.</p>
-                                <div className="flex justify-center">
-                                    <button onClick={handleEnviarClick} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
-                                    <button onClick={handleClosePopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
-                                </div>
-                            </Popup>
-                        )} */}
-                        {/* {sucessPopupOpen && (
-                            <Popup isOpen={sucessPopupOpen} onClose={handleCloseSucessPopup}>
-                                <Image src={iconSucess} />
-                                <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Atualizado</h1>
-                                <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi atualizado com sucesso</p>
-                                <Link href="/adm/eventos/page">
-                                    <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
-                                </Link>
-                            </Popup>
-                        )} */}
                     </div>
                 </div>
             ))}
+            {deletePopup && (
+                <Popup isOpen={deletePopup} onClose={handleCloseDeletePopup}>
+                    <Image src={iconAttetion} />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Essa ação não poderá ser desfeita</p>
+                    <div className="flex justify-center">
+                        <button onClick={() => handleDeleteClick(id)} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
+                        <button onClick={handleCloseDeletePopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
+                    </div>
+                </Popup>
+            )}
+            {sucessPopupOpen && (
+                <Popup isOpen={sucessPopupOpen}>
+                    <Image src={iconSucess} />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Atualizado</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi atualizado com sucesso</p>
+                    <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
+                </Popup>
+            )}
+            {deleteSucessPopup && (
+                <Popup isOpen={deleteSucessPopup}>
+                    <Image src={iconSucess} />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Excluído</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi excluído com sucesso</p>
+                    <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
+                </Popup>
+            )}
+            {cancelPopupOpen && (
+                <Popup isOpen={cancelPopupOpen} onClose={handleCancelClick}>
+                    <Image src={iconAttetion} />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Essa ação não poderá ser desfeita</p>
+                    <div className="flex justify-center">
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
+                        <button onClick={handleCancelClick} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
+                    </div>
+                </Popup>
+            )}
         </div>
     )
 }

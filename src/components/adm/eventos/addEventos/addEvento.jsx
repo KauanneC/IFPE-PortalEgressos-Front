@@ -18,6 +18,8 @@ export default function AddEvento() {
     const [sucessPopupOpen, setSucessPopupOpen] = useState(false);
     const [errorPopupOpen, setErrorPopupOpen] = useState(false);
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
+    const [warningsPopupOpen, setWarningsPopupOpen] = useState(false);
+    const [warnings, setWarnings] = useState([]);
 
     const [eventos, setEventos] = useState({
         name: "",
@@ -37,23 +39,57 @@ export default function AddEvento() {
     };
 
     const handleEnviarClick = () => {
-        createEvents(eventos)
-            .then((response) => {
-                if (response.statusCode === 200) {
-                    setSucessPopupOpen(true);
-                    setPopupOpen(false);
-                } else {
-                    setErrorPopupOpen(true);
-                    setErrorPopupOpen(false);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
+        const newWarnings = [];
+        if (eventos.name === "") {
+            newWarnings.push("O nome do evento é obrigatório");
+        };
 
-    const handleErrorPopup = () => {
-        setErrorPopupOpen(true);
+        if (eventos.date === "") {
+            newWarnings.push("A data do evento é obrigatória");
+        } else {
+            const data = new Date(eventos.date); 
+            const today = new Date();
+        
+            if (data < today) {
+                newWarnings.push("A data do evento não pode ser anterior à data atual");
+            };
+        };
+
+        if (eventos.hour === "") {
+            newWarnings.push("O horário do evento é obrigatório");
+        };
+
+        if (eventos.modality === "") {
+            newWarnings.push("A modalidade do evento é obrigatória");
+        };
+
+        if (eventos.place === "") {
+            newWarnings.push("O local do evento é obrigatório");
+        };
+
+        if (eventos.description === "") {
+            newWarnings.push("A descrição do evento é obrigatória");
+        };
+
+        if (newWarnings.length > 0) {
+            setWarnings(newWarnings);
+            setWarningsPopupOpen(true);
+            setPopupOpen(false);
+        } else {
+            createEvents(eventos)
+                .then((response) => {
+                    if (response.statusCode === 200) {
+                        setSucessPopupOpen(true);
+                        setPopupOpen(false);
+                    } else {
+                        setErrorPopupOpen(true);
+                        setErrorPopupOpen(false);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
     };
 
     const handleCloseErrorPopup = () => {
@@ -80,6 +116,14 @@ export default function AddEvento() {
         setSucessPopupOpen(false);
     };
 
+    const handleCloseWarningsPopup = () => {
+        setWarningsPopupOpen(false);
+    };
+
+    const handleReload = () => {
+        window.location.reload();
+    }
+
     return (
         <div className="bg-fundo px-60 py-30 rounded-10 mt-15">
             <div className="w-full">
@@ -91,7 +135,7 @@ export default function AddEvento() {
                         name="name"
                         value={eventos.name}
                         onChange={(e) => { handleFieldChange(e) }}
-                        className="w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
+                        className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                     />
                 </div>
                 <div className="flex justify-between mt-30">
@@ -102,7 +146,7 @@ export default function AddEvento() {
                             name="date"
                             value={eventos.date}
                             onChange={(e) => { handleFieldChange(e) }}
-                            className="border border-cinza07 rounded-10 p-10 outline-none"
+                            className="bg-inherit border border-cinza07 rounded-10 p-10 outline-none"
                         />
                     </div>
                     <div className="w-445">
@@ -112,7 +156,7 @@ export default function AddEvento() {
                             name="hour"
                             value={eventos.hour}
                             onChange={(e) => { handleFieldChange(e) }}
-                            className="border border-cinza07 rounded-10 p-10 outline-none"
+                            className="bg-inherit border border-cinza07 rounded-10 p-10 outline-none"
                         />
                     </div>
                 </div>
@@ -147,7 +191,7 @@ export default function AddEvento() {
                         name="place"
                         value={eventos.place}
                         onChange={(e) => { handleFieldChange(e) }}
-                        className="w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
+                        className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                     />
                 </div>
                 <div className="mt-30">
@@ -158,7 +202,7 @@ export default function AddEvento() {
                         name="description"
                         value={eventos.description}
                         onChange={(e) => { handleFieldChange(e) }}
-                        className="w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
+                        className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                     />
                 </div>
                 <div className="flex mt-30 justify-center gap-30">
@@ -185,9 +229,7 @@ export default function AddEvento() {
                         <Image src={iconSucess} />
                         <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Publicado</h1>
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi publicado com sucesso</p>
-                        <Link href="/adm/eventos/page">
-                            <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
-                        </Link>
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
                     </Popup>
                 )}
                 {cancelPopupOpen && (
@@ -196,9 +238,7 @@ export default function AddEvento() {
                         <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Os dados não serão salvos</p>
                         <div className="flex justify-center">
-                            <Link href="/adm/eventos/page">
-                                <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
-                            </Link>
+                            <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
                             <button onClick={handleCloseCancel} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
                         </div>
                     </Popup>
@@ -210,9 +250,22 @@ export default function AddEvento() {
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento não foi criado</p>
                         <div className="flex justify-center">
                             <button onClick={handleCloseErrorPopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Tentar novamente</button>
-                            <Link href="/adm/eventos/page">
-                                <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
-                            </Link>
+                            <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
+                        </div>
+                    </Popup>
+                )}
+                {warningsPopupOpen && (
+                    <Popup isOpen={warningsPopupOpen} onClose={handleCloseWarningsPopup}>
+                        <Image src={iconError} />
+                        <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Algo deu errado</h1>
+                        <ul className="flex flex-col text-vermelhoButton gap-5">
+                            {warnings.map((warning, index) => (
+                                <li key={index}>{warning}</li>
+                            ))}
+                        </ul>
+                        <div className="flex justify-center mt-15">
+                            <button onClick={handleCloseWarningsPopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Tentar novamente</button>
+                            <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
                         </div>
                     </Popup>
                 )}
