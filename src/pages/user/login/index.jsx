@@ -20,17 +20,19 @@ export default function Login() {
         console.log(showPassword)
     }
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     return (
         <main>
             <section className="flex flex-row h-screen">
-                <div className="w-3/5">
+                <div className="w-4/6">
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
-                <div className="w-2/5 flex flex-col justify-center px-60">
-                    <button className="flex flex-row items-center space-x-5 absolute top-36">
-                        <Link href="/">
-                            <Image src={IconVoltar} alt="Voltar" />
-                        </Link>
+                <div className="w-3/6 flex flex-col justify-center px-60">
+                    <button onClick={handleBack}>
+                        <Image src={IconVoltar} alt="Voltar" className="mt-30"/>
                     </button>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Login</h1>
                     <div className="space-y-30">
@@ -65,7 +67,7 @@ export default function Login() {
                             </p>
                         </div>
                         <div>
-                            <button className="bg-azulBase py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
+                            <button className="bg-azulBase mt-10 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
                                 <Link href={'../../egresso/primeiroAcesso'}>Entrar</Link>
                             </button>
                         </div>
