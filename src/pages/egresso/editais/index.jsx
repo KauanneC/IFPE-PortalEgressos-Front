@@ -49,9 +49,9 @@ export default function Editais() {
                         <p className='text-pretoTexto text-tituloSessão'>No momento não há editais</p>
                     </div>
                 ) : (
-                    <div className='grid gap-y-30 grid-cols-3'>
+                    <div className='grid gap-x-30 gap-y-30 grid-cols-3'>
                         {editais.map((edital, index) => (
-                            <div key={index} className='w-full flex items-center justify-center'>
+                            <div key={index} className='w-full'>
                                 <CardEdital
                                     titulo={edital.titulo}
                                     pdf={edital.pdf}

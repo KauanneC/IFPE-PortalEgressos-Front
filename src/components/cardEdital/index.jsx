@@ -29,7 +29,7 @@ export default function CardEdital({ titulo, pdf }) {
 
     return (
         <div
-            className={`w-10/12 h-${getCardHeight()} flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg`}
+            className={`w-full h-${getCardHeight()} flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
