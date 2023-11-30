@@ -28,7 +28,9 @@ export default function Eventos() {
         <main className="flex flex-col bg-fundo w-full min-h-screen font-cabin">
             <header>
                 <NavAcessibilidade />
-                <NavBar />
+                <div id="navmenu">
+                    <NavBar />
+                </div>
             </header>
             <section className="flex-grow">
                 <Image className="w-full" src={ImgHeader}></Image>
@@ -54,7 +56,9 @@ export default function Eventos() {
                     ))}
                 </div>
             </section>
-            <Footer />
+            <footer id="rodape">
+                <Footer />
+            </footer>
         </main>
     )
 }

@@ -83,10 +83,6 @@ export default function allEvents() {
             });
     };
 
-    function getId(id) {
-        setId(id);
-    };
-
     function autoExpandTextArea(element) {
         element.style.height = 'auto'; // Redefine a altura para automática
         element.style.height = element.scrollHeight + 'px'; // Define a altura com base no conteúdo

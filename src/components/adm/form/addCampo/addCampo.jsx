@@ -8,7 +8,10 @@ import iconDelete from "/public/icons/iconDelete.svg"
 // Components
 import Dropdown from "@/components/adm/form/menu/menu";
 
-export default function AddCampo() {
+// API
+import { createFields } from "../../../../../utils/apiForm/api";
+
+export default function AddCampo({ props }) {
     const [selectedOption, setSelectedOption] = useState('text'); // Opções do menu
     const [radioOptions, setRadioOptions] = useState([{ question: 'Opção 1' }]); // Opções do tipo radios
     const [checkboxOptions, setCheckboxOptions] = useState([{ question: 'Opção 1' }]); // Opções do tipo radios
@@ -16,10 +19,14 @@ export default function AddCampo() {
     const [showOtherOptionCheck, setShowOtherOptionCheck] = useState(false);
     const [otherOptionText, setOtherOptionText] = useState("");
     const [otherOptionCheckbox, setOtherOptionCheckbox] = useState("");
+    const [otherOptionQuestion, setOtherOptionQuestion] = useState();
 
     const [dados, setDados] = useState({
+        formType: props,
         question: "",
         type: "text",
+        options: [],
+        other: null,
     });
 
 
@@ -28,47 +35,67 @@ export default function AddCampo() {
         // Adicione lógica para atualizar o estado 'dados' com atributos específicos
         switch (option) {
             case "text":
-                setDados((prevState) => {
-                    const { option, ...rest } = prevState;
-                    return {
-                        ...rest,
-                    };
-                });
+                setDados((prevState) => ({
+                    ...prevState,
+                    options: null,
+                }));
                 break;
             case "radio":
-                setDados((prevState) => {
-                    // Cria uma cópia do estado anterior excluindo o atributo 'question'
-                    const { title, ...rest } = prevState;
-                    return {
-                        ...rest,
-                        option: [],
-                    };
-                });
-                break;
             case "checkbox":
-                setDados((prevState) => {
-                    const { title, ...rest } = prevState;
-                    return {
-                        ...rest,
-                        option: [],
-                    };
-                });
+                setDados((prevState) => ({
+                    ...prevState,
+                    options: [{ question: 'Opção 1' }],
+                }));
                 break;
             default:
                 break;
-        }
-
-        // PopUp de confirmação
+        };
 
         setSelectedOption(option);
+
         setRadioOptions([{ question: 'Opção 1' }]); // Redefine as opções de rádio para um estado inicial
         setShowOtherOption(false);
         setOtherOptionText(""); // Limpa o texto da opção "Outros"
-        setCheckboxOptions([{ question: 'Opção 1' }]); // Redefine as opções de rádio para um estado inicial
+
+        setCheckboxOptions([{ question: 'Opção 1' }]); 
         setShowOtherOptionCheck(false);
-        setOtherOptionCheckbox(""); // Limpa o texto da opção "Outros"
+        setOtherOptionCheckbox(""); 
     };
 
+    const handleRemoveRadioOption = (index) => {
+        const updatedOptions = [...radioOptions];
+        updatedOptions.splice(index, 1);
+        setRadioOptions(updatedOptions);
+    };
+
+    const handleRemoveCheckOption = (index) => {
+        const updatedOptions = [...checkboxOptions];
+        updatedOptions.splice(index, 1);
+        setCheckboxOptions(updatedOptions);
+    };
+
+    const handleFieldChange = (event) => {
+        const { name, value } = event.target;
+        setDados({
+            ...dados,
+            [name]: value,
+        });
+    };
+
+    const handleEnviarClick = () => {
+        console.log(dados);
+        createFields(dados)
+            .then((response) => {
+                if (response.statusCode === 200) {
+                    alert("Campo criado com sucesso!")
+                } else {
+                    alert("Erro ao criar o campo!")
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     const handleAddOption = () => {
         const newOption = { question: `Opção ${radioOptions.length + 1}` };
@@ -88,10 +115,10 @@ export default function AddCampo() {
         const newDados = { ...dados };
 
         // Se a opção já existe, atualize a pergunta; caso contrário, adicione uma nova opção
-        if (index < newDados.option.length) {
-            newDados.option[index] = { ...newDados.option[index], question: value };
+        if (index < newDados.options.length) {
+            newDados.options[index] = { ...newDados.options[index], question: value };
         } else {
-            newDados.option.push({ question: value });
+            newDados.options.push({ question: value });
         }
 
         newDados.type = "radio";
@@ -108,10 +135,10 @@ export default function AddCampo() {
         const newDados = { ...dados };
 
         // Se a opção já existe, atualize a pergunta; caso contrário, adicione uma nova opção
-        if (index < newDados.option.length) {
-            newDados.option[index] = { ...newDados.option[index], question: value };
+        if (index < newDados.options.length) {
+            newDados.options[index] = { ...newDados.options[index], question: value };
         } else {
-            newDados.option.push({ question: value });
+            newDados.options.push({ question: value });
         }
 
         newDados.type = "checkbox";
@@ -120,24 +147,35 @@ export default function AddCampo() {
         setDados(newDados);
     };
 
-    const handleShowOtherOption = () => {
-        setShowOtherOption(true);
-    };
-
-    const handleShowOtherCheckbox = () => {
-        setShowOtherOptionCheck(true);
-    };
-
     const handleClickSave = () => {
         console.log(dados);
     };
 
-    const handleFieldChange = (event) => {
-        const { name, value } = event.target;
-        setDados({
-            ...dados,
-            [name]: value,
-        });
+    const handleShowOtherOption = () => {
+        setShowOtherOption(true);
+    
+        setRadioOptions((prevOptions) => [...prevOptions]);
+        setDados((prevDados) => ({
+            ...prevDados,
+            options: [...prevDados.options],
+            other: "Outros:",
+        }));
+    };
+
+    const handleShowOtherCheck = () => {
+        setShowOtherOptionCheck(true);
+    
+        setCheckboxOptions((prevOptions) => [...prevOptions]);
+        setDados((prevDados) => ({
+            ...prevDados,
+            options: [...prevDados.options],
+            other: "Outros:",
+        }));
+    };
+
+    const handleRemoveOtherOption = () => {
+        setShowOtherOption(false);
+        setOtherOptionCheckbox(""); // Limpa o valor quando removido
     };
 
     return (
@@ -155,15 +193,16 @@ export default function AddCampo() {
                         />
                         <Dropdown value={selectedOption} onOptionChange={handleOptionChange} />
                         <button>
-                            <Image src={iconTrash} alt="Ícone de lixeira"/>
+                            <Image src={iconTrash} alt="Ícone de lixeira" />
                         </button>
                     </div>
                     {selectedOption === 'text' && (
                         <input
                             type="text"
-                            placeholder="Digite aqui"
+                            placeholder="Resposta do Egresso"
                             id="nome"
                             className="bg-fundo w-full border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo pl-10 font-regular mt-15"
+                            disabled
                         />
                     )}
                     {selectedOption === 'radio' && (
@@ -171,17 +210,17 @@ export default function AddCampo() {
                             {radioOptions.map((option, index) => (
                                 <div className="flex gap-10 mt-15">
                                     <div className="flex w-full">
-                                        <input type="radio" name="radioOptions" value={index} />
+                                        <input type="radio" name="radioOptions" value={index} disabled />
                                         <input
                                             type="text"
                                             value={option.question}
                                             onChange={(e) => handleOptionQuestionChange(index, e.target.value)}
                                             className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                         />
-                                    </div>        
-                                    <button className="ml-10">
-                                        <Image src={iconDelete} alt="Ícone de x"/>
-                                    </button>                                    
+                                    </div>
+                                    <button className="ml-10" onClick={() => handleRemoveRadioOption(index)}>
+                                        <Image src={iconDelete} alt="Ícone de x" />
+                                    </button>
                                 </div>
                             ))}
                         </div>
@@ -192,20 +231,21 @@ export default function AddCampo() {
                                 <input
                                     type="radio"
                                     name="radioOptions"
-                                    value="outros"
+                                    value="other"
                                     className="mr-10"
+                                    disabled
                                 />
                                 <label>Outros:</label>
                                 <input
                                     type="text"
-                                    placeholder="Descreva outros detalhes"
-                                    value={otherOptionText}
-                                    onChange={(e) => otherOptionText(e.target.value)}
+                                    placeholder="Resposta do Egresso"
+                                    value={otherOptionCheckbox}
+                                    disabled
                                     className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                 />
                             </div>
-                            <button className="ml-10">
-                                <Image src={iconDelete} alt="Ícone de x"/>
+                            <button className="ml-10" onClick={handleRemoveOtherOption}>
+                                <Image src={iconDelete} alt="Ícone de x" />
                             </button>
                         </div>
                     )}
@@ -226,7 +266,7 @@ export default function AddCampo() {
                             {checkboxOptions.map((option, index) => (
                                 <div className="flex gap-10 mt-15">
                                     <div className="flex w-full">
-                                        <input type="checkbox" name="checkboxOptions" value={index} />
+                                        <input type="checkbox" name="checkboxOptions" value={index} disabled />
                                         <input
                                             type="text"
                                             value={option.question}
@@ -234,8 +274,8 @@ export default function AddCampo() {
                                             className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                         />
                                     </div>
-                                    <button className="ml-10">
-                                        <Image src={iconDelete}/>
+                                    <button className="ml-10" onClick={() => handleRemoveCheckOption(index)}>
+                                        <Image src={iconDelete} />
                                     </button>
                                 </div>
                             ))}
@@ -247,20 +287,20 @@ export default function AddCampo() {
                                 <input
                                     type="checkbox"
                                     name="checkboxOptions"
-                                    value="outros"
+                                    value={dados.other}
                                     className="mr-10"
+                                    disabled
                                 />
                                 <label>Outros:</label>
                                 <input
                                     type="text"
-                                    placeholder="Descreva outros detalhes"
-                                    value={otherOptionCheckbox}
-                                    onChange={(e) => setOtherOptionCheckbox(e.target.value)}
+                                    placeholder="Resposta do Egresso"
+                                    disabled
                                     className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                 />
                             </div>
-                            <button className="ml-10">
-                                <Image src={iconDelete} alt="Ícone de x"/>
+                            <button className="ml-10" onClick={handleRemoveOtherOption}>
+                                <Image src={iconDelete} alt="Ícone de x" />
                             </button>
                         </div>
                     )}
@@ -272,13 +312,13 @@ export default function AddCampo() {
                         )}
                         {selectedOption === 'checkbox' && (
                             <div className="flex bg-azulBase text-white text-center justify-center rounded-10 py-5 px-10 mt-15 text-legenda">
-                                <button onClick={handleShowOtherCheckbox}>Adicionar Outros</button>
+                                <button onClick={handleShowOtherCheck}>Adicionar Outros</button>
                             </div>
                         )}
                     </div>
                     <div className="flex items-center justify-center gap-10 mt-30">
                         <div className="inline-block bg-verdeButton rounded-10 text-center text-white">
-                            <button onClick={handleClickSave} className="px-15 py-10">Salvar</button>
+                            <button onClick={handleEnviarClick} className="px-15 py-10">Salvar</button>
                         </div>
                         <div className="inline-block bg-vermelhoButton rounded-10 text-center text-white">
                             <button onClick={handleClickSave} className="px-15 py-10">Cancelar</button>

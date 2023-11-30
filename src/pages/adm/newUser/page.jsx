@@ -61,7 +61,7 @@ export default function NewUser() {
                                 </button>
                             </div>
                             <div className="flex flex-col justify-center items-center mt-30 w-full">
-                                <div className="flex border-b-1 border-cinza07 w-full">
+                                <div className={`${perfilSelecionado ? 'border-cinza05' : 'border-cinza07'} flex border-b-1 w-full mt-30`}>
                                     <label className="mx-auto my-auto ml-10">
                                         <Image
                                             className={`w-25 h-25 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
@@ -73,10 +73,10 @@ export default function NewUser() {
                                         type="email"
                                         placeholder="Email"
                                         disabled={!perfilSelecionado}
-                                        className={`${perfilSelecionado ? 'border-cinza07' : 'border-vermelho'} bg-inherit text-cinza04 outline-none w-full p-10`}
+                                        className={`${perfilSelecionado ? 'border-cinza07 text-pretoTexto' : 'border-cinza05'} bg-inherit text-cinza04 outline-none w-full p-10`}
                                     />
                                 </div>
-                                <div className="flex border-b-1 border-cinza07 w-full mt-30">
+                                <div className={`${perfilSelecionado ? 'border-cinza05' : 'border-cinza07'} flex border-b-1 w-full mt-30`}>
                                     <label className="mx-auto my-auto ml-10">
                                         <Image
                                             className={`w-25 h-25 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
@@ -88,11 +88,11 @@ export default function NewUser() {
                                         type={showPassword ? 'text' : 'password'}
                                         placeholder="Senha"
                                         disabled={!perfilSelecionado}
-                                        className={`${perfilSelecionado ? 'border-cinza07' : 'border-vermelho'} bg-inherit text-cinza04 outline-none w-full p-10`}
+                                        className={`${perfilSelecionado ? 'border-cinza07' : ''} bg-inherit text-cinza04 outline-none w-full p-10`}
                                     />
                                     <label className="mx-auto my-auto" onClick={togglePasswordVisibility}>
                                         <Image
-                                            className={`w-25 h-25 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
+                                            className={`w-25 h-25 mr-10 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
                                             src={perfilSelecionado ? (showPassword ? IconSee : IconUnsee) : iconUnseeDesable}
                                             alt={perfilSelecionado ? 'Ícone de uma cadeado' : 'Ícone de uma cadeado desativado'}
                                         />

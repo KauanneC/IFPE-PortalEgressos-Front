@@ -11,10 +11,12 @@ import arrow from "/public/icons/arrow.svg"
 // Components
 import Title from "@/components/adm/form/title/Title";
 import AddCampo from "@/components/adm/form/addCampo/addCampo";
+import AllFields from "@/components/adm/form/allFields/allFields";
 
 export default function StepProfissional(props) {
     const {cont, setCont, step, stepStep} = props;
     const [campos, setCampos] = useState([]);
+    const [hasFields, setHasFields] = useState(true);
 
     const categorieChangeProx = () => {
         setCont(cont + 1);
@@ -22,6 +24,7 @@ export default function StepProfissional(props) {
 
     const categorieChangeAnt = () => {
         setCont(cont - 1);
+        setHasFields(false);
     };
 
     const adicionarCampo = () => {
@@ -60,8 +63,9 @@ export default function StepProfissional(props) {
                 </div>
                 <div>
                     {campos.map((campo) => (
-                        <AddCampo></AddCampo>
+                        <AddCampo props={"profissional"}/>
                     ))}
+                    <AllFields formType={'profissional'} hasFields={hasFields} setHasFields={setHasFields}/> 
                 </div>
                 <div className="flex items-center justify-center gap-10">
                     <div className="inline-block bg-azulBase rounded-10 text-white mt-15">

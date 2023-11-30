@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function card() {
     return (
@@ -7,7 +8,9 @@ export default function card() {
                 <h1 className="font-bold text-subtitulo">Nome do Aluno</h1>
                 <div>
                     <button className="inline-block bg-azulBase mr-30 rounded-10 text-white font-semibold text-legenda px-15 py-5">Exportar Dados</button>
-                    <button className="inline-block bg-azulBase mr-30 rounded-10 text-white font-semibold text-legenda px-15 py-5">Ver Formulário</button>
+                    <Link href="../../../../adm/egressos/seeForm/page">
+                        <button className="inline-block bg-azulBase mr-30 rounded-10 text-white font-semibold text-legenda px-15 py-5">Ver Formulário</button>
+                    </Link>
                 </div>
             </div>
         </div>

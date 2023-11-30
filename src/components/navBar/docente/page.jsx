@@ -10,10 +10,10 @@ function NavBar() {
 
     return (
         <div id='navmenu' className="bg-fundo py-4 justify-between flex">
-            <div className="w-ful">
-                <Link href="/docente/home/page" className={`text-azulBase ml-30 mr-10 ${router.pathname === '/docente/home/page' ? 'p-5 border-b-2 border-azulBase' : ''}`}>Home</Link>
-                <Link href="/docente/eventos/page" className={`text-azulBase mr-10 ${router.pathname === '/docente/eventos/page' ? 'p-5 border-b-2 border-azulBase' : ''}`}>Adicionar Eventos</Link>
-                <Link href="/docente/editais" className={`text-azulBase mr-10 ${router.pathname === '/docente/editais' ? 'p-5 border-b-2 border-azulBase' : ''}`}>Adicionar Editais</Link>
+            <div className="flex w-ful gap-30">
+                <Link href="/docente/home/page" className={`text-azulBase ml-30 ${router.pathname === '/docente/home/page' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
+                <Link href="/docente/eventos/page" className={`text-azulBase ${router.pathname === '/docente/eventos/page' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Eventos</Link>
+                <Link href="/docente/editais" className={`text-azulBase ${router.pathname === '/docente/editais' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Editais</Link>
             </div>
             <div className='justify-center flex mr-30'>
                 <button>

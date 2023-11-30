@@ -15,7 +15,7 @@ export default function EventosForm() {
     };
 
     return (
-        <main className="flex flex-col bg-cinza10 font-cabin">
+        <main className="flex flex-col w-full min-h-screen bg-cinza10 font-cabin">
             <header>
                 <NavAcessibilidade />
                 <NavBar />

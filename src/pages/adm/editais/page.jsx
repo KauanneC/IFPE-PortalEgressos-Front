@@ -16,7 +16,9 @@ export default function editais() {
         <main className="flex flex-col bg-fundo font-cabin">
             <header>
                 <NavAcessibilidade />
-                <NavBar />
+                <div id="navmenu">
+                    <NavBar />
+                </div>
             </header>
             <section className="">
                 <div>
@@ -30,14 +32,16 @@ export default function editais() {
                         </button>
                     </Link>
                 </div>
-                <div className="flex flex-row flex-wrap mx-120 gap-30 justify-center">
+                <div className="flex flex-row flex-wrap mx-120 gap-30 justify-center" id="conteudo">
                     <Card />
                     <Card />
                     <Card />
                     <Card />
                 </div>
             </section>
-            <Footer />
+            <footer id="rodape">
+                <Footer />
+            </footer>
         </main>
     )
 }
