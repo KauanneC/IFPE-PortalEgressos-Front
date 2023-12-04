@@ -4,9 +4,13 @@ import Image from "next/image";
 // Icons
 import iconTrash from "/public/icons/iconTrash.svg"
 import iconDelete from "/public/icons/iconDelete.svg"
+import iconAttetion from "/public/icons/iconAttetion.svg"
+import iconSucess from "/public/icons/iconSucess.svg"
+import iconError from "/public/icons/iconError.svg"
 
 // Components
 import Dropdown from "@/components/adm/form/menu/menu";
+import Popup from "@/components/popUp/popup";
 
 // API
 import { createFields } from "../../../../../utils/apiForm/api";
@@ -19,7 +23,11 @@ export default function AddCampo({ props }) {
     const [showOtherOptionCheck, setShowOtherOptionCheck] = useState(false);
     const [otherOptionText, setOtherOptionText] = useState("");
     const [otherOptionCheckbox, setOtherOptionCheckbox] = useState("");
-    const [otherOptionQuestion, setOtherOptionQuestion] = useState();
+    const [cancelPopup, setCancelPopup] = useState(false);
+    const [sucessPopup, setSucessPopup] = useState(false);
+    const [warningsPopupOpen, setWarningsPopupOpen] = useState(false);
+    const [warnings, setWarnings] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [dados, setDados] = useState({
         formType: props,
@@ -57,21 +65,23 @@ export default function AddCampo({ props }) {
         setShowOtherOption(false);
         setOtherOptionText(""); // Limpa o texto da opção "Outros"
 
-        setCheckboxOptions([{ question: 'Opção 1' }]); 
+        setCheckboxOptions([{ question: 'Opção 1' }]);
         setShowOtherOptionCheck(false);
-        setOtherOptionCheckbox(""); 
+        setOtherOptionCheckbox("");
     };
 
     const handleRemoveRadioOption = (index) => {
         const updatedOptions = [...radioOptions];
         updatedOptions.splice(index, 1);
         setRadioOptions(updatedOptions);
+        dados.options=updatedOptions;
     };
 
     const handleRemoveCheckOption = (index) => {
         const updatedOptions = [...checkboxOptions];
         updatedOptions.splice(index, 1);
         setCheckboxOptions(updatedOptions);
+        dados.options=updatedOptions;
     };
 
     const handleFieldChange = (event) => {
@@ -83,18 +93,30 @@ export default function AddCampo({ props }) {
     };
 
     const handleEnviarClick = () => {
-        console.log(dados);
-        createFields(dados)
-            .then((response) => {
-                if (response.statusCode === 200) {
-                    alert("Campo criado com sucesso!")
-                } else {
-                    alert("Erro ao criar o campo!")
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const newWarnings = [];
+        if (dados.question === "") {
+            newWarnings.push("O campo 'Pergunta' é obrigatório");
+        };
+
+        if (newWarnings.length > 0) {
+            setWarnings(newWarnings);
+            setWarningsPopupOpen(true);
+        } else {
+            setLoading(true);
+            createFields(dados)
+                .then((response) => {
+                    if (response.statusCode === 200) {
+                        setLoading(false);
+                        setSucessPopup(true)
+                    } else {
+                        setLoading(false);
+                        setErrorPopupOpen(true);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     };
 
     const handleAddOption = () => {
@@ -148,12 +170,12 @@ export default function AddCampo({ props }) {
     };
 
     const handleClickSave = () => {
-        console.log(dados);
+        setCancelPopup(true);
     };
 
     const handleShowOtherOption = () => {
         setShowOtherOption(true);
-    
+
         setRadioOptions((prevOptions) => [...prevOptions]);
         setDados((prevDados) => ({
             ...prevDados,
@@ -164,7 +186,7 @@ export default function AddCampo({ props }) {
 
     const handleShowOtherCheck = () => {
         setShowOtherOptionCheck(true);
-    
+
         setCheckboxOptions((prevOptions) => [...prevOptions]);
         setDados((prevDados) => ({
             ...prevDados,
@@ -176,6 +198,15 @@ export default function AddCampo({ props }) {
     const handleRemoveOtherOption = () => {
         setShowOtherOption(false);
         setOtherOptionCheckbox(""); // Limpa o valor quando removido
+    };
+
+    const handleClosePopup = () => {
+        setCancelPopup(false);
+        setWarningsPopupOpen(false);
+    };
+
+    const handleReload = () => {
+        window.location.reload();
     };
 
     return (
@@ -326,6 +357,49 @@ export default function AddCampo({ props }) {
                     </div>
                 </div>
             </div>
+            {cancelPopup && (
+                <Popup isOpen={cancelPopup}>
+                    <Image src={iconAttetion} alt="Ícone de atenção" />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Tem certeza?</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Essa ação não poderá ser desfeita</p>
+                    <div className="flex justify-center">
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
+                        <button onClick={handleClosePopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
+                    </div>
+                </Popup>
+            )}
+            {sucessPopup && (
+                <Popup isOpen={sucessPopup}>
+                    <Image src={iconSucess} alt="Ícone de sucesso" />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Sucesso!</h1>
+                    <p className="font-semibold text-pretoTexto text-paragrafo mb-15">Campo criado com sucesso!</p>
+                    <div className="flex justify-center">
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
+                    </div>
+                </Popup>
+            )}
+            {warningsPopupOpen && (
+                <Popup isOpen={warningsPopupOpen}>
+                    <Image src={iconError} />
+                    <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Algo deu errado</h1>
+                    <ul className="flex flex-col text-vermelhoButton gap-5">
+                        {warnings.map((warning, index) => (
+                            <li key={index}>{warning}</li>
+                        ))}
+                    </ul>
+                    <div className="flex justify-center mt-15">
+                        <button onClick={handleClosePopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Tentar novamente</button>
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
+                    </div>
+                </Popup>
+            )}
+            {loading && (
+                <Popup isOpen={loading}>
+                    <div className="flex flex-col items-center justify-center my-50">
+                        <div class="spinner" />
+                    </div>
+                </Popup>
+            )}
         </div>
     );
 }

@@ -1,6 +1,7 @@
-import React from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";   
+import Link from "next/link";
 
 // Icons
 import ImgHeader from "/public/icons/imgHeader.svg";
@@ -11,16 +12,28 @@ import NavAcessibilidade from "@/components/navAcessibilidade";
 import Card from "@/components/adm/editais/card";
 import Footer from "@/components/footer";
 
+// API
+import { getNotice } from "../../../../utils/apiNotice/api";
+
 export default function editais() {
+    const [editedNotice, setEditedNotice] = useState([]);
+
+    useEffect(() => {
+        getNotice().then((data) => {
+            console.log(data);
+            setEditedNotice(data.data);
+        });
+    },[]);
+
     return (
-        <main className="flex flex-col bg-fundo font-cabin">
+        <main className="flex flex-col w-full min-h-screen bg-fundo font-cabin">
             <header>
                 <NavAcessibilidade />
                 <div id="navmenu">
                     <NavBar />
                 </div>
             </header>
-            <section className="">
+            <section className="flex-grow">
                 <div>
                     <Image className="w-full" src={ImgHeader}></Image>
                 </div>
@@ -33,10 +46,13 @@ export default function editais() {
                     </Link>
                 </div>
                 <div className="flex flex-row flex-wrap mx-120 gap-30 justify-center" id="conteudo">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    {editedNotice.map((notice) => (
+                        <Card
+                            key={notice.id}
+                            title={notice.title}
+                            pdfName={notice.pdfName}
+                        />
+                    ))}
                 </div>
             </section>
             <footer id="rodape">

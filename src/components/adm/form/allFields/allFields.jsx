@@ -20,6 +20,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const { visible, setVisible } = useState(false);
     const [id, setId] = useState(null);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -31,9 +32,12 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
     }, [hasFields, formType]);
 
     const handleDeleteClick = (id) => {
+        setWarningPopup(false);
+        setLoading(true);
         removeFormFields(id)
             .then((response) => {
                 if (response.statusCode === 200) {
+                    setLoading(false);
                     setWarningPopup(false);
                     setSucessDeletPopup(true);
                 } else {
@@ -68,10 +72,9 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                 <div className="flex gap-10 items-center">
                                     <input
                                         type="text"
-                                        placeholder="Digite aqui a pergunta"
                                         name="question"
                                         value={field.question}
-                                        onChange={(e) => { handleFieldChange(e) }}
+                                        disabled
                                         className="bg-fundo outline-none text-pretoTexto pl-10 pr-30 font-regular font-semibold text-paragrafo w-full"
                                     />
                                     <button onClick={() => handleOpenDeletePopup(field.id)}>
@@ -96,8 +99,8 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                     <input
                                                         type="text"
                                                         value={option.question}
-                                                        onChange={(e) => handleOptionQuestionChange(index, e.target.value)}
-                                                        className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                                        disabled
+                                                        className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                                     />
                                                 </div>
                                             </div>
@@ -119,7 +122,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                 type="text"
                                                 placeholder="Resposta do Egresso"
                                                 disabled
-                                                className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                                className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                             />
                                         </div>
                                     </div>
@@ -133,8 +136,8 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                     <input
                                                         type="text"
                                                         value={option.question}
-                                                        onChange={(e) => handleCheckboxQuestionChange(index, e.target.value)}
-                                                        className="w-full bg-inherit border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                                        disabled
+                                                        className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
                                                     />
                                                 </div>
                                             </div>
@@ -162,6 +165,13 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                         <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Excluído</h1>
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O campo foi excluído com sucesso</p>
                         <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
+                    </Popup>
+                )}
+                {loading && (
+                    <Popup isOpen={loading}>
+                        <div className="flex flex-col items-center justify-center my-50">
+                            <div class="spinner" />
+                        </div>
                     </Popup>
                 )}
             </div>

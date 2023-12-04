@@ -13,12 +13,40 @@ import iconPasswordDisable from "/public/icons/iconPasswordDisable.svg";
 import iconSeeDesable from "/public/icons/iconSeeDesable.svg";
 import iconUnseeDesable from "/public/icons/iconUnseeDesable.svg";
 
+//API
+import { createUser } from "../../../../utils/apiUser/api";
+
+
 export default function NewUser() {
     const [perfilSelecionado, setPerfilSelecionado] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
 
+    const [newUser, setNewUser] = useState({
+        name: "momolado",
+        email: "",
+        password: "",
+        profile: "",
+    })
+
+
+    const handleCadastroClick = () => {
+        console.log(newUser);
+        createUser(newUser)
+            .then((response) => {
+                if (response.statusCode === 200) {
+                    alert("Usuário criado com sucesso");
+                } else {
+                    alert("Erro ao criar usuário");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     const handleButtonClick = (perfil) => {
         setPerfilSelecionado(perfil);
+        setNewUser({ ...newUser, profile: perfil });
     };
 
     const togglePasswordVisibility = () => {
@@ -45,18 +73,24 @@ export default function NewUser() {
                             <p className="text-pretoTexto">Escolha um perfil</p>
                             <div className="flex gap-10 mt-10">
                                 <button
-                                    onClick={() => handleButtonClick('Docente')}
-                                    className={`${perfilSelecionado === 'Docente' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-white`}>
+                                    onClick={() => handleButtonClick('teacher')}
+                                    name="teacher"
+                                    value={newUser.profile}
+                                    className={`${perfilSelecionado === 'teacher' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-white`}>
                                     Docente
                                 </button>
                                 <button
-                                    onClick={() => handleButtonClick('Coordenador')}
-                                    className={`${perfilSelecionado === 'Coordenador' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-whit`}>
+                                    onClick={() => handleButtonClick('coordinator')}
+                                    name="coordinator"
+                                    value={newUser.profile}
+                                    className={`${perfilSelecionado === 'coordinator' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-white`}>
                                     Coordenador
                                 </button>
                                 <button
-                                    onClick={() => handleButtonClick('Egresso')}
-                                    className={`${perfilSelecionado === 'Egresso' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-white`}>
+                                    onClick={() => handleButtonClick('egress')}
+                                    name="egress"
+                                    value={newUser.profile}
+                                    className={`${perfilSelecionado === 'egress' ? 'bg-azulBase text-white' : ''} border border-azulBase rounded-8 px-30 py-10 text-azulBase text-paragrafo font-semibold transition-transform transform hover:scale-105 hover:bg-azulBase hover:text-white`}>
                                     Egresso
                                 </button>
                             </div>
@@ -72,6 +106,9 @@ export default function NewUser() {
                                     <input
                                         type="email"
                                         placeholder="Email"
+                                        name="email"
+                                        value={newUser.email}
+                                        onChange={(e) => { setNewUser({ ...newUser, email: e.target.value }) }}
                                         disabled={!perfilSelecionado}
                                         className={`${perfilSelecionado ? 'border-cinza07 text-pretoTexto' : 'border-cinza05'} bg-inherit text-cinza04 outline-none w-full p-10`}
                                     />
@@ -87,6 +124,9 @@ export default function NewUser() {
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         placeholder="Senha"
+                                        name="password"
+                                        value={newUser.password}
+                                        onChange={(e) => { setNewUser({ ...newUser, password: e.target.value }) }}
                                         disabled={!perfilSelecionado}
                                         className={`${perfilSelecionado ? 'border-cinza07' : ''} bg-inherit text-cinza04 outline-none w-full p-10`}
                                     />
@@ -100,6 +140,7 @@ export default function NewUser() {
                                 </div>
                                 <div className="inline-block">
                                     <button
+                                        onClick={handleCadastroClick}
                                         disabled={!perfilSelecionado}
                                         className={`${perfilSelecionado ? 'transition-transform transform hover:scale-105' : 'bg-cinza05 text-pretoTexto'} mt-30 bg-azulBase rounded-10 text-white py-10 px-30`}>Cadastrar</button>
                                 </div>

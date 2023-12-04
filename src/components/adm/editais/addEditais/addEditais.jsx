@@ -11,6 +11,9 @@ import iconFile from "/public/icons/iconFile.svg"
 // Components
 import Popup from "@/components/popUp/popup";
 
+// API
+import { createNotice } from "../../../../../utils/apiNotice/api";
+
 export default function AddEditais() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -20,8 +23,8 @@ export default function AddEditais() {
 
     const [editais, setEdiatis] = useState({
         title: "",
-        file: "",
-        nameFile: "",
+        pdfName: "",
+        link: "http://localhost:8000/storage/uploads/",
     });
 
     const handleFieldChange = (event) => {
@@ -34,6 +37,7 @@ export default function AddEditais() {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
+        console.log('Selected File:', file);
         setSelectedFile(file);
     };
 
@@ -41,7 +45,20 @@ export default function AddEditais() {
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("title", editais.title);
-        formData.append("nameFile", editais.nameFile);
+        formData.append("pdfName", editais.pdfName);
+        formData.append("link", editais.link += editais.pdfName + ".pdf");
+        createNotice(formData)
+            .then((response) => {
+                if (response.statusCode === 201) {
+                    alert("Edital criado com sucesso");
+                } else {
+                    console.log(editais);
+                    alert("Erro ao criar edital");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     const handleErrorPopup = () => {
@@ -84,10 +101,10 @@ export default function AddEditais() {
                     <input
                         type="text"
                         placeholder="Digite o título do edital"
-                        name="name"
-                        value={editais.name}
+                        name="title"
+                        value={editais.title}
                         onChange={(e) => { handleFieldChange(e) }}
-                        className="w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
+                        className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                     />
                 </div>
                 <div className="mt-30">
@@ -96,22 +113,22 @@ export default function AddEditais() {
                     <input
                         type="text"
                         placeholder="Digite o nome do pdf"
-                        name="name"
-                        value={editais.name}
+                        name="pdfName"
+                        value={editais.pdfName}
                         onChange={(e) => { handleFieldChange(e) }}
-                        className="w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
+                        className="bg-inherit w-full outline-none border-b-1 border-cinza07 pl-10 text-paragrafo text-cinza07"
                     />
                 </div>
                 <div className="mt-30">
                     <p className="font-semibold text-subtitulo text-pretoTexto mb-15">PDF</p>
                     <label className="transition-transform transform hover:scale-105 text-pretoTexto border border-cinza04 rounded-8 inline-flex items-center gap-10 shadow-md px-15 py-10">
-                        <Image src={iconFile} alt="Ícone para upload de um arquivo"/>
+                        <Image src={iconFile} alt="Ícone para upload de um arquivo" />
                         {selectedFile ? (
                             <span>Arquivo Selecionado</span>
                         ) : (
                             <span>Selecione um arquivo</span>
                         )}
-                        <input type="file" name="file" accept=".pdf" className="hidden" onChange={handleFileChange} />
+                        <input type="file" name="file" accept=".pdf" className="bg-inherit hidden" onChange={handleFileChange} />
                     </label>
                 </div>
                 <div className="flex mt-30 justify-center gap-30">

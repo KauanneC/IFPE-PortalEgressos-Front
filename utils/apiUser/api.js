@@ -6,7 +6,7 @@ const api = axios.create({  // Fixo
 
 export async function createUser(data) {
     try {
-        const response = await axios.post('', data, {
+        const response = await api.post('', data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -80,7 +80,7 @@ export async function removeUserById(id) {
 
 export async function getUsersByProfile(profile, page = 1) {
     try {
-        const response = await axios.get(`/${profile}/${page}`, {
+        const response = await api.get(`/${profile}/${page}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -89,8 +89,6 @@ export async function getUsersByProfile(profile, page = 1) {
 
         const statusCode = response.status;
         console.log('statusCode:', statusCode);
-
-        // Você pode retornar mais informações se necessário
         return { statusCode, data: response.data };
     } catch (error) {
         console.error('Erro na requisição:', error);

@@ -22,7 +22,7 @@ export default function Eventos() {
         getEvents().then((data) => {
             setEditedEvents(data.data);
         });
-    });
+    }, []);
 
     return (
         <main className="flex flex-col bg-fundo w-full min-h-screen font-cabin">
