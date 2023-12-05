@@ -1,8 +1,8 @@
 "use client"
-import React from "react";
+import React, { useState } from "react"; // Importe o useState corretamente
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router"; // Importe o useRouter corretamente
 import Swal from "sweetalert2";
 import jwt from 'jsonwebtoken';
 
@@ -38,15 +38,7 @@ export default function Login() {
         window.history.back();
     };
 
-    const descriptografarToken = (token) => {
-        try {
-            const decoded = jwt.decode(token);
-            return decoded;
-        } catch (error) {
-            console.error('Erro ao descriptografar o token:', error.message);
-            return null;
-        }
-    };
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,11 +47,14 @@ export default function Login() {
                 email: email,
                 password: password,
             };
+
             const response = await authenticate(data);
+
             if (response && response.statusCode === 200) {
                 const token = response.data.token;
-                const decoded = descriptografarToken(token);
-                console.log('decoded:', decoded);
+
+                localStorage.setItem('token', token);
+
                 Swal.fire({
                     icon: "success",
                     iconColor: '#20771B',
@@ -67,34 +62,32 @@ export default function Login() {
                     text: "Login realizado com sucesso!",
                     confirmButtonText: "Ok",
                     confirmButtonColor: "#242B63",
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    allowOutsideClick: false, // Impede que o usuário feche o alert clicando fora dele
-                    allowEscapeKey: false, // Impede que o usuário feche o alert usando a tecla ESC
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        const decoded = jwt.decode(token);
+                        console.log(decoded);
+                        console.log(decoded.profile);
+                        console.log(decoded.primaryAcess);
                         if (decoded) {
-                            console.log('ID do usuário:', decoded.userId);
-                            console.log('Perfil do usuário:', decoded.profile);
                             if (decoded.profile === 'coordinator') {
-                                if (decoded.primaryAcess == false) {
-                                    window.location.href = '/egresso/primeiroAcesso';
-                                    decoded.primaryAcess = true;
+                                if (decoded.primaryAcess == true) {
+                                    router.push('/egresso/home');
                                 } else {
-                                    window.location.href = '/egresso/home';
+                                    router.push('/egresso/primeiroAcesso');
+                                    decoded.primaryAcess = true;
                                 }
                             } else if (decoded.profile === 'student') {
                                 if (decoded.primaryAcess == true) {
-                                    window.location.href = '/egresso/primeiroAcesso';
+                                    router.push('/egresso/home');
                                 } else {
-                                    window.location.href = '/egresso/home';
+                                    router.push('/egresso/primeiroAcesso');
                                     decoded.primaryAcess = true;
                                 }
                             } else if (decoded.profile === 'teacher') {
                                 if (decoded.primaryAcess == true) {
-                                    window.location.href = '/docente/primeiroAcesso';
+                                    router.push('/docente/home');
                                 } else {
-                                    window.location.href = '/docente/home';
+                                    router.push('/docente/primeiroAcesso');
                                     decoded.primaryAcess = true;
                                 }
                             }
