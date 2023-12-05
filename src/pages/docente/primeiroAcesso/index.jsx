@@ -54,10 +54,10 @@ export default function PrimeiroAcesso() {
     return (
         <main>
             <section className="flex flex-row h-screen">
-                <div className="w-4/6">
+                <div className="w-3/5">
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
-                <div className="w-3/6 flex flex-col justify-center px-60">
+                <div className="w-2/5 flex flex-col justify-center px-60">
                     <button className="flex flex-row items-center space-x-5 absolute top-24">
                         <Link href="/">
                             <Image src={IconVoltar} alt="Voltar" />
@@ -116,7 +116,7 @@ export default function PrimeiroAcesso() {
                         </div>
                         <div>
                             <button className="bg-azulBase mt-30 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
-                                <Link href={'../../egresso/home'}>Entrar</Link>
+                                <Link href={'../../docente/home'}>Entrar</Link>
                             </button>
                         </div>
                     </div>
