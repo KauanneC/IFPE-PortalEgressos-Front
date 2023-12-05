@@ -149,9 +149,11 @@ export default function Login() {
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
                 <form onSubmit={handleSubmit} className="w-3/6 flex flex-col justify-center px-60">
-                    <button onClick={handleBack}>
-                        <Image src={IconVoltar} alt="Voltar" className="mb-30" />
-                    </button>
+                    <div className="min-w-min">
+                        <button onClick={handleBack}>
+                            <Image src={IconVoltar} alt="Voltar" className="mb-30" />
+                        </button>
+                    </div>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Login</h1>
                     <div className="space-y-30">
                         <div className="w-full relative text-paragrafo">
