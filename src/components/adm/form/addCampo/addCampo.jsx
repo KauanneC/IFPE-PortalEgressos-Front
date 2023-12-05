@@ -223,9 +223,6 @@ export default function AddCampo({ props }) {
                             className="bg-fundo outline-none text-pretoTexto pl-10 pr-30 font-regular font-semibold text-paragrafo w-full"
                         />
                         <Dropdown value={selectedOption} onOptionChange={handleOptionChange} />
-                        <button>
-                            <Image src={iconTrash} alt="Ícone de lixeira" />
-                        </button>
                     </div>
                     {selectedOption === 'text' && (
                         <input

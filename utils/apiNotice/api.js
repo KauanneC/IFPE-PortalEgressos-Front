@@ -40,7 +40,7 @@ export async function getNotice() {
     }
 }
 
-export async function removeEvents(id) { 
+export async function removeNotice(id) { 
     try {
         const response = await api.delete(`/${id}`);
         const statusCode = response.status;

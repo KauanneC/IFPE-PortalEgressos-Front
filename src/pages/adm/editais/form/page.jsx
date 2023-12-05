@@ -7,6 +7,7 @@ import NavBar from "@/components/navBar/adm/page";
 import NavAcessibilidade from "@/components/navAcessibilidade";
 import Footer from "@/components/footer";
 import AddEditais from "@/components/adm/editais/addEditais/addEditais";
+import AllEditais from "@/components/adm/editais/AllEditais/AllEditais";
 
 export default function EditaisForm() {
     const [campos, setCampos] = useState([]);
@@ -35,9 +36,9 @@ export default function EditaisForm() {
                         <AddEditais />
                     ))}
                 </div>
-                {/* <div>
-                    <AllEvents />
-                </div> */}
+                <div>
+                    <AllEditais />
+                </div>
             </section>
             <Footer />
         </main>

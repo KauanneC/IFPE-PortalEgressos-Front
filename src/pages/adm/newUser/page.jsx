@@ -10,8 +10,9 @@ import IconSee from "/public/icons/iconSee.svg";
 import IconUnsee from "/public/icons/iconUnsee.svg";
 import iconUserDisable from "/public/icons/iconUserDisable.svg";
 import iconPasswordDisable from "/public/icons/iconPasswordDisable.svg";
-import iconSeeDesable from "/public/icons/iconSeeDesable.svg";
 import iconUnseeDesable from "/public/icons/iconUnseeDesable.svg";
+import iconEmail from "/public/icons/iconEmail.svg";
+import desableEmail from "/public/icons/desableEmail.svg";
 
 //API
 import { createUser } from "../../../../utils/apiUser/api";
@@ -22,15 +23,14 @@ export default function NewUser() {
     const [showPassword, setShowPassword] = useState(false);
 
     const [newUser, setNewUser] = useState({
-        name: "momolado",
+        name: "",
         email: "",
-        password: "",
+        password: "dev-test123",
         profile: "",
     })
 
 
     const handleCadastroClick = () => {
-        console.log(newUser);
         createUser(newUser)
             .then((response) => {
                 if (response.statusCode === 200) {
@@ -69,7 +69,7 @@ export default function NewUser() {
                             <Image className="mt-30" src={IconVoltar} alt="Ícone de voltar" />
                         </button>
                         <h1 className="text-azulBase text-tituloDestaque font-semibold mt-70">Cadastro</h1>
-                        <div className="flex flex-col items-center justify-center mt-100 mx-90">
+                        <div className="flex flex-col items-center justify-center mt-70 mx-90">
                             <p className="text-pretoTexto">Escolha um perfil</p>
                             <div className="flex gap-10 mt-10">
                                 <button
@@ -100,6 +100,24 @@ export default function NewUser() {
                                         <Image
                                             className={`w-25 h-25 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
                                             src={perfilSelecionado ? IconUser : iconUserDisable}
+                                            alt={perfilSelecionado ? 'Ícone de uma pessoa' : 'Ícone de uma pessoa desativado'}
+                                        />
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Nome Completo"
+                                        name="name"
+                                        value={newUser.name}
+                                        onChange={(e) => { setNewUser({ ...newUser, name: e.target.value }) }}
+                                        disabled={!perfilSelecionado}
+                                        className={`${perfilSelecionado ? 'border-cinza07 text-pretoTexto' : 'border-cinza05'} bg-inherit text-cinza04 outline-none w-full p-10`}
+                                    />
+                                </div>
+                                <div className={`${perfilSelecionado ? 'border-cinza05' : 'border-cinza07'} flex border-b-1 w-full mt-30`}>
+                                    <label className="mx-auto my-auto ml-10">
+                                        <Image
+                                            className={`w-25 h-25 ${!perfilSelecionado ? 'imagem-desabilitada' : ''}`}
+                                            src={perfilSelecionado ? iconEmail : desableEmail}
                                             alt={perfilSelecionado ? 'Ícone de uma pessoa' : 'Ícone de uma pessoa desativado'}
                                         />
                                     </label>

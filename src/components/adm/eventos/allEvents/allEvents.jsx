@@ -8,6 +8,7 @@ import iconTrash from "/public/icons/iconTrash.svg";
 import iconAttetion from "/public/icons/iconAttetion.svg"
 import iconSucess from "/public/icons/iconSucess.svg"
 import iconError from "/public/icons/iconError.svg"
+import noEvents from "/public/icons/noEvents.svg";
 
 // Components
 import Popup from "@/components/popUp/popup";
@@ -19,6 +20,7 @@ export default function allEvents() {
     const [deleteSucessPopup, setDeleteSucessPopup] = useState(false);
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const [id, setId] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getEvents().then((data) => {
@@ -69,11 +71,13 @@ export default function allEvents() {
     };
 
     const handleDeleteClick = (id) => {
+        setDeletePopup(false);
+        setLoading(true);
         removeEvents(id)
             .then((response) => {
                 if (response.statusCode === 200) {
+                    setLoading(false);
                     setDeleteSucessPopup(true);
-                    setDeletePopup(false);
                 } else {
                     alert("Erro ao excluir os usuários!")
                 }
@@ -92,6 +96,15 @@ export default function allEvents() {
         window.location.reload();
     }
 
+    if (!editedEvents) {
+        return (
+            <div className="flex flex-col items-center mt-90 justify-center" id="conteudo">
+                <Image src={noEvents} />
+                <p className="mt-15 text-cinza05 text-tituloSessão">Não há eventos no momento</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             {editedEvents.map((events, index) => (
@@ -100,7 +113,7 @@ export default function allEvents() {
                         <div>
                             <div className="flex justify-between items-start">
                                 <p className="font-semibold text-subtitulo text-pretoTexto mb-15">Nome do Evento</p>
-                                <button onClick={()=>handleOpenDeletePopup(events.id)}>
+                                <button onClick={() => handleOpenDeletePopup(events.id)}>
                                     <Image src={iconTrash} alt="Ícone de lixeira" />
                                 </button>
                             </div>
@@ -229,6 +242,13 @@ export default function allEvents() {
                     <div className="flex justify-center">
                         <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Sim</button>
                         <button onClick={handleCancelClick} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Não</button>
+                    </div>
+                </Popup>
+            )}
+            {loading && (
+                <Popup isOpen={loading}>
+                    <div className="flex flex-col items-center justify-center my-50">
+                        <div class="spinner" />
                     </div>
                 </Popup>
             )}
