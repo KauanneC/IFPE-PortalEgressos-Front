@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import Image from 'next/image';
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import Swal from 'sweetalert2';
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
+import AllFormFields from '@/components/formEgresso/allFormFields';
 
 import iconVoltar from '/public/icons/iconVoltar.svg';
 import iconDadosPessoaisBlue from '/public/icons/iconDadosPessoaisBlue.svg';
@@ -18,6 +20,8 @@ export default function formStep01(props) {
 
     const { cont, setCont } = props;
     const [openFormAcademicos, setOpenFormAcademicos] = useState(false); // Ir para Acadêmicos
+    const [campos, setCampos] = useState([]);
+    const [hasFields, setHasFields] = useState(true);
 
     const [step, setStep] = useState({
         nome: "",
@@ -98,106 +102,17 @@ export default function formStep01(props) {
                 </div>
                 {/* Form */}
                 <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-y-30">
-                    {/* Última modificação */}
-                    <div className="flex flex-row space-x-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Última Modificação: </p>
-                        <p className='text-pretoTexto text-paragrafo font-normal m-auto'>Não preenchido </p>
+                    <div>
+                        <AllFormFields formType={'dados-pessoais'} hasFields={hasFields} setHasFields={setHasFields} />
                     </div>
-                    {/* Nome Completo */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Nome Completo </p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="text"
-                            placeholder="Digite seu nome completo"
-                        />
-                    </div>
-                    {/* Email */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Email </p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="email"
-                            placeholder="Digite seu email"
-                        />
-                    </div>
-                    {/* Telefone */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Telefone </p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="tel"
-                            placeholder="Digite seu telefone"
-                        />
-                    </div>
-                    {/* Sexo */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Sexo </p>
-                        <div className="space-y-10">
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="masculino" name="sexo" value="masculino" />
-                                <label htmlFor="masculino" className="text-pretoTexto text-paragrafo font-normal">Masculino</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="feminino" name="sexo" value="feminino" />
-                                <label htmlFor="feminino" className="text-pretoTexto text-paragrafo font-normal">Feminino</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="outro" name="sexo" value="outro" />
-                                <label htmlFor="outro" className="text-pretoTexto text-paragrafo font-normal">Prefiro não declarar</label>
-                            </div>
+                    {/* Botão Próximo */}
+                    {hasFields && (
+                        <div className="justify-center items-center flex">
+                            <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={categorieChange}>
+                                Próximo
+                            </button>
                         </div>
-                    </div>
-                    {/* Idade */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Idade </p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="number"
-                            placeholder="Digite sua idade"
-                        />
-                    </div>
-                    {/* Estado Civil */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Estado Civil </p>
-                        <div className="space-y-10">
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="solteiro" name="estadoCivil" value="solteiro" />
-                                <label htmlFor="solteiro" className="text-pretoTexto text-paragrafo font-normal">Solteiro(a)</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="casado" name="estadoCivil" value="casado" />
-                                <label htmlFor="casado" className="text-pretoTexto text-paragrafo font-normal">Casado(a)</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="divorciado" name="estadoCivil" value="divorciado" />
-                                <label htmlFor="divorciado" className="text-pretoTexto text-paragrafo font-normal">Divorciado(a)</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="viuvo" name="estadoCivil" value="viuvo" />
-                                <label htmlFor="viuvo" className="text-pretoTexto text-paragrafo font-normal">Viúvo(a)</label>
-                            </div>
-                            <div className="flex flex-row items-center space-x-5">
-                                <input type="radio" id="outro" name="estadoCivil" value="outro" />
-                                <label htmlFor="outro" className="text-pretoTexto text-paragrafo font-normal">Outro</label>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Município de Moradia */}
-                    <div className="flex flex-col space-y-5">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Município de Moradia </p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="text"
-                            placeholder="Digite seu município de moradia"
-                        />
-                    </div>
-                    {/* Botão */}
-                    <div className="justify-center items-center flex">
-                        <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={categorieChange}>
-                            Próximo
-                        </button>
-                    </div>
+                    )}
                 </div>
             </section>
             <footer>
