@@ -177,9 +177,7 @@ export default function AddEditais() {
                         <Image src={iconSucess} />
                         <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Publicado</h1>
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi publicado com sucesso</p>
-                        <Link href="/adm/editais/page">
-                            <button className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
-                        </Link>
+                        <button onClick={handleCancelReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
                     </Popup>
                 )}
                 {cancelPopupOpen && (

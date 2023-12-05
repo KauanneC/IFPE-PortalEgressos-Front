@@ -25,7 +25,7 @@ export default function NewUser() {
     const [newUser, setNewUser] = useState({
         name: "",
         email: "",
-        password: "dev-test123",
+        password: "",
         profile: "",
     })
 

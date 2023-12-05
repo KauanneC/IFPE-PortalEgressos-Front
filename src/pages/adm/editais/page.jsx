@@ -42,7 +42,7 @@ export default function editais() {
                         <h1 className="font-semibold text-azulBase text-center text-tituloPrincial flex-grow">Acompanhe nossos eventos!</h1>
                         <Link href="./form/page" className="absolute right-32">
                             <button className="px-15 py-5 transition-transform transform hover:scale-105 border-2 border-azulBase rounded-10 text-center text-azulBase font-semibold">
-                                Editar Eventos
+                                Editar Editais
                             </button>
                         </Link>
                     </div>

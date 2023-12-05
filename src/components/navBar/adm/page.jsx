@@ -16,7 +16,6 @@ function NavBar() {
                 <Link href="/adm/editais/page" className={`text-azulBase ${router.pathname === '/adm/editais/page' ? 'border-b-2 border-azulBase' : ''}`}>Editais</Link>
                 <Link href="/adm/form/page" className={`text-azulBase ${router.pathname === '/adm/form/page' ? 'border-b-2 border-azulBase' : ''}`}>Formulário</Link>
                 <Link href="/adm/egressos/page" className={`text-azulBase ${router.pathname === '/adm/egressos/page' ? 'border-b-2 border-azulBase' : ''}`}>Usuários</Link>
-                <Link href="/adm/updatePassword/page" className={`text-azulBase ${router.pathname === '/adm/updatePassword/page' ? 'border-b-2 border-azulBase' : ''}`}>Senha Padrão</Link>
                 <Link href="/adm/newUser/page" className={`text-azulBase ${router.pathname === '/adm/newUser/page' ? 'border-b-2 border-azulBase' : ''}`}>Novo Usuário</Link>
             </div>
             <div className='justify-center flex mr-30'>

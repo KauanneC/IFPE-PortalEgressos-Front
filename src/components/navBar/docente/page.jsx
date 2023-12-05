@@ -13,7 +13,7 @@ function NavBar() {
             <div className="flex w-ful gap-30">
                 <Link href="/docente/home/page" className={`text-azulBase ml-30 ${router.pathname === '/docente/home/page' ? 'border-b-2 border-azulBase' : ''}`}>Home</Link>
                 <Link href="/docente/eventos/page" className={`text-azulBase ${router.pathname === '/docente/eventos/page' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Eventos</Link>
-                <Link href="/docente/editais" className={`text-azulBase ${router.pathname === '/docente/editais' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Editais</Link>
+                <Link href="/docente/editais/page" className={`text-azulBase ${router.pathname === '/docente/editais/page' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Editais</Link>
             </div>
             <div className='justify-center flex mr-30'>
                 <button>
