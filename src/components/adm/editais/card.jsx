@@ -5,10 +5,10 @@ import { saveAs } from "file-saver";
 // Icons
 import iconPdf from "/public/icons/iconPdf.svg";
 
-export default function card({ title, pdfName, nomeArquivo}) {
+export default function card({ title, pdfName, nomeArquivo, link}) {
 
     const handleDownload = () => {
-        const pdfUrl = `http://localhost:8000/storage/uploads/${pdfName}.pdf`;
+        const pdfUrl = link;
         saveAs(pdfUrl, nomeArquivo); // Nome do arquivo
     }
 

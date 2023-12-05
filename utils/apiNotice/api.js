@@ -6,6 +6,7 @@ const api = axios.create({  // Fixo
 
 export async function createNotice(data) {
     console.log(data)
+
     try {
         const response = await api.post('', data);
         const statusCode = response.status;

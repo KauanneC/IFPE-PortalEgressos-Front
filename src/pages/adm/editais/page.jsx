@@ -51,6 +51,7 @@ export default function editais() {
                             key={notice.id}
                             title={notice.title}
                             pdfName={notice.pdfName}
+                            link={notice.link}
                         />
                     ))}
                 </div>

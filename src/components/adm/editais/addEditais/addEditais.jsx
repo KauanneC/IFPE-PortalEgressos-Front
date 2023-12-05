@@ -23,8 +23,7 @@ export default function AddEditais() {
 
     const [editais, setEdiatis] = useState({
         title: "",
-        pdfName: "",
-        link: "http://localhost:8000/storage/uploads/",
+        pdfName: ""
     });
 
     const handleFieldChange = (event) => {
@@ -37,7 +36,7 @@ export default function AddEditais() {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        console.log('Selected File:', file);
+        // console.log('Selected File:', file);
         setSelectedFile(file);
     };
 
@@ -46,7 +45,7 @@ export default function AddEditais() {
         formData.append("file", selectedFile);
         formData.append("title", editais.title);
         formData.append("pdfName", editais.pdfName);
-        formData.append("link", editais.link += editais.pdfName + ".pdf");
+
         createNotice(formData)
             .then((response) => {
                 if (response.statusCode === 201) {
