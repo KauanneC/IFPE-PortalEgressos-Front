@@ -21,6 +21,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -40,8 +41,18 @@ export default function Login() {
 
     const router = useRouter();
 
+    const renderLoading = () => {
+        return (
+            <div className="flex flex-col items-center justify-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-azulBase"></div>
+                <p className="text-legenda text-azulBase mt-2">Carregando...</p>
+            </div>
+        );
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const data = {
                 email: email,
@@ -63,39 +74,51 @@ export default function Login() {
                     confirmButtonText: "Ok",
                     confirmButtonColor: "#242B63",
                 }).then((result) => {
+                    setLoading(false);
                     if (result.isConfirmed) {
                         const decoded = jwt.decode(token);
                         console.log(decoded);
                         console.log(decoded.profile);
                         console.log(decoded.primaryAcess);
                         if (decoded) {
-                            if (decoded.profile === 'coordinator') {
-                                if (decoded.primaryAcess == true) {
-                                    router.push('/egresso/home');
+                            let redirectPath = '';
+                            if (decoded.profile === 'coordinator' || decoded.profile === 'egress' || decoded.profile === 'teacher') {
+                                if (decoded.primaryAcess) {
+                                    if (decoded.profile === 'coordinator') {
+                                        redirectPath = '/egresso/home';
+                                    } else if (decoded.profile === 'egress') {
+                                        redirectPath = '/egresso/home';
+                                    } else if (decoded.profile === 'teacher') {
+                                        redirectPath = '/docente/home';
+                                    }
                                 } else {
-                                    router.push('/egresso/primeiroAcesso');
-                                    decoded.primaryAcess = true;
+                                    if (decoded.profile === 'coordinator') {
+                                        redirectPath = '/egresso/primeiroAcesso';
+                                    } else if (decoded.profile === 'egress') {
+                                        redirectPath = '/egresso/primeiroAcesso';
+                                    } else if (decoded.profile === 'teacher') {
+                                        redirectPath = '/docente/primeiroAcesso';
+                                    }
                                 }
-                            } else if (decoded.profile === 'student') {
-                                if (decoded.primaryAcess == true) {
-                                    router.push('/egresso/home');
-                                } else {
-                                    router.push('/egresso/primeiroAcesso');
-                                    decoded.primaryAcess = true;
-                                }
-                            } else if (decoded.profile === 'teacher') {
-                                if (decoded.primaryAcess == true) {
-                                    router.push('/docente/home');
-                                } else {
-                                    router.push('/docente/primeiroAcesso');
-                                    decoded.primaryAcess = true;
-                                }
+                                router.push(redirectPath);
+                            } else {
+                                // Redirecionar para uma página padrão se o perfil não for reconhecido
+                                Swal.fire({
+                                    icon: "error",
+                                    iconColor: '#991D39',
+                                    title: "Ops...",
+                                    text: "Perfil não reconhecido!",
+                                    confirmButtonText: "Ok",
+                                    confirmButtonColor: "#242B63",
+                                });
+                                router.push('/');
                             }
                         }
                     }
                 });
             } else {
                 console.error('Erro na autenticação:', response);
+                setLoading(false);
                 Swal.fire({
                     icon: "error",
                     iconColor: '#991D39',
@@ -107,6 +130,7 @@ export default function Login() {
             }
         } catch (error) {
             console.error('Erro ao fazer requisição:', error.message);
+            setLoading(false);
             Swal.fire({
                 icon: "error",
                 iconColor: '#991D39',
@@ -165,9 +189,13 @@ export default function Login() {
                             </p>
                         </div>
                         <div>
-                            <button type="submit" className="bg-azulBase mt-10 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
-                                Entrar
-                            </button>
+                            {loading ? (
+                                renderLoading()
+                            ) : (
+                                <button type="submit" className="bg-azulBase mt-10 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
+                                    Entrar
+                                </button>
+                            )}
                         </div>
                     </div>
                 </form>
