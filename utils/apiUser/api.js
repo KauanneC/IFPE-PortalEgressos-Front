@@ -30,7 +30,7 @@ export async function createUser(data) {
 
 export async function getUserByEmail(email) {
     try {
-        const response = await axios.get(`/${email}`, {
+        const response = await api.get(`/${email}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -52,9 +52,9 @@ export async function getUserByEmail(email) {
     }
 }
 
-export async function removeUserById(id) {
+export async function removeUser(id) {
     try {
-        const response = await axios.delete(`/${id}`, {
+        const response = await api.delete(`/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

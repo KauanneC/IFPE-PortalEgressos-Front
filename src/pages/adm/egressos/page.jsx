@@ -59,7 +59,7 @@ export default function egressos() {
                     return (
                         <div className="flex flex-col gap-30 w-full mx-45">
                             {teacher.map((user) => (
-                                <Card key={user.email} name={user.name} profile={"teacher"} />
+                                <Card key={user.email} name={user.name} id={user.id} profile={"teacher"} />
                             ))}
                         </div>
                     );
@@ -75,7 +75,7 @@ export default function egressos() {
                     return (
                         <div className="flex flex-col gap-30 w-full mx-45">
                             {coordinator.map((user) => (
-                                <Card key={user.email} name={user.name} profile={"coordinator"} />
+                                <Card key={user.email} name={user.name} id={user.id} profile={"coordinator"} />
                             ))}
                         </div>
                     )
@@ -91,7 +91,7 @@ export default function egressos() {
                     return (
                         <div className="flex flex-col gap-30 w-full mx-45">
                             {egress.map((user) => (
-                                <Card key={user.email} name={user.name} profile={"egress"} />
+                                <Card key={user.email} name={user.name} id={user.id} profile={"egress"} />
                             ))}
                         </div>
                     )

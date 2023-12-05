@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { updateEvents, removeEvents, getEvents } from "../../../../../utils/apiEvents/api";
 
 // Icons
 import iconTrash from "/public/icons/iconTrash.svg";
@@ -12,6 +10,9 @@ import noEvents from "/public/icons/noEvents.svg";
 
 // Components
 import Popup from "@/components/popUp/popup";
+
+// API
+import { updateEvents, removeEvents, getEvents } from "../../../../../utils/apiEvents/api";
 
 export default function allEvents() {
     const [editedEvents, setEditedEvents] = useState([]);

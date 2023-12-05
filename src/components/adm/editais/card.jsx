@@ -17,7 +17,7 @@ export default function card({ title, pdfName, nomeArquivo, link}) {
             <h1 className="text-pretoTexto font-bold text-tituloSessão">{title}</h1>
             <button className="flex justify-center items-center gap-15 mt-20" onClick={handleDownload}>
                 <Image className="" src={iconPdf}></Image>
-                Baixar Edital
+                Acessar Edital
             </button>
         </div>
     )
