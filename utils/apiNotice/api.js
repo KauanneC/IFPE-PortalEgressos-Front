@@ -1,28 +1,30 @@
 import axios from 'axios';
 
 const api = axios.create({  // Fixo
-    baseURL: "http://localhost:8000/api/events",
+    baseURL: "http://localhost:8000/api/notice",
 });
 
-export async function createEvents(data) { // POST
+export async function createNotice(data) {
+    console.log(data)
+
     try {
-        const response = await api.post('http://localhost:8000/api/events', data, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'aplication/json',
-            },
-        });
+        const response = await api.post('', data);
         const statusCode = response.status;
         console.log('statusCode:', statusCode);
-        return { statusCode};
+        return { statusCode };
     } catch (error) {
         console.error('Erro na requisição:', error);
-        let mensagem = 'Erro ao criar evento';
-        return { statusCode: 400, mensagem }; 
-    }
-} 
 
-export async function getEvents() { // GET
+        let mensagem = 'Erro ao criar edital';
+        if (error.response && error.response.data && error.response.data.message) {
+            mensagem = error.response.data.message;
+        }
+
+        return { statusCode: error.response.status || 400, mensagem };
+    }
+}
+
+export async function getNotice() { 
     try {
         const response = await api.get(" ", {
             headers: {
@@ -39,19 +41,7 @@ export async function getEvents() { // GET
     }
 }
 
-export async function updateEvents(id, data) {  // PUT
-    try {
-        const response = await api.put(`/${id}`, data);
-        const statusCode = response.status;
-        const responseData = response.data;
-        return { statusCode, data: responseData };
-    } catch (error) {
-        let mensagem = "Erro ao atualizar os dados";
-        return mensagem;
-    }
-}
-
-export async function removeEvents(id) { // DELETE
+export async function removeNotice(id) { 
     try {
         const response = await api.delete(`/${id}`);
         const statusCode = response.status;

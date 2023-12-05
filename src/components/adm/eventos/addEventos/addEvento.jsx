@@ -20,6 +20,7 @@ export default function AddEvento() {
     const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
     const [warningsPopupOpen, setWarningsPopupOpen] = useState(false);
     const [warnings, setWarnings] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [eventos, setEventos] = useState({
         name: "",
@@ -47,9 +48,9 @@ export default function AddEvento() {
         if (eventos.date === "") {
             newWarnings.push("A data do evento é obrigatória");
         } else {
-            const data = new Date(eventos.date); 
+            const data = new Date(eventos.date);
             const today = new Date();
-        
+
             if (data < today) {
                 newWarnings.push("A data do evento não pode ser anterior à data atual");
             };
@@ -76,14 +77,16 @@ export default function AddEvento() {
             setWarningsPopupOpen(true);
             setPopupOpen(false);
         } else {
+            setPopupOpen(false);
+            setLoading(true);
             createEvents(eventos)
                 .then((response) => {
                     if (response.statusCode === 200) {
+                        setLoading(false);
                         setSucessPopupOpen(true);
-                        setPopupOpen(false);
                     } else {
+                        setLoading(false);
                         setErrorPopupOpen(true);
-                        setErrorPopupOpen(false);
                     }
                 })
                 .catch((error) => {
@@ -229,7 +232,7 @@ export default function AddEvento() {
                         <Image src={iconSucess} />
                         <h1 className="text-azulBase text-subtitulo font-semibold mt-15 mb-15">Publicado</h1>
                         <p className="font-semibold text-pretoTexto text-paragrafo mb-15">O evento foi publicado com sucesso</p>
-                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Voltar para Eventos</button>
+                        <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Ok</button>
                     </Popup>
                 )}
                 {cancelPopupOpen && (
@@ -266,6 +269,13 @@ export default function AddEvento() {
                         <div className="flex justify-center mt-15">
                             <button onClick={handleCloseWarningsPopup} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15 mr-15">Tentar novamente</button>
                             <button onClick={handleReload} className="inline-block bg-azulBase text-white rounded-10 py-5 px-15">Cancelar</button>
+                        </div>
+                    </Popup>
+                )}
+                {loading && (
+                    <Popup isOpen={loading}>
+                        <div className="flex flex-col items-center justify-center my-50">
+                            <div class="spinner" />
                         </div>
                     </Popup>
                 )}

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 // Icon
@@ -11,10 +11,12 @@ import arrow from "/public/icons/arrow.svg"
 // Components
 import Title from "@/components/adm/form/title/Title";
 import AddCampo from "@/components/adm/form/addCampo/addCampo";
+import AllFields from "@/components/adm/form/allFields/allFields";
 
 export default function stepAcademico(props) {
-    const {cont, setCont, step, stepStep} = props;
+    const { cont, setCont, step, stepStep } = props;
     const [campos, setCampos] = useState([]);
+    const [hasFields, setHasFields] = useState(true);
 
     const categorieChangeProx = () => {
         setCont(cont + 1);
@@ -26,6 +28,7 @@ export default function stepAcademico(props) {
 
     const adicionarCampo = () => {
         setCampos([...campos, { id: Date.now() }]);
+        setHasFields(false);
     };
 
     return (
@@ -33,7 +36,7 @@ export default function stepAcademico(props) {
             <header>
                 <Title />
             </header>
-            <section className="mx-120"> 
+            <section className="mx-120">
                 <div className="flex flex-wrap justify-center gap-20 bg-fundo mt-15 rounded-10 px-60 py-30">
                     <button className="flex flex-col items-center gap-5" onClick={categorieChangeAnt}>
                         <Image src={dadosPessoais} alt="Ícone representando dados pessoais"></Image>
@@ -60,8 +63,10 @@ export default function stepAcademico(props) {
                 </div>
                 <div>
                     {campos.map((campo) => (
-                        <AddCampo></AddCampo>
+                        <AddCampo props={"academico"}/>
                     ))}
+
+                    <AllFields formType={'academico'} hasFields={hasFields} setHasFields={setHasFields}/>
                 </div>
                 <div className="flex items-center justify-center gap-10">
                     <div className="inline-block bg-azulBase rounded-10 text-white mt-15">

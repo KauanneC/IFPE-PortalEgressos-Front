@@ -16,7 +16,9 @@ export default function Home() {
         <main className="flex flex-col bg-fundo font-cabin w-full min-h-screen">
             <header>
                 <NavAcessibilidade/>
-                <NavBar/>
+                <div id="navmenu">
+                    <NavBar/>
+                </div>
             </header>
             <section className="flex-grow">
                 <div>
@@ -29,7 +31,7 @@ export default function Home() {
                     </div>
                     <div className="grid grid-cols-3 gap-30 mt-100" id="conteudo">
                         <div className="col-span-2 ml-60">
-                            <h2 className="text-azulBase text-tituloPrincial font-semibold">Gerencie Egressos e Recursos</h2>
+                            <h2 className="text-azulBase text-tituloPrincial font-semibold" id="conteudo">Gerencie Egressos e Recursos</h2>
                             <p className="text-pretoTexto text-subtitulo mt-15">Além de adicionar eventos e editais, você pode criar formulários específicos para os egressos. Visualize e gerencie os egressos cadastrados no portal, analise suas respostas de forma detalhada e exporte os dados para PDF, proporcionando uma visão abrangente do progresso de nossa comunidade.</p>
                             <div className="flex items-center justify-center">
                                 <div className="inline-block mt-15 bg-azulBase px-30 py-10 text-white rounded-10 transition-transform transform hover:scale-105">
@@ -45,7 +47,9 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <Footer/>
+            <footer id="rodape">
+                <Footer/>
+            </footer>
         </main>
     )
 }
