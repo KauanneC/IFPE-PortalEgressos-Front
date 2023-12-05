@@ -44,7 +44,7 @@ export default function AddEditais() {
         formData.append("file", selectedFile);
         formData.append("title", editais.title);
         formData.append("pdfName", editais.pdfName);
-        formData.append("link", `http://localhost:8000/storage/uploads/${editais.pdfName}.pdf`);
+
         createNotice(formData)
             .then((response) => {
                 if (response.statusCode === 201) {
