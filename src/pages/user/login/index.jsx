@@ -116,7 +116,7 @@ export default function Login() {
                         }
                     }
                 });
-            } else {
+            } else if (!handleBack) {
                 console.error('Erro na autenticação:', response);
                 setLoading(false);
                 Swal.fire({
