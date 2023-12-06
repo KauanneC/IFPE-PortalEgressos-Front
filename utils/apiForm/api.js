@@ -26,7 +26,7 @@ export async function createFields(data) { // POST
     }
 }
 
-export async function getAllFormFields(formType) { // GET
+export async function getAllFormFields(formType) {
     try {
         const response = await api.get(`/${formType}`, {
             headers: {
@@ -48,7 +48,7 @@ export async function getAllFormFields(formType) { // GET
     }
 }
 
-export async function removeFormFields(id) { // DELETE
+export async function removeFormFields(id) {
     try {
         const response = await api.delete(`/${id}`, {
             headers: {

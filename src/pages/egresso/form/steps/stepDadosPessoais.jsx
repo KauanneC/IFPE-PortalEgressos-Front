@@ -66,14 +66,14 @@ export default function formStep01(props) {
             </header>
             <section id='conteudo' className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
                 {/* Título Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg border-t-8 border-azulForm">
+                <div className="bg-fundo w-full py-30 px-60 rounded-lg border-t-8 border-azulForm">
                     <button onClick={handleShowAlert} className="absolute top-0 left-0">
                         <Image src={iconVoltar} alt="Voltar para página inicial" />
                     </button>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Navegação Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
+                <div className="bg-fundo w-full py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
                         <Image src={iconDadosPessoaisBlue} alt="Página atual: dados pessoais" />
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
@@ -101,7 +101,7 @@ export default function formStep01(props) {
                     </div>
                 </div>
                 {/* Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-y-30">
+                <div className="flex flex-col w-full rounded-lg gap-30">
                     <div>
                         <AllFormFields formType={'dados-pessoais'} hasFields={hasFields} setHasFields={setHasFields} />
                     </div>
