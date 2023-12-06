@@ -1,7 +1,10 @@
-import React from "react";
+"use client"
+import React, { useState } from "react"; // Importe o useState corretamente
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router"; // Importe o useRouter corretamente
+import Swal from "sweetalert2";
+import jwt from 'jsonwebtoken';
 
 import IconVoltar from "/public/icons/iconVoltar.svg";
 import ImgLogin from "/public/icons/imgLogin.svg";
@@ -10,30 +13,167 @@ import IconSenha from "/public/icons/iconSenha.svg";
 import IconSee from "/public/icons/iconSee.svg";
 import IconUnsee from "/public/icons/iconUnsee.svg";
 
+// API
+import { authenticate } from "../../../../utils/apiLogin/api";
+
 export default function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-        console.log(showPassword)
-    }
+    };
+
+    const handleBack = () => {
+        window.history.back();
+    };
+
+    const router = useRouter();
+
+    const renderLoading = () => {
+        return (
+            <div className="flex flex-col items-center justify-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-azulBase"></div>
+                <p className="text-legenda text-azulBase mt-2">Carregando...</p>
+            </div>
+        );
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        if (!email || !password) {
+            setLoading(false);
+            Swal.fire({
+                icon: "error",
+                iconColor: '#991D39',
+                title: "Ops...",
+                text: "Por favor, preencha todos os campos!",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#242B63",
+            });
+            return;
+        }
+
+        try {
+            const data = {
+                email: email,
+                password: password,
+            };
+
+            const response = await authenticate(data);
+
+            if (response && response.statusCode === 200) {
+                const token = response.data.token;
+
+                localStorage.setItem('token', token);
+
+                Swal.fire({
+                    icon: "success",
+                    iconColor: '#20771B',
+                    title: "Sucesso!",
+                    text: "Login realizado com sucesso!",
+                    confirmButtonText: "Ok",
+                    confirmButtonColor: "#242B63",
+                }).then((result) => {
+                    setLoading(false);
+                    if (result.isConfirmed) {
+                        const decoded = jwt.decode(token);
+                        console.log(decoded);
+                        console.log(decoded.profile);
+                        console.log(decoded.primaryAcess);
+                        if (decoded) {
+                            let redirectPath = '';
+                            if (decoded.profile === 'coordinator' || decoded.profile === 'egress' || decoded.profile === 'teacher') {
+                                if (decoded.primaryAcess === true) {
+                                    if (decoded.profile === 'coordinator') {
+                                        redirectPath = '/adm/home/page';
+                                    } else if (decoded.profile === 'egress') {
+                                        redirectPath = '/egresso/home';
+                                    } else if (decoded.profile === 'teacher') {
+                                        redirectPath = '/docente/home/page';
+                                    }
+                                } else if (decoded.primaryAcess === false) {
+                                    redirectPath = '/user/primeiroAcesso';
+                                }
+                                router.push(redirectPath);
+                            } else {
+                                console.error('Erro na autenticação:', response);
+                                Swal.fire({
+                                    icon: "error",
+                                    iconColor: '#991D39',
+                                    title: "Ops...",
+                                    text: "Email e/ou senha incorretos!",
+                                    confirmButtonText: "Tentar novamente",
+                                    confirmButtonColor: "#242B63",
+                                });
+                            }
+                        }
+                    }
+                });
+            } else if (!handleBack) {
+                console.error('Erro na autenticação:', response);
+                setLoading(false);
+                Swal.fire({
+                    icon: "error",
+                    iconColor: '#991D39',
+                    title: "Ops...",
+                    text: "Email e/ou senha incorretos!",
+                    confirmButtonText: "Tentar novamente",
+                    confirmButtonColor: "#242B63",
+                });
+            } else {
+                console.error('Erro na autenticação:', response);
+                setLoading(false);
+                Swal.fire({
+                    icon: "error",
+                    iconColor: '#991D39',
+                    title: "Ops...",
+                    text: "Email e/ou senha incorretos!",
+                    confirmButtonText: "Tentar novamente",
+                    confirmButtonColor: "#242B63",
+                });
+            }
+        } catch (error) {
+            console.error('Erro ao fazer requisição:', error.message);
+            setLoading(false);
+            Swal.fire({
+                icon: "error",
+                iconColor: '#991D39',
+                title: "Ops...",
+                text: "Erro ao fazer requisição!",
+                confirmButtonText: "Tentar novamente",
+                confirmButtonColor: "#242B63",
+            });
+        }
+    };
 
     return (
         <main>
             <section className="flex flex-row h-screen">
-                <div className="w-3/5">
+                <div className="w-4/6">
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
-                <div className="w-2/5 flex flex-col justify-center px-60">
-                    <button className="flex flex-row items-center space-x-5 absolute top-36">
-                        <Link href="/">
-                            <Image src={IconVoltar} alt="Voltar" />
-                        </Link>
-                    </button>
+                <div className="w-3/6 flex flex-col justify-center px-60">
+                    <div className="min-w-min">
+                        <button onClick={handleBack}>
+                            <Image src={IconVoltar} alt="Voltar" className="mb-30" />
+                        </button>
+                    </div>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Login</h1>
-                    <div className="space-y-30">
+                    <form onSubmit={handleSubmit} className="space-y-30">
                         <div className="w-full relative text-paragrafo">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconUser} alt="Ícone de usuário" />
@@ -41,7 +181,9 @@ export default function Login() {
                             <input
                                 className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type="email"
-                                placeholder="Email ou SIAPE"
+                                placeholder="Email"
+                                value={email}
+                                onChange={handleEmailChange}
                             />
                         </div>
                         <div className="w-full relative text-paragrafo">
@@ -52,6 +194,8 @@ export default function Login() {
                                 className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Senha"
+                                value={password}
+                                onChange={handlePasswordChange}
                             />
                             <div className="absolute inset-y-0 right-0 flex items-center pr-10 cursor-pointer" onClick={togglePasswordVisibility}>
                                 {showPassword ? (
@@ -61,15 +205,19 @@ export default function Login() {
                                 )}
                             </div>
                             <p className="right-0 absolute">
-                                <Link href="" className="text-paragrafo text-azulBase">Esqueci minha senha</Link>
+                                <Link href="/user/forgotPassword" className="text-paragrafo text-azulBase">Esqueci minha senha</Link>
                             </p>
                         </div>
                         <div>
-                            <button className="bg-azulBase py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
-                                <Link href={'../../egresso/primeiroAcesso'}>Entrar</Link>
-                            </button>
+                            {loading ? (
+                                renderLoading()
+                            ) : (
+                                <button type="submit" className="bg-azulBase mt-10 py-10 text-cinza10 text-sub font-semibold rounded-lg w-full transition-transform transform hover:scale-105 active:bg-azulEscuro">
+                                    Entrar
+                                </button>
+                            )}
                         </div>
-                    </div>
+                    </form>
                 </div>
             </section>
         </main>

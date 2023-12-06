@@ -3,26 +3,72 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
+import jwt from 'jsonwebtoken';
 
 import iconLogOut from '/public/icons/iconLogOut.svg'
+import profile from '/public/icons/profile.svg'
 
 function NavBar() {
     const router = useRouter(); // Rota atual
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const openPopup = () => {
-        setIsPopupOpen(true);
+    const [showAlertLogOut, setShowAlertLogOut] = useState(false);
+    const [showAlertProfile, setShowAlertProfile] = useState(false);
+
+    const handleShowAlertLogOut = () => {
+        setShowAlertLogOut(true);
     };
 
-    const closePopup = () => {
-        setIsPopupOpen(false);
+    const handleShoeAlertProfile = () => {
+        setShowAlertProfile(true);
     };
 
-    const handleLogout = () => {
-        // direciona para '/'
-        router.push('/');
-        closePopup();
-    };
+    const getCode = () => {
+        const token = localStorage.getItem("token");
+        const decodedToken = jwt.decode(token);
+        return decodedToken.code;
+    }
+
+    if (showAlertLogOut) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você irá sair da sua conta',
+            icon: 'warning',
+            iconColor: '#C18031',
+            confirmButtonColor: '#991D39',
+            cancelButtonColor: '#666666',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não',
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem("token");
+                console.log(localStorage);
+                window.location.href = "/";
+            } else {
+                setShowAlertLogOut(false);
+            }
+        })
+    }
+
+    if (showAlertProfile) {
+        Swal.fire({
+            title: 'Perfil',
+            html: `<p>Este é o seu código de acesso: <strong>${getCode()}</strong></p><br>
+            <p>Guarde para caso precise alterar sua senha!</p>`, 
+            icon: 'info',
+            iconColor: '#242B63',
+            confirmButtonColor: '#242B63',
+            confirmButtonText: 'Ok',
+            showConfirmButton: true,
+            showCancelButton: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setShowAlertProfile(false);
+            }
+        })
+    }
 
     return (
         <div id='navmenu' className="bg-fundo px-30 py-4 justify-between flex">
@@ -32,29 +78,14 @@ function NavBar() {
                 <Link href="/egresso/editais" className={`text-azulBase ${router.pathname === '/egresso/editais' ? 'border-b-2 border-azulBase' : ''}`}>Editais</Link>
                 <Link href="/egresso/form" className={`text-azulBase ${router.pathname === '/egresso/form' ? 'border-b-2 border-azulBase' : ''}`}>Formulário</Link>
             </div>
-            <div className='justify-center flex'>
-                <button onClick={openPopup}>
+            <div className='justify-center flex space-x-30'>
+                <button onClick={handleShoeAlertProfile}>
+                    <Image src={profile} alt="Sair" />
+                </button>
+                <button onClick={handleShowAlertLogOut}>
                     <Image src={iconLogOut} alt="Sair" />
                 </button>
             </div>
-
-            {isPopupOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="absolute w-full h-full bg-black opacity-50"></div>
-                    <div className="relative bg-white p-4 rounded-lg shadow-lg">
-                        <div className='flex flex-col items-center justify-center space-y-15 mx-30'>
-                            <h1 className='text-tituloSessão text-azulBase font-semibold'>Tem certeza?</h1>
-                            <p className='text-paragrafo text-pretoTexto'>Você irá sair da sua conta</p>
-                            <div className="space-x-15">
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={handleLogout}>Sim</button>
-                                <button className="px-15 py-5 bg-azulBase font-semibold text-cinza10 rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" onClick={closePopup}>Não</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-
         </div>
     );
 }
