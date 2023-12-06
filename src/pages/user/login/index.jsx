@@ -53,6 +53,20 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
+        if (!email || !password) {
+            setLoading(false);
+            Swal.fire({
+                icon: "error",
+                iconColor: '#991D39',
+                title: "Ops...",
+                text: "Por favor, preencha todos os campos!",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#242B63",
+            });
+            return;
+        }
+
         try {
             const data = {
                 email: email,
@@ -83,7 +97,7 @@ export default function Login() {
                         if (decoded) {
                             let redirectPath = '';
                             if (decoded.profile === 'coordinator' || decoded.profile === 'egress' || decoded.profile === 'teacher') {
-                                if (decoded.primaryAcess) {
+                                if (decoded.primaryAcess === true) {
                                     if (decoded.profile === 'coordinator') {
                                         redirectPath = '/egresso/home';
                                     } else if (decoded.profile === 'egress') {
@@ -91,32 +105,36 @@ export default function Login() {
                                     } else if (decoded.profile === 'teacher') {
                                         redirectPath = '/docente/home';
                                     }
-                                } else {
-                                    if (decoded.profile === 'coordinator') {
-                                        redirectPath = '/egresso/primeiroAcesso';
-                                    } else if (decoded.profile === 'egress') {
-                                        redirectPath = '/egresso/primeiroAcesso';
-                                    } else if (decoded.profile === 'teacher') {
-                                        redirectPath = '/docente/primeiroAcesso';
-                                    }
+                                } else if (decoded.primaryAcess === false) {
+                                    redirectPath = '/user/primeiroAcesso';
                                 }
                                 router.push(redirectPath);
                             } else {
-                                // Redirecionar para uma página padrão se o perfil não for reconhecido
+                                console.error('Erro na autenticação:', response);
                                 Swal.fire({
                                     icon: "error",
                                     iconColor: '#991D39',
                                     title: "Ops...",
-                                    text: "Perfil não reconhecido!",
-                                    confirmButtonText: "Ok",
+                                    text: "Email e/ou senha incorretos!",
+                                    confirmButtonText: "Tentar novamente",
                                     confirmButtonColor: "#242B63",
                                 });
-                                router.push('/');
                             }
                         }
                     }
                 });
             } else if (!handleBack) {
+                console.error('Erro na autenticação:', response);
+                setLoading(false);
+                Swal.fire({
+                    icon: "error",
+                    iconColor: '#991D39',
+                    title: "Ops...",
+                    text: "Email e/ou senha incorretos!",
+                    confirmButtonText: "Tentar novamente",
+                    confirmButtonColor: "#242B63",
+                });
+            } else {
                 console.error('Erro na autenticação:', response);
                 setLoading(false);
                 Swal.fire({
@@ -163,7 +181,7 @@ export default function Login() {
                             <input
                                 className="w-full px-2 h-10 pl-9 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
                                 type="email"
-                                placeholder="Email ou SIAPE"
+                                placeholder="Email"
                                 value={email}
                                 onChange={handleEmailChange}
                             />
