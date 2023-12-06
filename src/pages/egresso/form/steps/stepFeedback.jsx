@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import NavAcessibilidade from '@/components/navAcessibilidade';
 import NavBar from '@/components/navBar/egresso';
 import Footer from '@/components/footer';
+import AllFormFields from '@/components/formEgresso/allFormFields';
 
 import iconVoltar from '/public/icons/iconVoltar.svg';
 import iconDadosPessoaisBlue from '/public/icons/iconDadosPessoaisBlue.svg';
@@ -15,8 +16,8 @@ import iconFeedbackBlue from '/public/icons/iconFeedbackBlue.svg';
 import iconNext from '/public/icons/iconNext.svg';
 
 export default function FormStep04(props) {
-
     const { cont, setCont, step, stepStep } = props;
+    const [hasFields, setHasFields] = useState(true);
 
     const categorieChangeAnt = () => {
         setCont(cont - 1);
@@ -124,14 +125,14 @@ export default function FormStep04(props) {
             </header>
             <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
                 {/* Título Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg border-t-8 border-azulForm">
+                <div className="bg-fundo w-full py-30 px-60 rounded-lg border-t-8 border-azulForm">
                     <button onClick={handleShowAlertVoltar} className="absolute top-0 left-0">
                         <Image src={iconVoltar} alt="Voltar para página inicial" />
                     </button>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Navegação Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
+                <div className="bg-fundo w-full py-30 px-60 rounded-lg space-x-20 flex flex-row items-center justify-center">
                     <div className="items-center justify-center flex flex-col space-y-5">
                         <Image src={iconDadosPessoaisBlue} alt="Página 1: dados pessoais" />
                         <p className='text-azulBase text-subtitulo font-normal'>Dados Pessoais</p>
@@ -159,25 +160,21 @@ export default function FormStep04(props) {
                     </div>
                 </div>
                 {/* Form */}
-                <div className="bg-fundo w-4/5 py-30 px-60 rounded-lg space-y-30">
-                    {/* Deixe aqui a sua sugestão/crítica/elogios para o curso de Engenharia de Software do IFPE - campus Belo Jardim */}
-                    <div className="space-y-10">
-                        <p className='text-pretoTexto text-subtitulo font-semibold'>Deixe aqui a sua sugestão/crítica/elogios para o curso de Engenharia de Software do IFPE - campus Belo Jardim</p>
-                        <input
-                            className="w-full bg-fundo px-10 py-10 text-pretoTexto border-b-2 border-cinza07 focus:outline-none text-input required"
-                            type="text"
-                            placeholder="Digite aqui"
-                        />
+                <div className="flex flex-col w-full rounded-lg gap-30">
+                    <div>
+                        <AllFormFields formType={'feedback'} hasFields={hasFields} setHasFields={setHasFields} />
                     </div>
-                    {/* Botões */}
-                    <div className="flex flex-row space-x-30 justify-center items-center">
-                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={categorieChangeAnt}>
-                            Voltar
-                        </button>
-                        <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro' onClick={handleShowAlertEnviar}>
-                            Enviar
-                        </button>
-                    </div>
+                    {/* Botão */}
+                    {hasFields && (
+                        <div className="justify-center items-center flex">
+                            <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" >
+                                Próximo
+                            </button>
+                            <button className='bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro'>
+                                Voltar
+                            </button>
+                        </div>
+                    )}
                 </div>
             </section>
             <footer>

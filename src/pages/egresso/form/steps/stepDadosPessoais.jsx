@@ -101,7 +101,7 @@ export default function formStep01(props) {
                     </div>
                 </div>
                 {/* Form */}
-                <div className="flex flex-col w-full py-30 px-60 rounded-lg gap-30">
+                <div className="flex flex-col w-full rounded-lg gap-30">
                     <div>
                         <AllFormFields formType={'dados-pessoais'} hasFields={hasFields} setHasFields={setHasFields} />
                     </div>

@@ -8,6 +8,89 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
     const [fields, setFields] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loader, setLoader] = useState(true);
+    const [inputValue, setInputValue] = useState("");
+
+    const [resposta, setResposta] = useState({
+        response: [
+
+        ]
+    });
+
+    const handleInputChange = (fieldId, value) => {
+        setInputValue(value);
+    };
+
+    const handleInputBlur = (fieldId) => {
+        setResposta((prevState) => {
+            const existingEntryIndex = prevState.response.findIndex(item => item.formId === fieldId);
+
+            const updatedResponse = {
+                formId: fieldId,
+                value: inputValue
+            };
+
+            if (existingEntryIndex !== -1) {
+                // Se já existe uma entrada com o mesmo formId, substitui
+                prevState.response[existingEntryIndex] = updatedResponse;
+            } else {
+                // Se não existe, adiciona ao array
+                prevState.response.push(updatedResponse);
+            }
+
+            return {
+                response: [...prevState.response]
+            };
+        });
+
+        setInputValue("");
+    };
+
+    const handleCheckboxChange = (fieldId, option) => {
+        setResposta((prevState) => {
+            // Remove entrada anterior para o mesmo formId, se existir
+            const existingResponse = prevState.response.find(item => item.formId === fieldId);
+            let updatedResponse;
+
+            if (existingResponse) {
+                const updatedValues = existingResponse.value.includes(option.question)
+                    ? existingResponse.value.filter(value => value !== option.question)
+                    : [...existingResponse.value, option.question];                
+                updatedResponse = {
+                    ...existingResponse,
+                    value: updatedValues
+                };
+            } else {
+                updatedResponse = {
+                    formId: fieldId,
+                    value: [option.question]
+                };
+            }
+
+            return {
+                response: [
+                    ...prevState.response.filter(item => item.formId !== fieldId),
+                    updatedResponse
+                ]
+            };
+        });
+    };
+
+    const handleRadioChange = (fieldId, option) => {
+        setResposta((prevState) => {
+            // Remove entrada anterior para o mesmo formId, se existir
+            const updatedResponse = {
+                formId: fieldId,
+                value: option.question
+            };
+
+            return {
+                response: [
+                    ...prevState.response.filter(item => item.formId !== fieldId),
+                    updatedResponse
+                ]
+            };
+        });
+    };
 
     const backHome = () => {
         window.location.href = "/egresso/home";
@@ -43,7 +126,9 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                         <input
                                             type="text"
                                             placeholder="Digite aqui"
-                                            id="nome"
+                                            id={field.id}
+                                            onChange={(e) => handleInputChange(field.id, e.target.value)}
+                                            onBlur={() => handleInputBlur(field.id)}
                                             className="bg-fundo w-full border-b-1 border-cinza07 outline-none text-pretoTexto text-paragrafo pl-10 font-regular mt-15"
                                         />
                                     )}
@@ -52,17 +137,21 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                             {field.options.map((option, index) => (
                                                 <div className="flex gap-10 mt-15">
                                                     <div className="flex w-full">
-                                                        <input type="radio" name="radioOptions" />
+                                                        <input
+                                                            type="radio"
+                                                            name={`radioOptions_${field.id}`}
+                                                            onChange={() => handleRadioChange(field.id, option)}
+                                                        />
                                                         <label className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10">{option.question}</label>
                                                     </div>
                                                 </div>
                                             ))}
-                                            {field.other === 'Outros:' && (
+                                            {/* {field.other === 'Outros:' && (
                                                 <div className="flex gap-10 mt-15">
                                                     <div className="flex w-full">
                                                         <input
                                                             type="radio"
-                                                            name="radioOptions"
+                                                            name={`radioOptions_${field.id}`}
                                                             value="other"
                                                             className="mr-10"
                                                         />
@@ -74,7 +163,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                         />
                                                     </div>
                                                 </div>
-                                            )}
+                                            )} */}
                                         </div>
                                     )}
                                     {field.type === 'checkbox' && (
@@ -82,20 +171,21 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                             {field.options.map((option, index) => (
                                                 <div className="flex gap-10 mt-15">
                                                     <div className="flex w-full">
-                                                        <input type="checkbox" name="checkboxOptions" />
                                                         <input
-                                                            type="text"
-                                                            className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
-                                                            />
+                                                            type="checkbox"
+                                                            name={`checkboxOptions${field.id}`}
+                                                            onChange={() => handleCheckboxChange(field.id, option)}
+                                                        />
+                                                        <label className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10">{option.question}</label>
                                                     </div>
                                                 </div>
                                             ))}
-                                            {field.other === 'Outros:' && (
+                                            {/* {field.other === 'Outros:' && (
                                                 <div className="flex gap-10 mt-15">
                                                     <div className="flex w-full">
                                                         <input
                                                             type="checkbox"
-                                                            name="radioOptions"
+                                                            name={`radioOptions_${field.id}`}
                                                             value="other"
                                                             className="mr-10"
                                                         />
@@ -107,7 +197,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                         />
                                                     </div>
                                                 </div>
-                                            )}
+                                            )} */}
                                         </div>
                                     )}
                                 </div>
@@ -115,6 +205,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                         </div>
                     ))
                 )}
+                <button onClick={() => console.log(resposta)}>Próximo</button>
             </div>
         )
     } else {
@@ -124,7 +215,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                     <div className="flex flex-col items-center justify-center my-50">
                         <div class="spinner" />
                     </div>
-                ) : (    
+                ) : (
                     hasFields && (
                         <div className="flex flex-col items-center justify-center">
                             <Image className="mt-90" src={noFields} alt="Ícone representando que não tem campos no formulário" />
