@@ -99,11 +99,11 @@ export default function Login() {
                             if (decoded.profile === 'coordinator' || decoded.profile === 'egress' || decoded.profile === 'teacher') {
                                 if (decoded.primaryAcess === true) {
                                     if (decoded.profile === 'coordinator') {
-                                        redirectPath = '/egresso/home';
+                                        redirectPath = '/adm/home/page';
                                     } else if (decoded.profile === 'egress') {
                                         redirectPath = '/egresso/home';
                                     } else if (decoded.profile === 'teacher') {
-                                        redirectPath = '/docente/home';
+                                        redirectPath = '/docente/home/page';
                                     }
                                 } else if (decoded.primaryAcess === false) {
                                     redirectPath = '/user/primeiroAcesso';
