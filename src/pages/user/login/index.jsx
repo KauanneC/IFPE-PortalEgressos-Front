@@ -166,14 +166,14 @@ export default function Login() {
                 <div className="w-4/6">
                     <Image src={ImgLogin} className="object-cover h-screen w-full" alt="Imagem de alunos se formando" />
                 </div>
-                <form onSubmit={handleSubmit} className="w-3/6 flex flex-col justify-center px-60">
+                <div className="w-3/6 flex flex-col justify-center px-60">
                     <div className="min-w-min">
                         <button onClick={handleBack}>
                             <Image src={IconVoltar} alt="Voltar" className="mb-30" />
                         </button>
                     </div>
                     <h1 className="font-semibold text-azulBase text-tituloDestaque mb-100">Login</h1>
-                    <div className="space-y-30">
+                    <form onSubmit={handleSubmit} className="space-y-30">
                         <div className="w-full relative text-paragrafo">
                             <label className="block absolute top-1/2 transform -translate-y-1/2 left-2">
                                 <Image src={IconUser} alt="Ícone de usuário" />
@@ -205,7 +205,7 @@ export default function Login() {
                                 )}
                             </div>
                             <p className="right-0 absolute">
-                                <Link href="" className="text-paragrafo text-azulBase">Esqueci minha senha</Link>
+                                <Link href="/user/forgotPassword" className="text-paragrafo text-azulBase">Esqueci minha senha</Link>
                             </p>
                         </div>
                         <div>
@@ -217,8 +217,8 @@ export default function Login() {
                                 </button>
                             )}
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </section>
         </main>
     )
