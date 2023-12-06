@@ -30,7 +30,7 @@ export default function CardEdital({ title, link }) {
 
     return (
         <div
-            className={`w-full h-${getCardHeight()} flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg`}
+            className={`w-400 h-${getCardHeight()} flex flex-col space-y-15 border-azulForm border-t-10 px-20 py-30 rounded-lg border-2 shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

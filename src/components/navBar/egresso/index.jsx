@@ -4,19 +4,32 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import jwt from 'jsonwebtoken';
 
 import iconLogOut from '/public/icons/iconLogOut.svg'
+import profile from '/public/icons/profile.svg'
 
 function NavBar() {
     const router = useRouter(); // Rota atual
 
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlertLogOut, setShowAlertLogOut] = useState(false);
+    const [showAlertProfile, setShowAlertProfile] = useState(false);
 
-    const handleShowAlert = () => {
-        setShowAlert(true);
+    const handleShowAlertLogOut = () => {
+        setShowAlertLogOut(true);
     };
 
-    if (showAlert) {
+    const handleShoeAlertProfile = () => {
+        setShowAlertProfile(true);
+    };
+
+    const getCode = () => {
+        const token = localStorage.getItem("token");
+        const decodedToken = jwt.decode(token);
+        return decodedToken.code;
+    }
+
+    if (showAlertLogOut) {
         Swal.fire({
             title: 'Tem certeza?',
             text: 'Você irá sair da sua conta',
@@ -30,9 +43,29 @@ function NavBar() {
             showCancelButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
+                localStorage.removeItem("token");
+                console.log(localStorage);
                 window.location.href = "/";
             } else {
-                setShowAlert(false);
+                setShowAlertLogOut(false);
+            }
+        })
+    }
+
+    if (showAlertProfile) {
+        Swal.fire({
+            title: 'Perfil',
+            html: `<p>Este é o seu código de acesso: <strong>${getCode()}</strong></p><br>
+            <p>Guarde para caso precise alterar sua senha!</p>`, 
+            icon: 'info',
+            iconColor: '#242B63',
+            confirmButtonColor: '#242B63',
+            confirmButtonText: 'Ok',
+            showConfirmButton: true,
+            showCancelButton: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setShowAlertProfile(false);
             }
         })
     }
@@ -45,8 +78,11 @@ function NavBar() {
                 <Link href="/egresso/editais" className={`text-azulBase ${router.pathname === '/egresso/editais' ? 'border-b-2 border-azulBase' : ''}`}>Editais</Link>
                 <Link href="/egresso/form" className={`text-azulBase ${router.pathname === '/egresso/form' ? 'border-b-2 border-azulBase' : ''}`}>Formulário</Link>
             </div>
-            <div className='justify-center flex'>
-                <button onClick={handleShowAlert}>
+            <div className='justify-center flex space-x-30'>
+                <button onClick={handleShoeAlertProfile}>
+                    <Image src={profile} alt="Sair" />
+                </button>
+                <button onClick={handleShowAlertLogOut}>
                     <Image src={iconLogOut} alt="Sair" />
                 </button>
             </div>
