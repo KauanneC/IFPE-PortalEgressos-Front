@@ -11,10 +11,13 @@ import arrow from "/public/icons/arrow.svg"
 // Components
 import Title from "@/components/adm/form/title/Title";
 import AddCampo from "@/components/adm/form/addCampo/addCampo";
+import AllFields from "@/components/adm/form/allFields/allFields";
+
 
 export default function StepDadosPessoais(props) {
-    const { cont, setCont } = props;
+    const {cont, setCont} = props;
     const [campos, setCampos] = useState([]);
+    const [hasFields, setHasFields] = useState(true);
 
     const categorieChange = () => {
         setCont(cont + 1);
@@ -22,6 +25,7 @@ export default function StepDadosPessoais(props) {
 
     const adicionarCampo = () => {
         setCampos([...campos, { id: Date.now() }]);
+        setHasFields(false);
     };
 
     return (
@@ -56,8 +60,10 @@ export default function StepDadosPessoais(props) {
                 </div>
                 <div>
                     {campos.map((campo) => (
-                        <AddCampo></AddCampo>
+                        <AddCampo props={"dados-pessoais"}/>
                     ))}
+
+                    <AllFields formType={'dados-pessoais'} hasFields={hasFields} setHasFields={setHasFields}/> 
                 </div>
                 <div className="flex items-center justify-center">
                     <div className="inline-block bg-azulBase rounded-10 text-white mt-15">

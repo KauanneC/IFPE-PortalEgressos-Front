@@ -6,7 +6,7 @@ const api = axios.create({  // Fixo
 
 export async function createEvents(data) { // POST
     try {
-        const response = await axios.post('http://localhost:8000/api/events', data, {
+        const response = await api.post('', data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'aplication/json',

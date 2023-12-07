@@ -4,6 +4,7 @@ import StepDadosPessoais from "./steps/stepDadosPessoais";
 import StepAcademico from "./steps/stepAcademico";
 import StepProfissional from "./steps/stepProfissional";
 import StepFeedback from "./steps/stepFeedback";
+import CheckAuth from "../../../components/checkAuth/checkAuth";
 
 export default function FormEgresso() {
 
@@ -17,10 +18,12 @@ export default function FormEgresso() {
     ]
 
     return (
-        <main className="flex flex-col bg-cinza10">
-            <section className="flex-grow">
-                {arrayScreens[cont]} {/* Renderiza a tela 0 */}
-            </section>
-        </main>
+        <CheckAuth allowedAccess={["egress"]} >
+            <main className="flex flex-col bg-cinza10 min-h-screen">
+                <section className="flex-grow">
+                    {arrayScreens[cont]} {/* Renderiza a tela 0 */}
+                </section>
+            </main>
+        </CheckAuth>
     )
 }
