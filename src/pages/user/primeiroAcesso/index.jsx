@@ -85,9 +85,9 @@ export default function PrimeiroAcesso() {
         if (decodedToken && decodedToken.profile === "egress") {
             router.push("/egresso/home");
         } else if (decodedToken && decodedToken.profile === "teacher") {
-            router.push("/docente/home");
+            router.push("/docente/home/page");
         } else if (decodedToken && decodedToken.profile === "coordinator") {
-            router.push("/adm/home");
+            router.push("/adm/home/page");
         } else {
             router.push("/user/login");
         }

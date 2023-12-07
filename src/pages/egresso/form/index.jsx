@@ -19,7 +19,7 @@ export default function FormEgresso() {
 
     return (
         <CheckAuth allowedAccess={["egress"]} >
-            <main className="flex flex-col bg-cinza10">
+            <main className="flex flex-col bg-cinza10 min-h-screen">
                 <section className="flex-grow">
                     {arrayScreens[cont]} {/* Renderiza a tela 0 */}
                 </section>

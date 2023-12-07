@@ -57,7 +57,7 @@ export default function Card({ id, name, date, hour, modality, place, descriptio
                                     {expanded ? description : `${description.slice(0, 60)}...`}
                                 </p>
                                 <button
-                                    className='text-azulBase text-paragrafo font-medium'
+                                    className='text-azulBase text-paragrafo font-semibold'
                                     onClick={handleToggleExpand}
                                 >
                                     {expanded ? 'Ver menos' : 'Ver mais'}

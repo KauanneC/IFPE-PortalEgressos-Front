@@ -205,7 +205,6 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                         </div>
                     ))
                 )}
-                <button onClick={() => console.log(resposta)}>Próximo</button>
             </div>
         )
     } else {

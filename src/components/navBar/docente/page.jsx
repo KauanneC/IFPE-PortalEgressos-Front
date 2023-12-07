@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import iconLogOut from '/public/icons/iconLogOut.svg'
+import profile from '/public/icons/profile.svg'
 
 function NavBar() {
     const router = useRouter(); // Rota atual
@@ -15,7 +16,10 @@ function NavBar() {
                 <Link href="/docente/eventos/page" className={`text-azulBase ${router.pathname === '/docente/eventos/page' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Eventos</Link>
                 <Link href="/docente/editais/page" className={`text-azulBase ${router.pathname === '/docente/editais/page' ? 'border-b-2 border-azulBase' : ''}`}>Adicionar Editais</Link>
             </div>
-            <div className='justify-center flex mr-30'>
+            <div className='justify-center flex mr-30 gap-30'>
+                <button>
+                    <Image src={profile} alt="Sair" />
+                </button>
                 <button>
                     <Image src={iconLogOut} alt="Sair" />
                 </button>

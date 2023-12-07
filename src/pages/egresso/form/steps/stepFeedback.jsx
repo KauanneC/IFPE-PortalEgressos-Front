@@ -123,12 +123,9 @@ export default function FormStep04(props) {
                 <NavAcessibilidade />
                 <NavBar />
             </header>
-            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col relative'>
+            <section id="conteudo" className='mt-30 space-y-15 mx-120 items-center justify-center flex flex-col'>
                 {/* Título Form */}
                 <div className="bg-fundo w-full py-30 px-60 rounded-lg border-t-8 border-azulForm">
-                    <button onClick={handleShowAlertVoltar} className="absolute top-0 left-0">
-                        <Image src={iconVoltar} alt="Voltar para página inicial" />
-                    </button>
                     <h1 className='font-semibold text-azulBase text-tituloSessão text-center'>Acompanhamento de Egressos do Curso de Engenharia de Software - IFPE Campus Belo Jardim</h1>
                 </div>
                 {/* Navegação Form */}
@@ -166,7 +163,7 @@ export default function FormStep04(props) {
                     </div>
                     {/* Botão */}
                     {hasFields && (
-                        <div className="justify-center items-center flex">
+                        <div className="justify-center items-center flex gap-30">
                             <button className="bg-azulBase py-10 px-30 text-cinza10 font-semibold rounded-lg transition-transform transform hover:scale-105 active:bg-azulEscuro" >
                                 Próximo
                             </button>

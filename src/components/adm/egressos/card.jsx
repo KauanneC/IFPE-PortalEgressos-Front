@@ -55,7 +55,6 @@ export default function card({ name, profile, id }) {
                 <div className="flex justify-between bg-white w-full border border-t-10 border-azulForm rounded-10 h-90 shadow-lg px-30 pb-30 pt-20">
                     <h1 className="font-bold text-subtitulo">{name}</h1>
                     <div className="flex items-center justify-center gap-30">
-                        <button className="inline-block bg-azulBase rounded-10 text-white font-semibold text-legenda px-15 py-5">Exportar Dados</button>
                         <button className="inline-block bg-azulBase rounded-10 text-white font-semibold text-legenda px-15 py-5">Ver Formulário</button>
                         <button onClick={handleOpenDelete}>
                             <Image src={iconTrash} />

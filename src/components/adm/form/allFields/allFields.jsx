@@ -29,6 +29,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
             getAllFormFields(formType).then((response) => {
                 setFields(response || []);
                 setLoader(false);
+                console.log(fields);
             });
         }
     }, [hasFields, formType]);
@@ -99,19 +100,26 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                     )}
                                     {field.type === 'radio' && (
                                         <div>
-                                            {field.options.map((option, index) => (
-                                                <div className="flex gap-10 mt-15">
-                                                    <div className="flex w-full">
-                                                        <input type="radio" name="radioOptions" value={index} disabled />
-                                                        <input
-                                                            type="text"
-                                                            value={option.question}
-                                                            disabled
-                                                            className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
-                                                        />
+                                            {field.options && field.options.length > 0 && (
+                                                field.options.map((option, index) => (
+                                                    <div key={index} className="flex gap-10 mt-15">
+                                                        <div className="flex w-full">
+                                                            <input
+                                                                type="radio"
+                                                                name={`radioOptions_${field.id}`}
+                                                                disabled
+                                                                onChange={() => handleRadioChange(field.id, option)}
+                                                            />
+                                                            <input
+                                                                type="text"
+                                                                value={option.question}
+                                                                disabled
+                                                                className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))
+                                            )}
                                             {field.other === 'Outros:' && (
                                                 <div className="flex gap-10 mt-15">
                                                     <div className="flex w-full">
@@ -145,7 +153,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                                                             value={option.question}
                                                             disabled
                                                             className="w-full bg-inherit outline-none text-pretoTexto text-paragrafo font-regular ml-10"
-                                                            />
+                                                        />
                                                     </div>
                                                 </div>
                                             ))}
@@ -211,7 +219,7 @@ export default function AllFields({ formType, hasFields, setHasFields }) {
                     <div className="flex flex-col items-center justify-center my-50">
                         <div class="spinner" />
                     </div>
-                ) : (    
+                ) : (
                     hasFields && (
                         <div className="flex flex-col items-center justify-center">
                             <Image className="mt-90" src={noFields} alt="Ícone representando que não tem campos no formulário" />
